@@ -1,0 +1,689 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Engagedly API Reference</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;shell&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <img src="images/logo.png" alt="Logo" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="shell">shell</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <div id="toc">
+      </div>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id="introduction">Introduction</h1>
+
+<p>Engagedly is a cloud based new age Performance Management Software that redefines performance appraisals by simplifying and incorporating elements of employee engagement into the performance review process.</p>
+
+<p>Engagedly API are designed to be REST (<strong>Representational State Transfer</strong>) APIs. These &lsquo;RESTful&rsquo; APIs allows operations such as reading, modifying, adding or deleting data from your Engagedly Instance.</p>
+
+<aside class="notice">Engagedly APIs does not support Cross-Origin Resource Sharing (CORS).</aside>
+
+<h3 id="api-commands">API Commands</h3>
+
+<p>Engagedly APIs are plain JSON over HTTP and use the following HTTP verbs:</p>
+
+<table><thead>
+<tr>
+<th>COMMAND</th>
+<th>PURPOSE</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>GET</td>
+<td>To get one or more entities</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>To create an entity</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>To update an entity</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>To delete an entity</td>
+</tr>
+</tbody></table>
+
+<h3 id="api-versioning-and-structure">API Versioning and Structure</h3>
+
+<p>All Engagedly APIs require specifying an API version in the request URL.  The most current version of the API is beta. API endpoint for the current beta version is   </p>
+
+<p><code class="prettyprint">https://api.engagedly.com/platform/beta/</code>  </p>
+
+<aside class="notice">All API requests must be made over HTTPS. Calls made over plain HTTP will fail.</aside>
+
+<h1 id="getting-started">Getting Started</h1>
+
+<h2 id="authentication">Authentication</h2>
+
+<p>Each call to the API is authenticated by including your client key and secret key in the request. Client key and secret key are obtained and managed through Engagedly Portal. Please read the instructions below in order to obtained your client key and secret key. </p>
+
+<p>Please note that you need to have Site Administrator account to obtain the keys and these keys will carry the permissions of the user who has generated them.</p>
+
+<h3 id="obtaining-your-client-key-and-secret-key">Obtaining your client key and secret key</h3>
+
+<p>You can obtain your client key and secret key from settings page after login into Engagedly as Site Administrator. You can generate the client key and secret key after navigating to Integrations and then to Engagedly API. </p>
+
+<aside class="notice">The secret key will be shown only once so make sure you copy it</aside>
+
+<h3 id="authenticating-the-request">Authenticating the request</h3>
+
+<p>To authenticate the API call, client key and secret key needs to be included as part of the header.</p>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://api.engagedly.com/platform/beta/users"</span>
+  -H <span class="s2">"ClientKey: xxxxxxxxxxxxxx"</span>
+  -H <span class="s2">"SecretKey: xxxxxxxxxxxxxx"</span>
+</code></pre>
+<h2 id="schema">Schema</h2>
+
+<p><strong>Blank Fields</strong><br>
+Blank fields are included as null instead of being omitted.  </p>
+
+<p><strong>Date Input</strong><br>
+Input for date fields is expected to be in one of the following formats
+YYYY-MM-DD<br>
+YYYY-MM-DDTHH:MM  </p>
+
+<h2 id="errors">Errors</h2>
+
+<p>Engagedly uses conventional HTTP status codes to indicate success or failure of an API call. In general, status codes in the 2xx range means success, 4xx range means there was an error in the provided information, and those in the 5xx range indicates server side errors. Commonly used HTTP status codes are listed below.</p>
+
+<table><thead>
+<tr>
+<th>CODE</th>
+<th>DESCRIPTION</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>OK &ndash; Everything worked as expected.</td>
+</tr>
+<tr>
+<td>201</td>
+<td>Created &ndash; The request was a success and one or more resources have been created.</td>
+</tr>
+<tr>
+<td>400</td>
+<td>Bad Request &ndash; The request cannot be performed. Usually because of malformed parameter or missing parameter.</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized &ndash; Request was rejected because of invalid AuthToken.</td>
+</tr>
+<tr>
+<td>402</td>
+<td>Request Failed &ndash; The parameters were valid but the request failed.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden &ndash; The user does not have enough permission or possibly not an user of the respective organization to access the resource.</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found &ndash; The URL you’ve sent is wrong. It’s possible that the resource you’ve requested has been moved to another URL.</td>
+</tr>
+<tr>
+<td>405</td>
+<td>Method Not Allowed &ndash; The requested resource does not support the HTTP method used.</td>
+</tr>
+<tr>
+<td>406</td>
+<td>Not Acceptable &ndash; The requested response type is not supported by the client.</td>
+</tr>
+<tr>
+<td>409</td>
+<td>Conflict &ndash; The request conflicts with another request (perhaps due to using the same idempotent key).</td>
+</tr>
+<tr>
+<td>429</td>
+<td>Too Many Requests &ndash; Too many requests within a certain time frame.</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Server Errors &ndash; Something went wrong on Stripe&rsquo;s end. (These are rare.)</td>
+</tr>
+</tbody></table>
+
+<p>In addition to the HTTP status code, most errors will also return a response body that contains more information for debugging the error.</p>
+
+<h1 id="users">Users</h1>
+
+<h2 id="get-all-users">Get All Users</h2>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://api.engagedly.com/platform/beta/users"</span>
+  -H <span class="s2">"ClientKey: xxxxxxxxxxxxxx"</span>
+  -H <span class="s2">"SecretKey: xxxxxxxxxxxxxx"</span>
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b62167d0-2718-4e45-9721-27535991becf"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam Smith"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"adam.smith@teamyogi.com"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"middle_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Smith"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"education"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BS- Anthropology, Stanford University"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"about_me"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I love exploring whether it is in business or ancient sites. Lets discover together."</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"display_picture"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"medium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"passport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/passport_Denzel.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/thumb_Denzel.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"small"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"job_title"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"261"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CEO"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"joining_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United States"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint returns all the users</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://api.engagedly.com/platform/beta/users</code></p>
+
+<h2 id="get-user-details">Get User Details</h2>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.engagedly.con/api/platform/beta/users/b62167d0-2718-4e45-9721-27535991becf"</span>
+  -H <span class="s2">"ClientKey: xxxxxxxxxxxxxx"</span>
+  -H <span class="s2">"SecretKey: xxxxxxxxxxxxxx"</span>
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b62167d0-2718-4e45-9721-27535991becf"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam Smith"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"adam.smith@teamyogi.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"middle_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Smith"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"education"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BS- Anthropology, Stanford University"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"about_me"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I love exploring whether it is in business or ancient sites. Lets discover together."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"display_picture"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"medium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"passport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/passport_Denzel.jpg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/thumb_Denzel.jpg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"small"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"job_title"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"261"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CEO"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"joining_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United States"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint returns the details of the user</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://api.engagedly.com/platform/beta/users/&lt;ID&gt;</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the user to retrieve</td>
+</tr>
+</tbody></table>
+
+<h2 id="create-a-user">Create a User</h2>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>
+<span class="gp">$ </span>curl https://api.engagedly.con/api/platform/beta/users
+-H <span class="s2">"Content-Type: application/json;charset=UTF-8"</span>
+-H <span class="s2">"ClientKey: xxxxxxxxxxxxxx"</span>
+-H <span class="s2">"SecretKey: xxxxxxxxxxxxxx"</span>
+-d <span class="s1">'{
+    "first_name": "Adam",
+    "middle_name": "",
+    "last_name": "smith",
+    "email": "adam.smith@teamyogi.com",
+    "employee_id": "0001",
+    "joining_date": "2014-01-01",
+    "birthdate": "1980-12-12"
+}'</span>
+
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b62167d0-2718-4e45-9721-27535991becf"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam Smith"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"adam.smith@teamyogi.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"middle_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Smith"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"education"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"about_me"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"display_picture"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"job_title"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"joining_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-01-01"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint creates a user in your organization</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST http://api.engagedly.com/platform/beta/users</code></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table>
+  <tr>
+    <th width="30%">ATTRIBUTE</th>
+    <th width="30%">TYPE</th>
+    <th width="60%">DESCRIPTION</th>
+  </tr>
+  <tr>
+    <td>first_name </td>
+    <td>string</td>
+    <td>First name of the user</td>
+  </tr>
+  <tr>
+    <td>middle_name</td>
+    <td>string</td>
+    <td>Middle name of the user</td>
+  </tr>
+  <tr>
+    <td>last_name</td>
+    <td>string</td>
+    <td>Last name of the user</td>
+  </tr>
+  <tr>
+    <td>email</td>
+    <td>string</td>
+    <td>Email Id of the user</td>
+  </tr>
+  <tr>
+    <td>employee_id</td>
+    <td>string</td>
+    <td>Employee Id</td>
+  </tr>
+  <tr>
+    <td>joining_date</td>
+    <td>date</td>
+    <td>Date of which employee was hired</td>
+  </tr>
+    <tr>
+    <td>birthdate</td>
+    <td>date</td>
+    <td>Date of birth of the user</td>
+  </tr>
+</table>
+
+<h2 id="update-a-user">Update a user</h2>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>
+<span class="gp">$ </span>curl https://api.engagedly.con/api/platform/beta/users/b62167d0-2718-4e45-9721-27535991becf
+-H <span class="s2">"Content-Type: application/json;charset=UTF-8"</span>
+-H <span class="s2">"ClientKey: xxxxxxxxxxxxxx"</span>
+-H <span class="s2">"SecretKey: xxxxxxxxxxxxxx"</span>
+-d <span class="s1">'{
+    "first_name": "Adam",
+    "middle_name": "",
+    "last_name": "smith",
+    "email": "adam.smith@teamyogi.com",
+    "employee_id": "0001",
+    "joining_date": "2014-01-01",
+    "birthdate": "1980-12-12"
+}'</span>
+
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b62167d0-2718-4e45-9721-27535991becf"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam Smith"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"adam.smith@teamyogi.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"middle_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Smith"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"education"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"about_me"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"display_picture"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"job_title"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"joining_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-01-01"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Updates a user in your organization</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">PUT http://api.engagedly.com/platform/beta/users/&lt;ID&gt;</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the user to update</td>
+</tr>
+</tbody></table>
+
+<h3 id="parameters">Parameters</h3>
+
+<table>
+  <tr>
+    <th width="30%">ATTRIBUTE</th>
+    <th width="30%">TYPE</th>
+    <th width="60%">DESCRIPTION</th>
+  </tr>
+  <tr>
+    <td>first_name </td>
+    <td>string</td>
+    <td>First name of the user</td>
+  </tr>
+  <tr>
+    <td>middle_name</td>
+    <td>string</td>
+    <td>Middle name of the user</td>
+  </tr>
+  <tr>
+    <td>last_name</td>
+    <td>string</td>
+    <td>Last name of the user</td>
+  </tr>
+  <tr>
+    <td>email</td>
+    <td>string</td>
+    <td>Email Id of the user</td>
+  </tr>
+  <tr>
+    <td>employee_id</td>
+    <td>string</td>
+    <td>Employee Id</td>
+  </tr>
+  <tr>
+    <td>joining_date</td>
+    <td>date</td>
+    <td>Date of which employee was hired</td>
+  </tr>
+    <tr>
+    <td>birth_date</td>
+    <td>date</td>
+    <td>Date of birth of the user</td>
+  </tr>
+</table>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="shell">shell</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
