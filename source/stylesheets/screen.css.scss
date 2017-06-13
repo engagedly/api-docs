@@ -526,7 +526,8 @@ html, body {
     background-color: $code-bg;
     color: #fff;
 
-    padding: 2em $main-padding;
+    /* ENG: padding changing to 1em */
+    padding: 1em $main-padding;
     margin: 0;
     width: $examples-width;
 

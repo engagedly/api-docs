@@ -4,7 +4,16 @@ title: Engagedly API Reference
 language_tabs:
   - shell
 
+includes:
+  - users
+  - departments
+  - locations
+  - job_titles
+
+
 search: true
+
+api_endpoint: https://api.engagedly.com/platform/beta
 ---
 
 # Introduction
@@ -15,25 +24,6 @@ Engagedly API are designed to be REST (**Representational State Transfer**) APIs
 
 <aside class="notice">Engagedly APIs does not support Cross-Origin Resource Sharing (CORS).</aside>
 
-### API Commands
-
-Engagedly APIs are plain JSON over HTTP and use the following HTTP verbs:
-
-COMMAND   | PURPOSE
---------- | --------------------------
-GET       | To get one or more entities
-POST      | To create an entity
-PUT       | To update an entity
-DELETE    | To delete an entity
-
-
-### API Versioning and Structure
-
-All Engagedly APIs require specifying an API version in the request URL.  The most current version of the API is beta. API endpoint for the current beta version is   
-
-`https://api.engagedly.com/platform/beta/`  
-
-<aside class="notice">All API requests must be made over HTTPS. Calls made over plain HTTP will fail.</aside>
 
 # Getting Started
 
@@ -55,28 +45,63 @@ To authenticate the API call, client key and secret key needs to be included as 
 > Sample Request
 
 ```shell
-curl "http://api.engagedly.com/platform/beta/users"
+curl "https://api.engagedly.com/platform/beta/users"
   -H "ClientKey: xxxxxxxxxxxxxx"
   -H "SecretKey: xxxxxxxxxxxxxx"
 ```
 
-## Schema
+## Requests
 
-**Blank Fields**  
-Blank fields are included as null instead of being omitted.  
+All Engagedly APIs require specifying an API version in the request URL.  The most current version of the API is beta. API endpoint for the current beta version is   
 
-**Date Input**  
-Input for date fields is expected to be in one of the following formats
-YYYY-MM-DD   
-YYYY-MM-DDTHH:MM  
+`https://api.engagedly.com/platform/beta/`  
 
-## Errors
+<aside class="notice">All API requests must be made over HTTPS. Calls made over plain HTTP will fail.</aside>
+
+### JSON Bodies
+
+All POST, PUT, PATCH requests are JSON encoded and must have have content type of application/json, or the API will return a 415 Unsupported Media Type status code.
+
+```shell
+$ curl https://api.engagedly.com/platform/beta/users/b62167d0-2718-4e45-9721-27535991becf \
+    -X PUT \
+    -H 'Content-Type: application/json' \
+    -H "ClientKey: xxxxxxxxxxxxxx" \
+    -H "SecretKey: xxxxxxxxxxxxxx" \
+    -d '{"first_name":"John"}'
+
+```
+
+### API Commands
+
+Engagedly APIs are plain JSON over HTTP and use the following HTTP verbs:
+
+COMMAND   | PURPOSE
+--------- | --------------------------
+GET       | To get one or more entities
+POST      | To create an entity
+PUT       | To update an entity
+DELETE    | To delete an entity
+
+## Responses
+
+All response bodies are JSON encoded.
+
+A single resource is represented as a JSON object. A collection of resources is represented as a JSON array of objects
+
+Blank fields will be included as a null instead of ommited. If the field is an array, it will be included as an empty array i.e. [].
+
+Timestamps are in UTC and formatted as ISO8601.
+
+
+## HTTP Status Codes
 Engagedly uses conventional HTTP status codes to indicate success or failure of an API call. In general, status codes in the 2xx range means success, 4xx range means there was an error in the provided information, and those in the 5xx range indicates server side errors. Commonly used HTTP status codes are listed below.
 
 CODE | DESCRIPTION
 ---  | ------------
 200  | OK -- Everything worked as expected.
 201  | Created -- The request was a success and one or more resources have been created.
+204  | No Content - Request succeeded, but no response body.
 400  | Bad Request -- The request cannot be performed. Usually because of malformed parameter or missing parameter.
 401  | Unauthorized -- Request was rejected because of invalid AuthToken.
 402  | Request Failed -- The parameters were valid but the request failed.
@@ -85,320 +110,53 @@ CODE | DESCRIPTION
 405  | Method Not Allowed -- The requested resource does not support the HTTP method used. 
 406  | Not Acceptable -- The requested response type is not supported by the client.
 409  | Conflict -- The request conflicts with another request (perhaps due to using the same idempotent key).
+415  | Unsupported Media Type - POST/PUT/PATCH request occurred without a application/json content type.
+422  | Unprocessable Entry - A request to modify or create a resource failed due to a validation error.
 429  | Too Many Requests -- Too many requests within a certain time frame.
 500  | Server Errors -- Something went wrong on Stripe's end. (These are rare.)
 
-
+### Error Response 
 In addition to the HTTP status code, most errors will also return a response body that contains more information for debugging the error.
 
-# Users
+**Error Type**
 
-## Get All Users
+TYPE | DESCRIPTION
+---- | -----------
+api_connection_error | Could not connect to Engagedly API
+authentication_error | Could not authenticate properly
+invalid_request_error | Invalid request errors arise when your request has invalid parameters.
+validation_error | Errors triggered by our client-side libraries when failing to validate fields (e.g., when a card number or expiration date is invalid or incomplete)
 
-```shell
-curl "http://api.engagedly.com/platform/beta/users"
-  -H "ClientKey: xxxxxxxxxxxxxx"
-  -H "SecretKey: xxxxxxxxxxxxxx"
-```
+**Error Codes**
 
-> Sample Response
 
-```json
-{
-  "success": true,
-  "data": [
-    {
-      "id": "b62167d0-2718-4e45-9721-27535991becf",
-      "name": "Adam Smith",
-      "status": "Active",
-      "email": "adam.smith@teamyogi.com",
-      "first_name": "Adam",
-      "middle_name": null,
-      "last_name": "Smith",
-      "education": "BS- Anthropology, Stanford University",
-      "about_me": "I love exploring whether it is in business or ancient sites. Lets discover together.",
-      "display_picture": {
-        "medium": "https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg",
-        "large": "https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg",
-        "passport": "https://social.engagedly.com/uploads/picture/file/9634/passport_Denzel.jpg",
-        "thumb": "https://social.engagedly.com/uploads/picture/file/9634/thumb_Denzel.jpg",
-        "small": "https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"
-      },
-      "job_title": {
-        "id": "261",
-        "name": "CEO"
-      },
-      "joining_date": null,
-      "location": {
-        "id": "11",
-        "name": "United States"
-      }
-    }]
-}
-```
-
-This endpoint returns all the users
-
-### HTTP Request
-
-`GET http://api.engagedly.com/platform/beta/users`
-
-## Get User Details
-
-```shell
-curl "https://api.engagedly.con/api/platform/beta/users/b62167d0-2718-4e45-9721-27535991becf"
-  -H "ClientKey: xxxxxxxxxxxxxx"
-  -H "SecretKey: xxxxxxxxxxxxxx"
-```
-
-> Sample Response
+> Sample Error Response
 
 ```json
 {
-  "success": true,
-  "data": {
-    "id": "b62167d0-2718-4e45-9721-27535991becf",
-    "name": "Adam Smith",
-    "status": "Active",
-    "email": "adam.smith@teamyogi.com",
-    "first_name": "Adam",
-    "middle_name": null,
-    "last_name": "Smith",
-    "education": "BS- Anthropology, Stanford University",
-    "about_me": "I love exploring whether it is in business or ancient sites. Lets discover together.",
-    "display_picture": {
-      "medium": "https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg",
-      "large": "https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg",
-      "passport": "https://social.engagedly.com/uploads/picture/file/9634/passport_Denzel.jpg",
-      "thumb": "https://social.engagedly.com/uploads/picture/file/9634/thumb_Denzel.jpg",
-      "small": "https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"
-    },
-    "job_title": {
-      "id": "261",
-      "name": "CEO"
-    },
-    "joining_date": null,
-    "location": {
-      "id": "11",
-      "name": "United States"
-    }
-  }
+    "error_type": "validation_error",
+    "errors":[
+        {
+            "field":"name",
+            "message":"Mandatory attribute missing",
+            "code":"missing_field"
+        },
+        {
+            "field":"code",
+            "message":"Value already existing",
+            "code":"unique_constraint"
+        }
+    ]
 }
-```
-
-This endpoint returns the details of the user
-
-### HTTP Request
-
-`GET http://api.engagedly.com/platform/beta/users/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the user to retrieve
-
-
-## Create a User
-
-> Sample Request
-
-```shell
-
-$ curl https://api.engagedly.con/api/platform/beta/users
--H "Content-Type: application/json;charset=UTF-8"
--H "ClientKey: xxxxxxxxxxxxxx"
--H "SecretKey: xxxxxxxxxxxxxx"
--d '{
-    "first_name": "Adam",
-    "middle_name": "",
-    "last_name": "smith",
-    "email": "adam.smith@teamyogi.com",
-    "employee_id": "0001",
-    "joining_date": "2014-01-01",
-    "birthdate": "1980-12-12"
-}'
 
 ```
 
-> Sample Response
 
-```json
-{
-  "success": true,
-  "data": {
-    "id": "b62167d0-2718-4e45-9721-27535991becf",
-    "name": "Adam Smith",
-    "status": "Active",
-    "email": "adam.smith@teamyogi.com",
-    "first_name": "Adam",
-    "middle_name": null,
-    "last_name": "Smith",
-    "education": null,
-    "about_me": null,
-    "display_picture": {
-    },
-    "job_title": {
-    },
-    "joining_date": "2014-01-01",
-    "location": {
-    }
-  }
-}
-```
+## Pagination
 
-This endpoint creates a user in your organization
+Most of the API responses that returns the list of objects are paginated. The parameters that control the pagination are 'page' and 'size', indicating the page number and the items per page values. Within the response, a pagination attribute will be set and will contain the provided 'page' and 'size' along with 'has_more' and 'record_count' indicating whether there are more items that can be fetched and total number of records. 
+ 
+The page number starts with 1 and by default the number of records returned are 25. The maximum number of records (size) that can be returned is 100.
 
-### HTTP Request
-`POST http://api.engagedly.com/platform/beta/users`
-
-### Parameters
-
-<table>
-  <tr>
-    <th width="30%">ATTRIBUTE</th>
-    <th width="30%">TYPE</th>
-    <th width="60%">DESCRIPTION</th>
-  </tr>
-  <tr>
-    <td>first_name </td>
-    <td>string</td>
-    <td>First name of the user</td>
-  </tr>
-  <tr>
-    <td>middle_name</td>
-    <td>string</td>
-    <td>Middle name of the user</td>
-  </tr>
-  <tr>
-    <td>last_name</td>
-    <td>string</td>
-    <td>Last name of the user</td>
-  </tr>
-  <tr>
-    <td>email</td>
-    <td>string</td>
-    <td>Email Id of the user</td>
-  </tr>
-  <tr>
-    <td>employee_id</td>
-    <td>string</td>
-    <td>Employee Id</td>
-  </tr>
-  <tr>
-    <td>joining_date</td>
-    <td>date</td>
-    <td>Date of which employee was hired</td>
-  </tr>
-    <tr>
-    <td>birthdate</td>
-    <td>date</td>
-    <td>Date of birth of the user</td>
-  </tr>
-</table>
-
-## Update a user
-
-> Sample Request
-
-```shell
-
-$ curl https://api.engagedly.con/api/platform/beta/users/b62167d0-2718-4e45-9721-27535991becf
--H "Content-Type: application/json;charset=UTF-8"
--H "ClientKey: xxxxxxxxxxxxxx"
--H "SecretKey: xxxxxxxxxxxxxx"
--d '{
-    "first_name": "Adam",
-    "middle_name": "",
-    "last_name": "smith",
-    "email": "adam.smith@teamyogi.com",
-    "employee_id": "0001",
-    "joining_date": "2014-01-01",
-    "birthdate": "1980-12-12"
-}'
-
-```
-
-> Sample Response
-
-```json
-{
-  "success": true,
-  "data": {
-    "id": "b62167d0-2718-4e45-9721-27535991becf",
-    "name": "Adam Smith",
-    "status": "Active",
-    "email": "adam.smith@teamyogi.com",
-    "first_name": "Adam",
-    "middle_name": null,
-    "last_name": "Smith",
-    "education": null,
-    "about_me": null,
-    "display_picture": {
-    },
-    "job_title": {
-    },
-    "joining_date": "2014-01-01",
-    "location": {
-    }
-  }
-}
-```
-
-Updates a user in your organization
-
-### HTTP Request
-`PUT http://api.engagedly.com/platform/beta/users/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the user to update
-
-### Parameters
-
-<table>
-  <tr>
-    <th width="30%">ATTRIBUTE</th>
-    <th width="30%">TYPE</th>
-    <th width="60%">DESCRIPTION</th>
-  </tr>
-  <tr>
-    <td>first_name </td>
-    <td>string</td>
-    <td>First name of the user</td>
-  </tr>
-  <tr>
-    <td>middle_name</td>
-    <td>string</td>
-    <td>Middle name of the user</td>
-  </tr>
-  <tr>
-    <td>last_name</td>
-    <td>string</td>
-    <td>Last name of the user</td>
-  </tr>
-  <tr>
-    <td>email</td>
-    <td>string</td>
-    <td>Email Id of the user</td>
-  </tr>
-  <tr>
-    <td>employee_id</td>
-    <td>string</td>
-    <td>Employee Id</td>
-  </tr>
-  <tr>
-    <td>joining_date</td>
-    <td>date</td>
-    <td>Date of which employee was hired</td>
-  </tr>
-    <tr>
-    <td>birth_date</td>
-    <td>date</td>
-    <td>Date of birth of the user</td>
-  </tr>
-</table>
 
 
