@@ -230,6 +230,50 @@
 
 <aside class="notice">Engagedly APIs does not support Cross-Origin Resource Sharing (CORS).</aside>
 
+<h1 id="getting-started">Getting Started</h1>
+
+<h2 id="authentication">Authentication</h2>
+
+<p>Each call to the API is authenticated by including your client key and secret key in the request. Client key and secret key are obtained and managed through Engagedly Portal. Please read the instructions below in order to obtained your client key and secret key. </p>
+
+<p>Please note that you need to have Site Administrator account to obtain the keys and these keys will carry the permissions of the user who has generated them.</p>
+
+<h3 id="obtaining-your-client-key-and-secret-key">Obtaining your client key and secret key</h3>
+
+<p>You can obtain your client key and secret key from settings page after login into Engagedly as Site Administrator. You can generate the client key and secret key after navigating to Integrations and then to Engagedly API. </p>
+
+<aside class="notice">The secret key will be shown only once so make sure you copy it</aside>
+
+<h3 id="authenticating-the-request">Authenticating the request</h3>
+
+<p>To authenticate the API call, client key and secret key needs to be included as part of the header.</p>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.engagedly.com/platform/beta/users"</span>
+  -H <span class="s2">"ClientKey: xxxxxxxxxxxxxx"</span>
+  -H <span class="s2">"SecretKey: xxxxxxxxxxxxxx"</span>
+</code></pre>
+<h2 id="requests">Requests</h2>
+
+<p>All Engagedly APIs require specifying an API version in the request URL.  The most current version of the API is beta. API endpoint for the current beta version is   </p>
+
+<p><code class="prettyprint">https://api.engagedly.com/platform/beta/</code>  </p>
+
+<aside class="notice">All API requests must be made over HTTPS. Calls made over plain HTTP will fail.</aside>
+
+<h3 id="json-bodies">JSON Bodies</h3>
+
+<p>All POST, PUT, PATCH requests are JSON encoded and must have have content type of application/json, or the API will return a 415 Unsupported Media Type status code.</p>
+<pre class="highlight shell tab-shell"><code><span class="gp">$ </span>curl https://api.engagedly.com/platform/beta/users/b62167d0-2718-4e45-9721-27535991becf <span class="se">\</span>
+    -X PUT <span class="se">\</span>
+    -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+    -H <span class="s2">"ClientKey: xxxxxxxxxxxxxx"</span> <span class="se">\</span>
+    -H <span class="s2">"SecretKey: xxxxxxxxxxxxxx"</span> <span class="se">\</span>
+    -d <span class="s1">'{"first_name":"John"}'</span>
+
+</code></pre>
 <h3 id="api-commands">API Commands</h3>
 
 <p>Engagedly APIs are plain JSON over HTTP and use the following HTTP verbs:</p>
@@ -258,50 +302,17 @@
 </tr>
 </tbody></table>
 
-<h3 id="api-versioning-and-structure">API Versioning and Structure</h3>
+<h2 id="responses">Responses</h2>
 
-<p>All Engagedly APIs require specifying an API version in the request URL.  The most current version of the API is beta. API endpoint for the current beta version is   </p>
+<p>All response bodies are JSON encoded.</p>
 
-<p><code class="prettyprint">https://api.engagedly.com/platform/beta/</code>  </p>
+<p>A single resource is represented as a JSON object. A collection of resources is represented as a JSON array of objects</p>
 
-<aside class="notice">All API requests must be made over HTTPS. Calls made over plain HTTP will fail.</aside>
+<p>Blank fields will be included as a null instead of ommited. If the field is an array, it will be included as an empty array i.e. [].</p>
 
-<h1 id="getting-started">Getting Started</h1>
+<p>Timestamps are in UTC and formatted as ISO8601.</p>
 
-<h2 id="authentication">Authentication</h2>
-
-<p>Each call to the API is authenticated by including your client key and secret key in the request. Client key and secret key are obtained and managed through Engagedly Portal. Please read the instructions below in order to obtained your client key and secret key. </p>
-
-<p>Please note that you need to have Site Administrator account to obtain the keys and these keys will carry the permissions of the user who has generated them.</p>
-
-<h3 id="obtaining-your-client-key-and-secret-key">Obtaining your client key and secret key</h3>
-
-<p>You can obtain your client key and secret key from settings page after login into Engagedly as Site Administrator. You can generate the client key and secret key after navigating to Integrations and then to Engagedly API. </p>
-
-<aside class="notice">The secret key will be shown only once so make sure you copy it</aside>
-
-<h3 id="authenticating-the-request">Authenticating the request</h3>
-
-<p>To authenticate the API call, client key and secret key needs to be included as part of the header.</p>
-
-<blockquote>
-<p>Sample Request</p>
-</blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://api.engagedly.com/platform/beta/users"</span>
-  -H <span class="s2">"ClientKey: xxxxxxxxxxxxxx"</span>
-  -H <span class="s2">"SecretKey: xxxxxxxxxxxxxx"</span>
-</code></pre>
-<h2 id="schema">Schema</h2>
-
-<p><strong>Blank Fields</strong><br>
-Blank fields are included as null instead of being omitted.  </p>
-
-<p><strong>Date Input</strong><br>
-Input for date fields is expected to be in one of the following formats
-YYYY-MM-DD<br>
-YYYY-MM-DDTHH:MM  </p>
-
-<h2 id="errors">Errors</h2>
+<h2 id="http-status-codes">HTTP Status Codes</h2>
 
 <p>Engagedly uses conventional HTTP status codes to indicate success or failure of an API call. In general, status codes in the 2xx range means success, 4xx range means there was an error in the provided information, and those in the 5xx range indicates server side errors. Commonly used HTTP status codes are listed below.</p>
 
@@ -318,6 +329,10 @@ YYYY-MM-DDTHH:MM  </p>
 <tr>
 <td>201</td>
 <td>Created &ndash; The request was a success and one or more resources have been created.</td>
+</tr>
+<tr>
+<td>204</td>
+<td>No Content - Request succeeded, but no response body.</td>
 </tr>
 <tr>
 <td>400</td>
@@ -352,6 +367,14 @@ YYYY-MM-DDTHH:MM  </p>
 <td>Conflict &ndash; The request conflicts with another request (perhaps due to using the same idempotent key).</td>
 </tr>
 <tr>
+<td>415</td>
+<td>Unsupported Media Type - POST/PUT/PATCH request occurred without a application/json content type.</td>
+</tr>
+<tr>
+<td>422</td>
+<td>Unprocessable Entry - A request to modify or create a resource failed due to a validation error.</td>
+</tr>
+<tr>
 <td>429</td>
 <td>Too Many Requests &ndash; Too many requests within a certain time frame.</td>
 </tr>
@@ -361,98 +384,114 @@ YYYY-MM-DDTHH:MM  </p>
 </tr>
 </tbody></table>
 
+<h3 id="error-response">Error Response</h3>
+
 <p>In addition to the HTTP status code, most errors will also return a response body that contains more information for debugging the error.</p>
 
-<h1 id="users">Users</h1>
+<p><strong>Error Type</strong></p>
 
-<h2 id="get-all-users">Get All Users</h2>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://api.engagedly.com/platform/beta/users"</span>
-  -H <span class="s2">"ClientKey: xxxxxxxxxxxxxx"</span>
-  -H <span class="s2">"SecretKey: xxxxxxxxxxxxxx"</span>
-</code></pre>
+<table><thead>
+<tr>
+<th>TYPE</th>
+<th>DESCRIPTION</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_connection_error</td>
+<td>Could not connect to Engagedly API</td>
+</tr>
+<tr>
+<td>authentication_error</td>
+<td>Could not authenticate properly</td>
+</tr>
+<tr>
+<td>invalid_request_error</td>
+<td>Invalid request errors arise when your request has invalid parameters.</td>
+</tr>
+<tr>
+<td>validation_error</td>
+<td>Errors triggered by our client-side libraries when failing to validate fields (e.g., when a card number or expiration date is invalid or incomplete)</td>
+</tr>
+</tbody></table>
+
+<p><strong>Error Codes</strong></p>
+
 <blockquote>
-<p>Sample Response</p>
+<p>Sample Error Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b62167d0-2718-4e45-9721-27535991becf"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam Smith"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"adam.smith@teamyogi.com"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"middle_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Smith"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"education"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BS- Anthropology, Stanford University"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"about_me"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I love exploring whether it is in business or ancient sites. Lets discover together."</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"display_picture"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"medium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"passport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/passport_Denzel.jpg"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/thumb_Denzel.jpg"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"small"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="s2">"job_title"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"261"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CEO"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="s2">"joining_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United States"</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">}]</span><span class="w">
+    </span><span class="s2">"error_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"validation_error"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"errors"</span><span class="p">:[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"field"</span><span class="p">:</span><span class="s2">"name"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"message"</span><span class="p">:</span><span class="s2">"Mandatory attribute missing"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"code"</span><span class="p">:</span><span class="s2">"missing_field"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"field"</span><span class="p">:</span><span class="s2">"code"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"message"</span><span class="p">:</span><span class="s2">"Value already existing"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"code"</span><span class="p">:</span><span class="s2">"unique_constraint"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint returns all the users</p>
 
-<h3 id="http-request">HTTP Request</h3>
+</span></code></pre>
+<h2 id="pagination">Pagination</h2>
+
+<p>Most of the API responses that returns the list of objects are paginated. The parameters that control the pagination are &lsquo;page&rsquo; and &lsquo;size&rsquo;, indicating the page number and the items per page values. Within the response, a pagination attribute will be set and will contain the provided &lsquo;page&rsquo; and &lsquo;size&rsquo; along with &lsquo;has_more&rsquo; and &lsquo;record_count&rsquo; indicating whether there are more items that can be fetched and total number of records. </p>
+
+<p>The page number starts with 1 and by default the number of records returned are 25. The maximum number of records (size) that can be returned is 100.</p>
+
+          <h1 id="users">Users</h1>
+
+<h2 id="list-all-users">List all users</h2>
 
 <p><code class="prettyprint">GET http://api.engagedly.com/platform/beta/users</code></p>
 
-<h2 id="get-user-details">Get User Details</h2>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.engagedly.con/api/platform/beta/users/b62167d0-2718-4e45-9721-27535991becf"</span>
-  -H <span class="s2">"ClientKey: xxxxxxxxxxxxxx"</span>
-  -H <span class="s2">"SecretKey: xxxxxxxxxxxxxx"</span>
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>GET http://api.engagedly.com/platform/beta/users
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b62167d0-2718-4e45-9721-27535991becf"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam Smith"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"adam.smith@teamyogi.com"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"middle_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Smith"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"education"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BS- Anthropology, Stanford University"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"about_me"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I love exploring whether it is in business or ancient sites. Lets discover together."</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"display_picture"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"medium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"passport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/passport_Denzel.jpg"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"thumb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/thumb_Denzel.jpg"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"small"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"</span><span class="w">
+<pre class="highlight http tab-http"><code><span class="err">200 OK
+content-type: application/json
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"has_more"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"total_records"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"job_title"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"261"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CEO"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"joining_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United States"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b62167d0-2718-4e45-9721-27535991becf"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam Smith"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"adam.smith@teamyogi.com"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"middle_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Smith"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"display_picture"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"medium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"small"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"job_title"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"261"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CEO"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United States"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint returns the details of the user</p>
-
-<h3 id="http-request">HTTP Request</h3>
+<h2 id="get-a-single-user">Get a single user</h2>
 
 <p><code class="prettyprint">GET http://api.engagedly.com/platform/beta/users/&lt;ID&gt;</code></p>
 
@@ -466,156 +505,167 @@ YYYY-MM-DDTHH:MM  </p>
 </thead><tbody>
 <tr>
 <td>ID</td>
-<td>The ID of the user to retrieve</td>
+<td>The ID of the user</td>
 </tr>
 </tbody></table>
-
-<h2 id="create-a-user">Create a User</h2>
 
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>
-<span class="gp">$ </span>curl https://api.engagedly.con/api/platform/beta/users
--H <span class="s2">"Content-Type: application/json;charset=UTF-8"</span>
--H <span class="s2">"ClientKey: xxxxxxxxxxxxxx"</span>
--H <span class="s2">"SecretKey: xxxxxxxxxxxxxx"</span>
--d <span class="s1">'{
-    "first_name": "Adam",
-    "middle_name": "",
-    "last_name": "smith",
-    "email": "adam.smith@teamyogi.com",
-    "employee_id": "0001",
-    "joining_date": "2014-01-01",
-    "birthdate": "1980-12-12"
-}'</span>
-
+<pre class="highlight shell tab-shell"><code>GET https://api.engagedly.con/api/platform/beta/users/b62167d0-2718-4e45-9721-27535991becf
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b62167d0-2718-4e45-9721-27535991becf"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam Smith"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"adam.smith@teamyogi.com"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"middle_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Smith"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"education"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"about_me"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"display_picture"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"job_title"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"joining_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-01-01"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+<pre class="highlight http tab-http"><code><span class="err">200 OK
+content-type: application/json
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b62167d0-2718-4e45-9721-27535991becf"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam Smith"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"adam.smith@teamyogi.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"middle_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Smith"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"education"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BS- Anthropology, Stanford University"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"about_me"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I love exploring whether it is in business or ancient sites. Lets discover together."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"display_picture"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"medium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"small"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"job_title"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"261"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CEO"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"joining_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United States"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"departments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Customer Support"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"is_admin"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+             </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint creates a user in your organization</p>
-
-<h3 id="http-request">HTTP Request</h3>
+<h2 id="create-a-new-user">Create a new user</h2>
 
 <p><code class="prettyprint">POST http://api.engagedly.com/platform/beta/users</code></p>
 
 <h3 id="parameters">Parameters</h3>
 
 <table>
-  <tr>
-    <th width="30%">ATTRIBUTE</th>
-    <th width="30%">TYPE</th>
-    <th width="60%">DESCRIPTION</th>
-  </tr>
-  <tr>
-    <td>first_name </td>
-    <td>string</td>
-    <td>First name of the user</td>
-  </tr>
-  <tr>
-    <td>middle_name</td>
-    <td>string</td>
-    <td>Middle name of the user</td>
-  </tr>
-  <tr>
-    <td>last_name</td>
-    <td>string</td>
-    <td>Last name of the user</td>
-  </tr>
-  <tr>
-    <td>email</td>
-    <td>string</td>
-    <td>Email Id of the user</td>
-  </tr>
-  <tr>
-    <td>employee_id</td>
-    <td>string</td>
-    <td>Employee Id</td>
-  </tr>
-  <tr>
-    <td>joining_date</td>
-    <td>date</td>
-    <td>Date of which employee was hired</td>
-  </tr>
     <tr>
-    <td>birthdate</td>
-    <td>date</td>
-    <td>Date of birth of the user</td>
-  </tr>
+        <th width="30%">ATTRIBUTE</th>
+        <th width="30%">TYPE</th>
+        <th width="60%">DESCRIPTION</th>
+    </tr>
+    <tr>
+        <td>first_name </td>
+        <td>string</td>
+        <td>First name of the user</td>
+    </tr>
+    <tr>
+        <td>middle_name</td>
+        <td>string</td>
+        <td>Middle name of the user</td>
+    </tr>
+    <tr>
+        <td>last_name</td>
+        <td>string</td>
+        <td>Last name of the user</td>
+    </tr>
+    <tr>
+        <td>email</td>
+        <td>string</td>
+        <td>Email Id of the user</td>
+    </tr>
+    <tr>
+        <td>employee_id</td>
+        <td>string</td>
+        <td>Employee Id</td>
+    </tr>
+    <tr>
+        <td>joining_date</td>
+        <td>date</td>
+        <td>Date of which employee was hired</td>
+    </tr>
+    <tr>
+        <td>birth_date</td>
+        <td>date</td>
+        <td>Date of birth of the user</td>
+    </tr>
+    <tr>
+        <td>location</td>
+        <td>string</td>
+        <td>Id of the location</td>
+    </tr>
+    <tr>
+        <td>job_title</td>
+        <td>string</td>
+        <td>Id of the job title</td>
+    </tr>
+    <tr>
+        <td>departments</td>
+        <td>array of department ids</td>
+        <td>Array of departments for which this use would be part of</td>
+    </tr>
 </table>
-
-<h2 id="update-a-user">Update a user</h2>
 
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>
-<span class="gp">$ </span>curl https://api.engagedly.con/api/platform/beta/users/b62167d0-2718-4e45-9721-27535991becf
--H <span class="s2">"Content-Type: application/json;charset=UTF-8"</span>
--H <span class="s2">"ClientKey: xxxxxxxxxxxxxx"</span>
--H <span class="s2">"SecretKey: xxxxxxxxxxxxxx"</span>
--d <span class="s1">'{
-    "first_name": "Adam",
-    "middle_name": "",
-    "last_name": "smith",
-    "email": "adam.smith@teamyogi.com",
-    "employee_id": "0001",
-    "joining_date": "2014-01-01",
-    "birthdate": "1980-12-12"
-}'</span>
-
+<pre class="highlight shell tab-shell"><code>POST http://api.engagedly.com/platform/beta/users
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b62167d0-2718-4e45-9721-27535991becf"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam Smith"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"adam.smith@teamyogi.com"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"middle_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Smith"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"education"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"about_me"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"display_picture"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"job_title"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"joining_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-01-01"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+<pre class="highlight http tab-http"><code><span class="err">201 Created
+content-type: application/json
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b62167d0-2718-4e45-9721-27535991becf"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam Smith"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"adam.smith@teamyogi.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"middle_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Smith"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"education"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BS- Anthropology, Stanford University"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"about_me"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I love exploring whether it is in business or ancient sites. Lets discover together."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"display_picture"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"medium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"small"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"job_title"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"261"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CEO"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"joining_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United States"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"departments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Customer Support"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"is_admin"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+             </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>Updates a user in your organization</p>
-
-<h3 id="http-request">HTTP Request</h3>
+<h2 id="update-an-existing-user">Update an existing user</h2>
 
 <p><code class="prettyprint">PUT http://api.engagedly.com/platform/beta/users/&lt;ID&gt;</code></p>
 
@@ -629,7 +679,277 @@ YYYY-MM-DDTHH:MM  </p>
 </thead><tbody>
 <tr>
 <td>ID</td>
-<td>The ID of the user to update</td>
+<td>The ID of the user</td>
+</tr>
+</tbody></table>
+
+<h3 id="parameters">Parameters</h3>
+
+<table>
+    <tr>
+        <th width="30%">ATTRIBUTE</th>
+        <th width="30%">TYPE</th>
+        <th width="60%">DESCRIPTION</th>
+    </tr>
+    <tr>
+        <td>first_name </td>
+        <td>string</td>
+        <td>First name of the user</td>
+    </tr>
+    <tr>
+        <td>middle_name</td>
+        <td>string</td>
+        <td>Middle name of the user</td>
+    </tr>
+    <tr>
+        <td>last_name</td>
+        <td>string</td>
+        <td>Last name of the user</td>
+    </tr>
+    <tr>
+        <td>email</td>
+        <td>string</td>
+        <td>Email Id of the user</td>
+    </tr>
+    <tr>
+        <td>employee_id</td>
+        <td>string</td>
+        <td>Employee Id</td>
+    </tr>
+    <tr>
+        <td>joining_date</td>
+        <td>date</td>
+        <td>Date of which employee was hired</td>
+    </tr>
+    <tr>
+        <td>birth_date</td>
+        <td>date</td>
+        <td>Date of birth of the user</td>
+    </tr>
+    <tr>
+        <td>location</td>
+        <td>string</td>
+        <td>Id of the location</td>
+    </tr>
+    <tr>
+        <td>job_title</td>
+        <td>string</td>
+        <td>Id of the job title</td>
+    </tr>
+    <tr>
+        <td>departments</td>
+        <td>array of department ids</td>
+        <td>Array of departments for which this use would be part of</td>
+    </tr>
+</table>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>PUT https://api.engagedly.con/api/platform/beta/users/b62167d0-2718-4e45-9721-27535991becf
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight http tab-http"><code><span class="err">200 OK
+content-type: application/json
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b62167d0-2718-4e45-9721-27535991becf"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam Smith"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"adam.smith@teamyogi.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"middle_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Smith"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"education"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BS- Anthropology, Stanford University"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"about_me"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I love exploring whether it is in business or ancient sites. Lets discover together."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"display_picture"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"medium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"small"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"job_title"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"261"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CEO"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"joining_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United States"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"departments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Customer Support"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"is_admin"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+             </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+          <h1 id="departments">Departments</h1>
+
+<h2 id="list-all-departments">List all departments</h2>
+
+<p><code class="prettyprint">GET http://api.engagedly.com/platform/beta/departments</code></p>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>GET http://api.engagedly.com/platform/beta/departments
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight http tab-http"><code><span class="err">200 OK
+content-type: application/json
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"has_more"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"total_records"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f5afec62-21ff-40d3-a06e-9a2162ef6b69"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Customer Support"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"members_count"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"administrators_count"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="get-a-single-department">Get a single department</h2>
+
+<p><code class="prettyprint">GET http://api.engagedly.com/platform/beta/departments/&lt;ID&gt;</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the department</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>GET https://api.engagedly.con/api/platform/beta/departments/f5afec62-21ff-40d3-a06e-9a2162ef6b69
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight http tab-http"><code><span class="err">200 OK
+content-type: application/json
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f5afec62-21ff-40d3-a06e-9a2162ef6b69"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Customer Support"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"members_count"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"administrators_count"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"members"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b62167d0-2718-4e45-9721-27535991becf"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam Smith"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"adam.smith@teamyogi.com"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"middle_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Smith"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"display_picture"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"medium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"small"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="s2">"is_admin"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="create-a-new-department">Create a new department</h2>
+
+<p><code class="prettyprint">POST http://api.engagedly.com/platform/beta/departments</code></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table>
+  <tr>
+    <th width="30%">ATTRIBUTE</th>
+    <th width="30%">TYPE</th>
+    <th width="60%">DESCRIPTION</th>
+  </tr>
+  <tr>
+    <td>name </td>
+    <td>string</td>
+    <td>Name of the department</td>
+  </tr>
+  <tr>
+    <td>members</td>
+    <td>array</td>
+    <td>Array of user ids</td>
+  </tr>
+</table>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>POST https://api.engagedly.con/api/platform/beta/departments
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight http tab-http"><code><span class="err">201 Created
+content-type: application/json
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f5afec62-21ff-40d3-a06e-9a2162ef6b69"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Customer Support"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"members_count"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"administrators_count"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"members"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b62167d0-2718-4e45-9721-27535991becf"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam Smith"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"adam.smith@teamyogi.com"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"middle_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Smith"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"display_picture"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"medium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"small"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="s2">"is_admin"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="update-an-existing-department">Update an existing department</h2>
+
+<p><code class="prettyprint">PUT http://api.engagedly.com/platform/beta/departments/&lt;ID&gt;</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the department</td>
 </tr>
 </tbody></table>
 
@@ -642,42 +962,560 @@ YYYY-MM-DDTHH:MM  </p>
     <th width="60%">DESCRIPTION</th>
   </tr>
   <tr>
-    <td>first_name </td>
+    <td>name </td>
     <td>string</td>
-    <td>First name of the user</td>
+    <td>Name of the department</td>
   </tr>
   <tr>
-    <td>middle_name</td>
-    <td>string</td>
-    <td>Middle name of the user</td>
-  </tr>
-  <tr>
-    <td>last_name</td>
-    <td>string</td>
-    <td>Last name of the user</td>
-  </tr>
-  <tr>
-    <td>email</td>
-    <td>string</td>
-    <td>Email Id of the user</td>
-  </tr>
-  <tr>
-    <td>employee_id</td>
-    <td>string</td>
-    <td>Employee Id</td>
-  </tr>
-  <tr>
-    <td>joining_date</td>
-    <td>date</td>
-    <td>Date of which employee was hired</td>
-  </tr>
-    <tr>
-    <td>birth_date</td>
-    <td>date</td>
-    <td>Date of birth of the user</td>
+    <td>members</td>
+    <td>array</td>
+    <td>Array of user ids</td>
   </tr>
 </table>
 
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>
+PUT http://api.engagedly.com/platform/beta/departments/f5afec62-21ff-40d3-a06e-9a2162ef6b69
+
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight http tab-http"><code><span class="err">200 OK
+content-type: application/json
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Customer Support"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"members"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b62167d0-2718-4e45-9721-27535991becf"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam Smith"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"adam.smith@teamyogi.com"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"middle_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Smith"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"display_picture"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"medium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"small"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="s2">"is_admin"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="delete-a-department">Delete a department</h2>
+
+<p><code class="prettyprint">DELETE http://api.engagedly.com/platform/beta/departments/&lt;ID&gt;</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the department</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>DELETE http://api.engagedly.com/platform/beta/departments/f5afec62-21ff-40d3-a06e-9a2162ef6b69
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight http tab-http"><code><span class="err">204 No Content
+</span></code></pre>
+          <h1 id="locations">Locations</h1>
+
+<h2 id="list-all-locations">List all locations</h2>
+
+<p><code class="prettyprint">GET http://api.engagedly.com/platform/beta/locations</code></p>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>GET http://api.engagedly.com/platform/beta/locations
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight http tab-http"><code><span class="err">200 OK
+content-type: application/json
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"has_more"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"total_records"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Head Office"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"address_line1"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"address_line2"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"country"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"postal_code"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="get-a-single-location">Get a single location</h2>
+
+<p><code class="prettyprint">GET http://api.engagedly.com/platform/beta/locations/&lt;ID&gt;</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the location</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>GET https://api.engagedly.con/api/platform/beta/locations/1
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight http tab-http"><code><span class="err">200 OK
+content-type: application/json
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Head Office"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"address_line1"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"address_line2"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"country"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"postal_code"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="create-a-new-location">Create a new location</h2>
+
+<p><code class="prettyprint">POST http://api.engagedly.com/platform/beta/locations</code></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table>
+  <tr>
+    <th width="30%">ATTRIBUTE</th>
+    <th width="30%">TYPE</th>
+    <th width="60%">DESCRIPTION</th>
+  </tr>
+  <tr>
+    <td>name </td>
+    <td>string</td>
+    <td>Name of the location</td>
+  </tr>
+  <tr>
+    <td>address_line1</td>
+    <td>string</td>
+    <td>Line 1 of the address</td>
+  </tr>
+  <tr>
+    <td>address_line2</td>
+    <td>string</td>
+    <td>Line 2 of the address</td>
+  </tr>
+  <tr>
+    <td>city</td>
+    <td>string</td>
+    <td>City of the location</td>
+  </tr>
+  <tr>
+    <td>state</td>
+    <td>string</td>
+    <td>State of the location</td>
+  </tr>
+  <tr>
+    <td>country</td>
+    <td>string</td>
+    <td>Country of the location</td>
+  </tr>
+    <tr>
+    <td>postal_code</td>
+    <td>string</td>
+    <td>Postal code of the location</td>
+  </tr>
+</table>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>POST https://api.engagedly.con/api/platform/beta/locations
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight http tab-http"><code><span class="err">201 Created
+content-type: application/json
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Head Office"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"address_line1"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"address_line2"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"country"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"postal_code"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="update-an-existing-location">Update an existing location</h2>
+
+<p><code class="prettyprint">PUT http://api.engagedly.com/platform/beta/locations/&lt;ID&gt;</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the location</td>
+</tr>
+</tbody></table>
+
+<h3 id="parameters">Parameters</h3>
+
+<table>
+  <tr>
+    <th width="30%">ATTRIBUTE</th>
+    <th width="30%">TYPE</th>
+    <th width="60%">DESCRIPTION</th>
+  </tr>
+  <tr>
+    <td>name </td>
+    <td>string</td>
+    <td>Name of the location</td>
+  </tr>
+  <tr>
+    <td>address_line1</td>
+    <td>string</td>
+    <td>Line 1 of the address</td>
+  </tr>
+  <tr>
+    <td>address_line2</td>
+    <td>string</td>
+    <td>Line 2 of the address</td>
+  </tr>
+  <tr>
+    <td>city</td>
+    <td>string</td>
+    <td>City of the location</td>
+  </tr>
+  <tr>
+    <td>state</td>
+    <td>string</td>
+    <td>State of the location</td>
+  </tr>
+  <tr>
+    <td>country</td>
+    <td>string</td>
+    <td>Country of the location</td>
+  </tr>
+    <tr>
+    <td>postal_code</td>
+    <td>string</td>
+    <td>Postal code of the location</td>
+  </tr>
+</table>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>PUT https://api.engagedly.con/api/platform/beta/locations/1
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight http tab-http"><code><span class="err">200 OK
+content-type: application/json
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Head Office"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"address_line1"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"address_line2"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"country"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"postal_code"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="delete-a-location">Delete a location</h2>
+
+<p><code class="prettyprint">DELETE http://api.engagedly.com/platform/beta/locations/&lt;ID&gt;</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the location</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>DELETE https://api.engagedly.con/api/platform/beta/locations/1
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight http tab-http"><code><span class="err">204 No Content
+</span></code></pre>
+          <h1 id="job-titles">Job Titles</h1>
+
+<h2 id="list-all-job-titles">List all job titles</h2>
+
+<p><code class="prettyprint">GET http://api.engagedly.com/platform/beta/job_titles</code></p>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>GET http://api.engagedly.com/platform/beta/job_titles
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight http tab-http"><code><span class="err">200 OK
+content-type: application/json
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"has_more"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"total_records"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Head Office"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"responsibilities"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="get-a-single-job-title">Get a single job title</h2>
+
+<p><code class="prettyprint">GET http://api.engagedly.com/platform/beta/job_titles/&lt;ID&gt;</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the job title</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>GET https://api.engagedly.con/api/platform/beta/job_titles/1
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight http tab-http"><code><span class="err">200 OK
+content-type: application/json
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Head Office"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"responsibilities"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="create-a-new-job-title">Create a new job title</h2>
+
+<p><code class="prettyprint">POST http://api.engagedly.com/platform/beta/job_titles</code></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table>
+  <tr>
+    <th width="30%">ATTRIBUTE</th>
+    <th width="30%">TYPE</th>
+    <th width="60%">DESCRIPTION</th>
+  </tr>
+  <tr>
+    <td>name </td>
+    <td>string</td>
+    <td>Name of the job title</td>
+  </tr>
+  <tr>
+    <td>description</td>
+    <td>string</td>
+    <td>Description of the job title</td>
+  </tr>
+  <tr>
+    <td>responsibilities</td>
+    <td>string</td>
+    <td>Responsibilities of the job titles</td>
+  </tr>
+</table>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>POST  https://api.engagedly.con/api/platform/beta/job_titles
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight http tab-http"><code><span class="err">201 Created
+content-type: application/json
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Head Office"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"responsibilities"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="update-an-existing-job-title">Update an existing job title</h2>
+
+<p><code class="prettyprint">PUT http://api.engagedly.com/platform/beta/job_titles/&lt;ID&gt;</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the job title</td>
+</tr>
+</tbody></table>
+
+<h3 id="parameters">Parameters</h3>
+
+<table>
+  <tr>
+    <th width="30%">ATTRIBUTE</th>
+    <th width="30%">TYPE</th>
+    <th width="60%">DESCRIPTION</th>
+  </tr>
+  <tr>
+    <td>name </td>
+    <td>string</td>
+    <td>Name of the job title</td>
+  </tr>
+  <tr>
+    <td>description</td>
+    <td>string</td>
+    <td>Description of the job title</td>
+  </tr>
+  <tr>
+    <td>responsibilities</td>
+    <td>string</td>
+    <td>Responsibilities of the job titles</td>
+  </tr>
+</table>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>PUT https://api.engagedly.con/api/platform/beta/job_titles/1
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight http tab-http"><code><span class="err">200 OK
+content-type: application/json
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Head Office"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"responsibilities"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="delete-a-job-title">Delete a job title</h2>
+
+<p><code class="prettyprint">DELETE http://api.engagedly.com/platform/beta/job_titles/&lt;ID&gt;</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the job title</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>DELETE https://api.engagedly.con/api/platform/beta/job_titles/1
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight http tab-http"><code><span class="err">204 No Content
+</span></code></pre>
       </div>
       <div class="dark-box">
           <div class="lang-selector">
