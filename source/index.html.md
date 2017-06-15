@@ -113,7 +113,7 @@ CODE | DESCRIPTION
 415  | Unsupported Media Type - POST/PUT/PATCH request occurred without a application/json content type.
 422  | Unprocessable Entry - A request to modify or create a resource failed due to a validation error.
 429  | Too Many Requests -- Too many requests within a certain time frame.
-500  | Server Errors -- Something went wrong on Stripe's end. (These are rare.)
+500  | Server Errors -- Something went wrong on Engagedly's end.
 
 ### Error Response 
 In addition to the HTTP status code, most errors will also return a response body that contains more information for debugging the error.
