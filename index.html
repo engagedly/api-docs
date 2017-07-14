@@ -251,7 +251,7 @@
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.engagedly.com/platform/beta/users"</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.engagedly.com/beta/users"</span>
   -H <span class="s2">"ClientKey: xxxxxxxxxxxxxx"</span>
   -H <span class="s2">"SecretKey: xxxxxxxxxxxxxx"</span>
 </code></pre>
@@ -259,14 +259,14 @@
 
 <p>All Engagedly APIs require specifying an API version in the request URL.  The most current version of the API is beta. API endpoint for the current beta version is   </p>
 
-<p><code class="prettyprint">https://api.engagedly.com/platform/beta/</code>  </p>
+<p><code class="prettyprint">https://api.engagedly.com/beta/</code>  </p>
 
 <aside class="notice">All API requests must be made over HTTPS. Calls made over plain HTTP will fail.</aside>
 
 <h3 id="json-bodies">JSON Bodies</h3>
 
 <p>All POST, PUT, PATCH requests are JSON encoded and must have have content type of application/json, or the API will return a 415 Unsupported Media Type status code.</p>
-<pre class="highlight shell tab-shell"><code><span class="gp">$ </span>curl https://api.engagedly.com/platform/beta/users/b62167d0-2718-4e45-9721-27535991becf <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code><span class="gp">$ </span>curl https://api.engagedly.com/beta/users/b62167d0-2718-4e45-9721-27535991becf <span class="se">\</span>
     -X PUT <span class="se">\</span>
     -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
     -H <span class="s2">"ClientKey: xxxxxxxxxxxxxx"</span> <span class="se">\</span>
@@ -430,7 +430,7 @@
         </span><span class="p">{</span><span class="w">
             </span><span class="s2">"field"</span><span class="p">:</span><span class="s2">"code"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"message"</span><span class="p">:</span><span class="s2">"Value already existing"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"code"</span><span class="p">:</span><span class="s2">"unique_constraint"</span><span class="w">
+            </span><span class="s2">"code"</span><span class="p">:</span><span class="s2">"duplicate_value"</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -440,18 +440,18 @@
 
 <p>Most of the API responses that returns the list of objects are paginated. The parameters that control the pagination are &lsquo;page&rsquo; and &lsquo;size&rsquo;, indicating the page number and the items per page values. Within the response, a pagination attribute will be set and will contain the provided &lsquo;page&rsquo; and &lsquo;size&rsquo; along with &lsquo;has_more&rsquo; and &lsquo;record_count&rsquo; indicating whether there are more items that can be fetched and total number of records. </p>
 
-<p>The page number starts with 1 and by default the number of records returned are 25. The maximum number of records (size) that can be returned is 100.</p>
+<p>The page number starts with 1 and by default the number of records returned are 25. The maximum number of records (size) that can be returned is 50.</p>
 
           <h1 id="users">Users</h1>
 
 <h2 id="list-all-users">List all users</h2>
 
-<p><code class="prettyprint">GET http://api.engagedly.com/platform/beta/users</code></p>
+<p><code class="prettyprint">GET http://api.engagedly.com/beta/users</code></p>
 
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>GET http://api.engagedly.com/platform/beta/users
+<pre class="highlight shell tab-shell"><code>GET http://api.engagedly.com/beta/users
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
@@ -493,7 +493,7 @@ content-type: application/json
 </span></code></pre>
 <h2 id="get-a-single-user">Get a single user</h2>
 
-<p><code class="prettyprint">GET http://api.engagedly.com/platform/beta/users/&lt;ID&gt;</code></p>
+<p><code class="prettyprint">GET http://api.engagedly.com/beta/users/&lt;ID&gt;</code></p>
 
 <h3 id="url-parameters">URL Parameters</h3>
 
@@ -512,7 +512,7 @@ content-type: application/json
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>GET https://api.engagedly.con/api/platform/beta/users/b62167d0-2718-4e45-9721-27535991becf
+<pre class="highlight shell tab-shell"><code>GET https://api.engagedly.com/api/beta/users/b62167d0-2718-4e45-9721-27535991becf
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
@@ -557,7 +557,7 @@ content-type: application/json
 </span></code></pre>
 <h2 id="create-a-new-user">Create a new user</h2>
 
-<p><code class="prettyprint">POST http://api.engagedly.com/platform/beta/users</code></p>
+<p><code class="prettyprint">POST http://api.engagedly.com/beta/users</code></p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -622,7 +622,7 @@ content-type: application/json
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>POST http://api.engagedly.com/platform/beta/users
+<pre class="highlight shell tab-shell"><code>POST http://api.engagedly.com/beta/users
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
@@ -667,7 +667,7 @@ content-type: application/json
 </span></code></pre>
 <h2 id="update-an-existing-user">Update an existing user</h2>
 
-<p><code class="prettyprint">PUT http://api.engagedly.com/platform/beta/users/&lt;ID&gt;</code></p>
+<p><code class="prettyprint">PUT http://api.engagedly.com/beta/users/&lt;ID&gt;</code></p>
 
 <h3 id="url-parameters">URL Parameters</h3>
 
@@ -746,7 +746,7 @@ content-type: application/json
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>PUT https://api.engagedly.con/api/platform/beta/users/b62167d0-2718-4e45-9721-27535991becf
+<pre class="highlight shell tab-shell"><code>PUT https://api.engagedly.com/api/beta/users/b62167d0-2718-4e45-9721-27535991becf
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
@@ -793,12 +793,12 @@ content-type: application/json
 
 <h2 id="list-all-departments">List all departments</h2>
 
-<p><code class="prettyprint">GET http://api.engagedly.com/platform/beta/departments</code></p>
+<p><code class="prettyprint">GET http://api.engagedly.com/beta/departments</code></p>
 
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>GET http://api.engagedly.com/platform/beta/departments
+<pre class="highlight shell tab-shell"><code>GET http://api.engagedly.com/beta/departments
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
@@ -825,7 +825,7 @@ content-type: application/json
 </span></code></pre>
 <h2 id="get-a-single-department">Get a single department</h2>
 
-<p><code class="prettyprint">GET http://api.engagedly.com/platform/beta/departments/&lt;ID&gt;</code></p>
+<p><code class="prettyprint">GET http://api.engagedly.com/beta/departments/&lt;ID&gt;</code></p>
 
 <h3 id="url-parameters">URL Parameters</h3>
 
@@ -844,7 +844,7 @@ content-type: application/json
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>GET https://api.engagedly.con/api/platform/beta/departments/f5afec62-21ff-40d3-a06e-9a2162ef6b69
+<pre class="highlight shell tab-shell"><code>GET https://api.engagedly.com/api/beta/departments/f5afec62-21ff-40d3-a06e-9a2162ef6b69
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
@@ -878,7 +878,7 @@ content-type: application/json
 </span></code></pre>
 <h2 id="create-a-new-department">Create a new department</h2>
 
-<p><code class="prettyprint">POST http://api.engagedly.com/platform/beta/departments</code></p>
+<p><code class="prettyprint">POST http://api.engagedly.com/beta/departments</code></p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -903,7 +903,7 @@ content-type: application/json
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>POST https://api.engagedly.con/api/platform/beta/departments
+<pre class="highlight shell tab-shell"><code>POST https://api.engagedly.com/api/beta/departments
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
@@ -937,7 +937,7 @@ content-type: application/json
 </span></code></pre>
 <h2 id="update-an-existing-department">Update an existing department</h2>
 
-<p><code class="prettyprint">PUT http://api.engagedly.com/platform/beta/departments/&lt;ID&gt;</code></p>
+<p><code class="prettyprint">PUT http://api.engagedly.com/beta/departments/&lt;ID&gt;</code></p>
 
 <h3 id="url-parameters">URL Parameters</h3>
 
@@ -977,7 +977,7 @@ content-type: application/json
 <p>Sample Request</p>
 </blockquote>
 <pre class="highlight shell tab-shell"><code>
-PUT http://api.engagedly.com/platform/beta/departments/f5afec62-21ff-40d3-a06e-9a2162ef6b69
+PUT http://api.engagedly.com/beta/departments/f5afec62-21ff-40d3-a06e-9a2162ef6b69
 
 </code></pre>
 <blockquote>
@@ -1010,7 +1010,7 @@ content-type: application/json
 </span></code></pre>
 <h2 id="delete-a-department">Delete a department</h2>
 
-<p><code class="prettyprint">DELETE http://api.engagedly.com/platform/beta/departments/&lt;ID&gt;</code></p>
+<p><code class="prettyprint">DELETE http://api.engagedly.com/beta/departments/&lt;ID&gt;</code></p>
 
 <h3 id="url-parameters">URL Parameters</h3>
 
@@ -1029,7 +1029,7 @@ content-type: application/json
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>DELETE http://api.engagedly.com/platform/beta/departments/f5afec62-21ff-40d3-a06e-9a2162ef6b69
+<pre class="highlight shell tab-shell"><code>DELETE http://api.engagedly.com/beta/departments/f5afec62-21ff-40d3-a06e-9a2162ef6b69
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
@@ -1040,12 +1040,12 @@ content-type: application/json
 
 <h2 id="list-all-locations">List all locations</h2>
 
-<p><code class="prettyprint">GET http://api.engagedly.com/platform/beta/locations</code></p>
+<p><code class="prettyprint">GET http://api.engagedly.com/beta/locations</code></p>
 
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>GET http://api.engagedly.com/platform/beta/locations
+<pre class="highlight shell tab-shell"><code>GET http://api.engagedly.com/beta/locations
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
@@ -1076,7 +1076,7 @@ content-type: application/json
 </span></code></pre>
 <h2 id="get-a-single-location">Get a single location</h2>
 
-<p><code class="prettyprint">GET http://api.engagedly.com/platform/beta/locations/&lt;ID&gt;</code></p>
+<p><code class="prettyprint">GET http://api.engagedly.com/beta/locations/&lt;ID&gt;</code></p>
 
 <h3 id="url-parameters">URL Parameters</h3>
 
@@ -1095,7 +1095,7 @@ content-type: application/json
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>GET https://api.engagedly.con/api/platform/beta/locations/1
+<pre class="highlight shell tab-shell"><code>GET https://api.engagedly.com/api/beta/locations/1
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
@@ -1118,7 +1118,7 @@ content-type: application/json
 </span></code></pre>
 <h2 id="create-a-new-location">Create a new location</h2>
 
-<p><code class="prettyprint">POST http://api.engagedly.com/platform/beta/locations</code></p>
+<p><code class="prettyprint">POST http://api.engagedly.com/beta/locations</code></p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -1168,7 +1168,7 @@ content-type: application/json
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>POST https://api.engagedly.con/api/platform/beta/locations
+<pre class="highlight shell tab-shell"><code>POST https://api.engagedly.com/api/beta/locations
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
@@ -1191,7 +1191,7 @@ content-type: application/json
 </span></code></pre>
 <h2 id="update-an-existing-location">Update an existing location</h2>
 
-<p><code class="prettyprint">PUT http://api.engagedly.com/platform/beta/locations/&lt;ID&gt;</code></p>
+<p><code class="prettyprint">PUT http://api.engagedly.com/beta/locations/&lt;ID&gt;</code></p>
 
 <h3 id="url-parameters">URL Parameters</h3>
 
@@ -1255,7 +1255,7 @@ content-type: application/json
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>PUT https://api.engagedly.con/api/platform/beta/locations/1
+<pre class="highlight shell tab-shell"><code>PUT https://api.engagedly.com/api/beta/locations/1
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
@@ -1278,7 +1278,7 @@ content-type: application/json
 </span></code></pre>
 <h2 id="delete-a-location">Delete a location</h2>
 
-<p><code class="prettyprint">DELETE http://api.engagedly.com/platform/beta/locations/&lt;ID&gt;</code></p>
+<p><code class="prettyprint">DELETE http://api.engagedly.com/beta/locations/&lt;ID&gt;</code></p>
 
 <h3 id="url-parameters">URL Parameters</h3>
 
@@ -1297,7 +1297,7 @@ content-type: application/json
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>DELETE https://api.engagedly.con/api/platform/beta/locations/1
+<pre class="highlight shell tab-shell"><code>DELETE https://api.engagedly.com/api/beta/locations/1
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
@@ -1308,12 +1308,12 @@ content-type: application/json
 
 <h2 id="list-all-job-titles">List all job titles</h2>
 
-<p><code class="prettyprint">GET http://api.engagedly.com/platform/beta/job_titles</code></p>
+<p><code class="prettyprint">GET http://api.engagedly.com/beta/job_titles</code></p>
 
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>GET http://api.engagedly.com/platform/beta/job_titles
+<pre class="highlight shell tab-shell"><code>GET http://api.engagedly.com/beta/job_titles
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
@@ -1340,7 +1340,7 @@ content-type: application/json
 </span></code></pre>
 <h2 id="get-a-single-job-title">Get a single job title</h2>
 
-<p><code class="prettyprint">GET http://api.engagedly.com/platform/beta/job_titles/&lt;ID&gt;</code></p>
+<p><code class="prettyprint">GET http://api.engagedly.com/beta/job_titles/&lt;ID&gt;</code></p>
 
 <h3 id="url-parameters">URL Parameters</h3>
 
@@ -1359,7 +1359,7 @@ content-type: application/json
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>GET https://api.engagedly.con/api/platform/beta/job_titles/1
+<pre class="highlight shell tab-shell"><code>GET https://api.engagedly.com/api/beta/job_titles/1
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
@@ -1378,7 +1378,7 @@ content-type: application/json
 </span></code></pre>
 <h2 id="create-a-new-job-title">Create a new job title</h2>
 
-<p><code class="prettyprint">POST http://api.engagedly.com/platform/beta/job_titles</code></p>
+<p><code class="prettyprint">POST http://api.engagedly.com/beta/job_titles</code></p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -1408,7 +1408,7 @@ content-type: application/json
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>POST  https://api.engagedly.con/api/platform/beta/job_titles
+<pre class="highlight shell tab-shell"><code>POST  https://api.engagedly.com/api/beta/job_titles
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
@@ -1427,7 +1427,7 @@ content-type: application/json
 </span></code></pre>
 <h2 id="update-an-existing-job-title">Update an existing job title</h2>
 
-<p><code class="prettyprint">PUT http://api.engagedly.com/platform/beta/job_titles/&lt;ID&gt;</code></p>
+<p><code class="prettyprint">PUT http://api.engagedly.com/beta/job_titles/&lt;ID&gt;</code></p>
 
 <h3 id="url-parameters">URL Parameters</h3>
 
@@ -1471,7 +1471,7 @@ content-type: application/json
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>PUT https://api.engagedly.con/api/platform/beta/job_titles/1
+<pre class="highlight shell tab-shell"><code>PUT https://api.engagedly.com/api/beta/job_titles/1
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
@@ -1490,7 +1490,7 @@ content-type: application/json
 </span></code></pre>
 <h2 id="delete-a-job-title">Delete a job title</h2>
 
-<p><code class="prettyprint">DELETE http://api.engagedly.com/platform/beta/job_titles/&lt;ID&gt;</code></p>
+<p><code class="prettyprint">DELETE http://api.engagedly.com/beta/job_titles/&lt;ID&gt;</code></p>
 
 <h3 id="url-parameters">URL Parameters</h3>
 
@@ -1509,7 +1509,7 @@ content-type: application/json
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>DELETE https://api.engagedly.con/api/platform/beta/job_titles/1
+<pre class="highlight shell tab-shell"><code>DELETE https://api.engagedly.com/api/beta/job_titles/1
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
