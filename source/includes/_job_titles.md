@@ -2,12 +2,12 @@
 
 ## List all job titles
 
-`GET http://api.engagedly.com/platform/beta/job_titles`
+`GET http://api.engagedly.com/beta/job_titles`
 
 > Sample Request
 
 ```shell
-GET http://api.engagedly.com/platform/beta/job_titles
+GET http://api.engagedly.com/beta/job_titles
 ```
 
 > Sample Response
@@ -39,7 +39,7 @@ content-type: application/json
 
 ## Get a single job title
 
-`GET http://api.engagedly.com/platform/beta/job_titles/<ID>`
+`GET http://api.engagedly.com/beta/job_titles/<ID>`
 
 ### URL Parameters
 
@@ -50,7 +50,7 @@ ID | The ID of the job title
 > Sample Request
 
 ```shell
-GET https://api.engagedly.con/api/platform/beta/job_titles/1
+GET https://api.engagedly.com/api/beta/job_titles/1
 ```
 
 > Sample Response
@@ -74,7 +74,7 @@ content-type: application/json
 
 ## Create a new job title
 
-`POST http://api.engagedly.com/platform/beta/job_titles`
+`POST http://api.engagedly.com/beta/job_titles`
 
 ### Parameters
 
@@ -104,7 +104,7 @@ content-type: application/json
 > Sample Request
 
 ```shell
-POST  https://api.engagedly.con/api/platform/beta/job_titles
+POST  https://api.engagedly.com/api/beta/job_titles
 ```
 
 > Sample Response
@@ -129,7 +129,7 @@ content-type: application/json
 
 ## Update an existing job title
 
-`PUT http://api.engagedly.com/platform/beta/job_titles/<ID>`
+`PUT http://api.engagedly.com/beta/job_titles/<ID>`
 
 ### URL Parameters
 
@@ -165,7 +165,7 @@ ID | The ID of the job title
 > Sample Request
 
 ```shell
-PUT https://api.engagedly.con/api/platform/beta/job_titles/1
+PUT https://api.engagedly.com/api/beta/job_titles/1
 ```
 
 > Sample Response
@@ -189,7 +189,7 @@ content-type: application/json
 
 ## Delete a job title 
 
-`DELETE http://api.engagedly.com/platform/beta/job_titles/<ID>`
+`DELETE http://api.engagedly.com/beta/job_titles/<ID>`
 
 ### URL Parameters
 
@@ -200,7 +200,7 @@ ID | The ID of the job title
 > Sample Request
 
 ```shell
-DELETE https://api.engagedly.con/api/platform/beta/job_titles/1
+DELETE https://api.engagedly.com/api/beta/job_titles/1
 ```
 
 > Sample Response

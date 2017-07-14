@@ -2,12 +2,12 @@
 
 ## List all locations
 
-`GET http://api.engagedly.com/platform/beta/locations`
+`GET http://api.engagedly.com/beta/locations`
 
 > Sample Request
 
 ```shell
-GET http://api.engagedly.com/platform/beta/locations
+GET http://api.engagedly.com/beta/locations
 ```
 
 > Sample Response
@@ -43,7 +43,7 @@ content-type: application/json
 
 ## Get a single location
 
-`GET http://api.engagedly.com/platform/beta/locations/<ID>`
+`GET http://api.engagedly.com/beta/locations/<ID>`
 
 ### URL Parameters
 
@@ -54,7 +54,7 @@ ID | The ID of the location
 > Sample Request
 
 ```shell
-GET https://api.engagedly.con/api/platform/beta/locations/1
+GET https://api.engagedly.com/api/beta/locations/1
 ```
 
 > Sample Response
@@ -82,7 +82,7 @@ content-type: application/json
 
 ## Create a new location
 
-`POST http://api.engagedly.com/platform/beta/locations`
+`POST http://api.engagedly.com/beta/locations`
 
 ### Parameters
 
@@ -132,7 +132,7 @@ content-type: application/json
 > Sample Request
 
 ```shell
-POST https://api.engagedly.con/api/platform/beta/locations
+POST https://api.engagedly.com/api/beta/locations
 ```
 
 > Sample Response
@@ -160,7 +160,7 @@ content-type: application/json
 
 ## Update an existing location
 
-`PUT http://api.engagedly.com/platform/beta/locations/<ID>`
+`PUT http://api.engagedly.com/beta/locations/<ID>`
 
 ### URL Parameters
 
@@ -217,7 +217,7 @@ ID | The ID of the location
 > Sample Request
 
 ```shell
-PUT https://api.engagedly.con/api/platform/beta/locations/1
+PUT https://api.engagedly.com/api/beta/locations/1
 ```
 
 > Sample Response
@@ -245,7 +245,7 @@ content-type: application/json
 
 ## Delete a location 
 
-`DELETE http://api.engagedly.com/platform/beta/locations/<ID>`
+`DELETE http://api.engagedly.com/beta/locations/<ID>`
 
 ### URL Parameters
 
@@ -256,7 +256,7 @@ ID | The ID of the location
 > Sample Request
 
 ```shell
-DELETE https://api.engagedly.con/api/platform/beta/locations/1
+DELETE https://api.engagedly.com/api/beta/locations/1
 ```
 
 > Sample Response

@@ -2,12 +2,12 @@
 
 ## List all users
 
-`GET http://api.engagedly.com/platform/beta/users`
+`GET http://api.engagedly.com/beta/users`
 
 > Sample Request
 
 ```shell
-GET http://api.engagedly.com/platform/beta/users
+GET http://api.engagedly.com/beta/users
 ```
 
 > Sample Response
@@ -54,7 +54,7 @@ content-type: application/json
 
 ## Get a single user
 
-`GET http://api.engagedly.com/platform/beta/users/<ID>`
+`GET http://api.engagedly.com/beta/users/<ID>`
 
 ### URL Parameters
 
@@ -65,7 +65,7 @@ ID | The ID of the user
 > Sample Request
 
 ```shell
-GET https://api.engagedly.con/api/platform/beta/users/b62167d0-2718-4e45-9721-27535991becf
+GET https://api.engagedly.com/api/beta/users/b62167d0-2718-4e45-9721-27535991becf
 ```
 
 > Sample Response
@@ -115,7 +115,7 @@ content-type: application/json
 
 ## Create a new user
 
-`POST http://api.engagedly.com/platform/beta/users`
+`POST http://api.engagedly.com/beta/users`
 
 ### Parameters
 
@@ -180,7 +180,7 @@ content-type: application/json
 > Sample Request
 
 ```shell
-POST http://api.engagedly.com/platform/beta/users
+POST http://api.engagedly.com/beta/users
 ```
 
 > Sample Response
@@ -230,7 +230,7 @@ content-type: application/json
 
 ## Update an existing user
 
-`PUT http://api.engagedly.com/platform/beta/users/<ID>`
+`PUT http://api.engagedly.com/beta/users/<ID>`
 
 ### URL Parameters
 
@@ -301,7 +301,7 @@ ID | The ID of the user
 > Sample Request
 
 ```shell
-PUT https://api.engagedly.con/api/platform/beta/users/b62167d0-2718-4e45-9721-27535991becf
+PUT https://api.engagedly.com/api/beta/users/b62167d0-2718-4e45-9721-27535991becf
 ```
 
 > Sample Response
