@@ -4,10 +4,21 @@
 
 `GET http://api.engagedly.com/beta/users`
 
+### URL Parameters for extra information
+
+Parameter | Description
+--------- | -----------
+include | primary_reporter,direct_reports
+
 > Sample Request
 
 ```shell
 GET http://api.engagedly.com/beta/users
+```
+> Sample Request with extra information
+
+```shell
+GET http://api.engagedly.com/beta/users?include=primary_reporter,direct_reports
 ```
 
 > Sample Response
@@ -35,6 +46,7 @@ content-type: application/json
 			"first_name": "Adam",
 			"middle_name": null,
 			"last_name": "Smith",
+			"employee_id": "E007",
 			"display_picture": {
 				"medium": "https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg",
 				"small": "https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"
@@ -62,10 +74,22 @@ Parameter | Description
 --------- | -----------
 ID | The ID of the user
 
+### URL Parameters for extra information
+
+Parameter | Description
+--------- | -----------
+include | direct_reports
+
 > Sample Request
 
 ```shell
 GET https://api.engagedly.com/api/beta/users/b62167d0-2718-4e45-9721-27535991becf
+```
+
+> Sample Request with extra information
+
+```shell
+GET https://api.engagedly.com/api/beta/users/b62167d0-2718-4e45-9721-27535991becf?include=direct_reports
 ```
 
 > Sample Response
@@ -86,6 +110,7 @@ content-type: application/json
 		"first_name": "Adam",
 		"middle_name": null,
 		"last_name": "Smith",
+		"employee_id": "E007",
 		"education": "BS- Anthropology, Stanford University",
 		"about_me": "I love exploring whether it is in business or ancient sites. Lets discover together.",
 		"display_picture": {
@@ -203,6 +228,7 @@ content-type: application/json
 		"last_name": "Smith",
 		"education": "BS- Anthropology, Stanford University",
 		"about_me": "I love exploring whether it is in business or ancient sites. Lets discover together.",
+		"employee_id": "E007",
 		"display_picture": {
 			"medium": "https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg",
 			"large": "https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg",
@@ -322,6 +348,7 @@ content-type: application/json
 		"first_name": "Adam",
 		"middle_name": null,
 		"last_name": "Smith",
+		"employee_id": "E007",
 		"education": "BS- Anthropology, Stanford University",
 		"about_me": "I love exploring whether it is in business or ancient sites. Lets discover together.",
 		"display_picture": {
@@ -346,5 +373,262 @@ content-type: application/json
        		 }
 		]
   	}
+}
+```
+
+## Update user's profile picture
+
+`PUT https://api.engagedly.com/beta/users/<ID>/profile/picture`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+ID | The ID of the user
+
+### Parameters
+
+<table>
+	<tr>
+		<th width="30%">ATTRIBUTE</th>
+		<th width="30%">TYPE</th>
+		<th width="60%">DESCRIPTION</th>
+	</tr>
+	<tr>
+		<td>profile_picture </td>
+		<td>array</td>
+		<td>bytes of the picture</td>
+	</tr>
+</table>
+
+> Sample Request
+
+```shell
+PUT https://api.engagedly.com/api/beta/users/b62167d0-2718-4e45-9721-27535991becf/profile/picture
+```
+
+> Sample Response
+
+```http
+200 OK
+content-type: application/json
+```
+
+```json
+{
+  	"success": true
+}
+```
+
+## Deactivate an user
+
+`PUT http://api.engagedly.com/beta/users/<ID>/deactivate`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+ID | The ID of the user
+
+
+> Sample Request
+
+```shell
+PUT https://api.engagedly.com/api/beta/users/b62167d0-2718-4e45-9721-27535991becf/deactivate
+```
+
+> Sample Response
+
+```http
+200 OK
+content-type: application/json
+```
+
+```json
+{
+  	"success": true,
+  	"data": {
+		"id": "b62167d0-2718-4e45-9721-27535991becf",
+		"name": "Adam Smith",
+		"status": "Blocked",
+		"email": "adam.smith@teamyogi.com",
+		"first_name": "Adam",
+		"middle_name": null,
+		"last_name": "Smith",
+		"education": "BS- Anthropology, Stanford University",
+		"about_me": "I love exploring whether it is in business or ancient sites. Lets discover together.",
+		"display_picture": {
+			"medium": "https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg",
+			"large": "https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg",
+			"small": "https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"
+		},
+		"job_title": {
+		"id": "261",
+		"name": "CEO"
+		},
+    	"joining_date": null,
+		"location": {
+		"id": "11",
+		"name": "United States"
+		}
+  	}
+}
+```
+
+## Activate an user
+
+`PUT http://api.engagedly.com/beta/users/<ID>/activate`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+ID | The ID of the user
+
+
+> Sample Request
+
+```shell
+PUT https://api.engagedly.com/api/beta/users/b62167d0-2718-4e45-9721-27535991becf/activate
+```
+
+> Sample Response
+
+```http
+200 OK
+content-type: application/json
+```
+
+```json
+{
+  	"success": true,
+  	"data": {
+		"id": "b62167d0-2718-4e45-9721-27535991becf",
+		"name": "Adam Smith",
+		"status": "Active",
+		"email": "adam.smith@teamyogi.com",
+		"first_name": "Adam",
+		"middle_name": null,
+		"last_name": "Smith",
+		"education": "BS- Anthropology, Stanford University",
+		"about_me": "I love exploring whether it is in business or ancient sites. Lets discover together.",
+		"display_picture": {
+			"medium": "https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg",
+			"large": "https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg",
+			"small": "https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"
+		},
+		"job_title": {
+		"id": "261",
+		"name": "CEO"
+		},
+    	"joining_date": null,
+		"location": {
+		"id": "11",
+		"name": "United States"
+		}
+  	}
+}
+```
+
+## Permissions of an user
+
+`GET http://api.engagedly.com/beta/users/<ID>/permissions`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+ID | The ID of the user
+
+
+> Sample Request
+
+```shell
+GET https://api.engagedly.com/api/beta/users/b62167d0-2718-4e45-9721-27535991becf/permissions
+```
+
+> Sample Response
+
+```http
+200 OK
+content-type: application/json
+```
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "id": 1,
+            "name": "Cycle - create / edit / delete performance review cycles",
+            "is_admin": null,
+            "description": ""
+        },
+        {
+            "id": 2,
+            "name": "Site Administrator",
+            "is_admin": true,
+            "description": "This role will be by default given to the admin. This role will contain all the permission. This role cannot be seperately given or remove to any other user. The user that has been marked as the org admin will by default get this role and will be removed from the role when the user is removed from the admin"
+        }
+    ]
+}
+```
+
+## Update permissions of an user
+
+`PUT http://api.engagedly.com/beta/users/<ID>/permissions`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+ID | The ID of the user
+
+### Parameters
+
+<table>
+	<tr>
+		<th width="30%">ATTRIBUTE</th>
+		<th width="30%">TYPE</th>
+		<th width="60%">DESCRIPTION</th>
+	</tr>
+	<tr>
+		<td>permission_ids </td>
+		<td>array</td>
+		<td>array of permissions ids</td>
+	</tr>
+</table>
+
+
+> Sample Request
+
+```shell
+PUT https://api.engagedly.com/api/beta/users/b62167d0-2718-4e45-9721-27535991becf/permissions
+```
+
+> Sample Response
+
+```http
+200 OK
+content-type: application/json
+```
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "id": 2070,
+            "name": "Cycle - create / edit / delete performance review cycles",
+            "is_admin": null,
+            "description": ""
+        },
+        {
+            "id": 45,
+            "name": "Site Administrator",
+            "is_admin": true,
+            "description": "This role will be by default given to the admin. This role will contain all the permission. This role cannot be seperately given or remove to any other user. The user that has been marked as the org admin will by default get this role and will be removed from the role when the user is removed from the admin"
+        }
+    ]
 }
 ```
