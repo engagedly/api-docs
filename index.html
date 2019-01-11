@@ -543,7 +543,7 @@
 
 <p>The page number starts with 1 and by default the number of records returned are 25. The maximum number of records (size) that can be returned is 50.</p>
 <h1 id='users'>Users</h1><h2 id='list-all-users'>List all users</h2>
-<p><code>GET http://api.engagedly.com/beta/users</code></p>
+<p><code>GET https://api.engagedly.com/beta/users</code></p>
 <h3 id='url-parameters-for-extra-information'>URL Parameters for extra information</h3>
 <table><thead>
 <tr>
@@ -560,12 +560,12 @@
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>GET http://api.engagedly.com/beta/users
+<pre class="highlight shell tab-shell"><code>GET https://api.engagedly.com/beta/users
 </code></pre>
 <blockquote>
 <p>Sample Request with extra information</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>GET http://api.engagedly.com/beta/users?include<span class="o">=</span>primary_reporter,direct_reports
+<pre class="highlight shell tab-shell"><code>GET https://api.engagedly.com/beta/users?include<span class="o">=</span>primary_reporter,direct_reports
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
@@ -606,7 +606,7 @@ content-type: application/json
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='get-a-single-user'>Get a single user</h2>
-<p><code>GET http://api.engagedly.com/beta/users/&lt;ID&gt;</code></p>
+<p><code>GET https://api.engagedly.com/beta/users/&lt;ID&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -684,7 +684,7 @@ content-type: application/json
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='create-a-new-user'>Create a new user</h2>
-<p><code>POST http://api.engagedly.com/beta/users</code></p>
+<p><code>POST https://api.engagedly.com/beta/users</code></p>
 <h3 id='parameters'>Parameters</h3>
 <table>
     <tr>
@@ -747,7 +747,7 @@ content-type: application/json
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>POST http://api.engagedly.com/beta/users
+<pre class="highlight shell tab-shell"><code>POST https://api.engagedly.com/beta/users
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
@@ -791,7 +791,7 @@ content-type: application/json
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='update-an-existing-user'>Update an existing user</h2>
-<p><code>PUT http://api.engagedly.com/beta/users/&lt;ID&gt;</code></p>
+<p><code>PUT https://api.engagedly.com/beta/users/&lt;ID&gt;</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -951,7 +951,7 @@ content-type: application/json
     </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='deactivate-an-user'>Deactivate an user</h2>
-<p><code>PUT http://api.engagedly.com/beta/users/&lt;ID&gt;/deactivate</code></p>
+<p><code>PUT https://api.engagedly.com/beta/users/&lt;ID&gt;/deactivate</code></p>
 <h3 id='url-parameters-4'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -1004,7 +1004,7 @@ content-type: application/json
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='activate-an-user'>Activate an user</h2>
-<p><code>PUT http://api.engagedly.com/beta/users/&lt;ID&gt;/activate</code></p>
+<p><code>PUT https://api.engagedly.com/beta/users/&lt;ID&gt;/activate</code></p>
 <h3 id='url-parameters-5'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -1057,7 +1057,7 @@ content-type: application/json
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='permissions-of-an-user'>Permissions of an user</h2>
-<p><code>GET http://api.engagedly.com/beta/users/&lt;ID&gt;/permissions</code></p>
+<p><code>GET https://api.engagedly.com/beta/users/&lt;ID&gt;/permissions</code></p>
 <h3 id='url-parameters-6'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -1099,7 +1099,7 @@ content-type: application/json
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='update-permissions-of-an-user'>Update permissions of an user</h2>
-<p><code>PUT http://api.engagedly.com/beta/users/&lt;ID&gt;/permissions</code></p>
+<p><code>PUT https://api.engagedly.com/beta/users/&lt;ID&gt;/permissions</code></p>
 <h3 id='url-parameters-7'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -1154,12 +1154,12 @@ content-type: application/json
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h1 id='departments'>Departments</h1><h2 id='list-all-departments'>List all departments</h2>
-<p><code>GET http://api.engagedly.com/beta/departments</code></p>
+<p><code>GET https://api.engagedly.com/beta/departments</code></p>
 
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>GET http://api.engagedly.com/beta/departments
+<pre class="highlight shell tab-shell"><code>GET https://api.engagedly.com/beta/departments
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
@@ -1184,7 +1184,7 @@ content-type: application/json
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='get-a-single-department'>Get a single department</h2>
-<p><code>GET http://api.engagedly.com/beta/departments/&lt;ID&gt;</code></p>
+<p><code>GET https://api.engagedly.com/beta/departments/&lt;ID&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -1233,7 +1233,7 @@ content-type: application/json
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='create-a-new-department'>Create a new department</h2>
-<p><code>POST http://api.engagedly.com/beta/departments</code></p>
+<p><code>POST https://api.engagedly.com/beta/departments</code></p>
 <h3 id='parameters'>Parameters</h3>
 <table>
   <tr>
@@ -1288,7 +1288,7 @@ content-type: application/json
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='update-an-existing-department'>Update an existing department</h2>
-<p><code>PUT http://api.engagedly.com/beta/departments/&lt;ID&gt;</code></p>
+<p><code>PUT https://api.engagedly.com/beta/departments/&lt;ID&gt;</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -1324,7 +1324,7 @@ content-type: application/json
 <p>Sample Request</p>
 </blockquote>
 <pre class="highlight shell tab-shell"><code>
-PUT http://api.engagedly.com/beta/departments/f5afec62-21ff-40d3-a06e-9a2162ef6b69
+PUT https://api.engagedly.com/beta/departments/f5afec62-21ff-40d3-a06e-9a2162ef6b69
 
 </code></pre>
 <blockquote>
@@ -1355,7 +1355,7 @@ content-type: application/json
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='delete-a-department'>Delete a department</h2>
-<p><code>DELETE http://api.engagedly.com/beta/departments/&lt;ID&gt;</code></p>
+<p><code>DELETE https://api.engagedly.com/beta/departments/&lt;ID&gt;</code></p>
 <h3 id='url-parameters-3'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -1372,19 +1372,19 @@ content-type: application/json
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>DELETE http://api.engagedly.com/beta/departments/f5afec62-21ff-40d3-a06e-9a2162ef6b69
+<pre class="highlight shell tab-shell"><code>DELETE https://api.engagedly.com/beta/departments/f5afec62-21ff-40d3-a06e-9a2162ef6b69
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
 </blockquote>
 <pre class="highlight http tab-http"><code><span class="err">204 No Content
 </span></code></pre><h1 id='locations'>Locations</h1><h2 id='list-all-locations'>List all locations</h2>
-<p><code>GET http://api.engagedly.com/beta/locations</code></p>
+<p><code>GET https://api.engagedly.com/beta/locations</code></p>
 
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>GET http://api.engagedly.com/beta/locations
+<pre class="highlight shell tab-shell"><code>GET https://api.engagedly.com/beta/locations
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
@@ -1413,7 +1413,7 @@ content-type: application/json
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='get-a-single-location'>Get a single location</h2>
-<p><code>GET http://api.engagedly.com/beta/locations/&lt;ID&gt;</code></p>
+<p><code>GET https://api.engagedly.com/beta/locations/&lt;ID&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -1451,7 +1451,7 @@ content-type: application/json
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='create-a-new-location'>Create a new location</h2>
-<p><code>POST http://api.engagedly.com/beta/locations</code></p>
+<p><code>POST https://api.engagedly.com/beta/locations</code></p>
 <h3 id='parameters'>Parameters</h3>
 <table>
   <tr>
@@ -1520,7 +1520,7 @@ content-type: application/json
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='update-an-existing-location'>Update an existing location</h2>
-<p><code>PUT http://api.engagedly.com/beta/locations/&lt;ID&gt;</code></p>
+<p><code>PUT https://api.engagedly.com/beta/locations/&lt;ID&gt;</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -1601,7 +1601,7 @@ content-type: application/json
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='delete-a-location'>Delete a location</h2>
-<p><code>DELETE http://api.engagedly.com/beta/locations/&lt;ID&gt;</code></p>
+<p><code>DELETE https://api.engagedly.com/beta/locations/&lt;ID&gt;</code></p>
 <h3 id='url-parameters-3'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -1625,12 +1625,12 @@ content-type: application/json
 </blockquote>
 <pre class="highlight http tab-http"><code><span class="err">204 No Content
 </span></code></pre><h1 id='job-titles'>Job Titles</h1><h2 id='list-all-job-titles'>List all job titles</h2>
-<p><code>GET http://api.engagedly.com/beta/job_titles</code></p>
+<p><code>GET https://api.engagedly.com/beta/job_titles</code></p>
 
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>GET http://api.engagedly.com/beta/job_titles
+<pre class="highlight shell tab-shell"><code>GET https://api.engagedly.com/beta/job_titles
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
@@ -1655,7 +1655,7 @@ content-type: application/json
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='get-a-single-job-title'>Get a single job title</h2>
-<p><code>GET http://api.engagedly.com/beta/job_titles/&lt;ID&gt;</code></p>
+<p><code>GET https://api.engagedly.com/beta/job_titles/&lt;ID&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -1689,7 +1689,7 @@ content-type: application/json
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='create-a-new-job-title'>Create a new job title</h2>
-<p><code>POST http://api.engagedly.com/beta/job_titles</code></p>
+<p><code>POST https://api.engagedly.com/beta/job_titles</code></p>
 <h3 id='parameters'>Parameters</h3>
 <table>
   <tr>
@@ -1734,7 +1734,7 @@ content-type: application/json
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='update-an-existing-job-title'>Update an existing job title</h2>
-<p><code>PUT http://api.engagedly.com/beta/job_titles/&lt;ID&gt;</code></p>
+<p><code>PUT https://api.engagedly.com/beta/job_titles/&lt;ID&gt;</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -1791,7 +1791,7 @@ content-type: application/json
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='delete-a-job-title'>Delete a job title</h2>
-<p><code>DELETE http://api.engagedly.com/beta/job_titles/&lt;ID&gt;</code></p>
+<p><code>DELETE https://api.engagedly.com/beta/job_titles/&lt;ID&gt;</code></p>
 <h3 id='url-parameters-3'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -1815,12 +1815,12 @@ content-type: application/json
 </blockquote>
 <pre class="highlight http tab-http"><code><span class="err">204 No Content
 </span></code></pre><h1 id='permissions'>Permissions</h1><h2 id='list-all-permissions'>List all permissions</h2>
-<p><code>GET http://api.engagedly.com/beta/permissions</code></p>
+<p><code>GET https://api.engagedly.com/beta/permissions</code></p>
 
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>GET http://api.engagedly.com/beta/permissions
+<pre class="highlight shell tab-shell"><code>GET https://api.engagedly.com/beta/permissions
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
