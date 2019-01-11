@@ -2,12 +2,12 @@
 
 ## List all departments
 
-`GET http://api.engagedly.com/beta/departments`
+`GET https://api.engagedly.com/beta/departments`
 
 > Sample Request
 
 ```shell
-GET http://api.engagedly.com/beta/departments
+GET https://api.engagedly.com/beta/departments
 ```
 
 > Sample Response
@@ -39,7 +39,7 @@ content-type: application/json
 
 ## Get a single department
 
-`GET http://api.engagedly.com/beta/departments/<ID>`
+`GET https://api.engagedly.com/beta/departments/<ID>`
 
 ### URL Parameters
 
@@ -89,7 +89,7 @@ content-type: application/json
 
 ## Create a new department
 
-`POST http://api.engagedly.com/beta/departments`
+`POST https://api.engagedly.com/beta/departments`
 
 ### Parameters
 
@@ -153,7 +153,7 @@ content-type: application/json
 
 ## Update an existing department
 
-`PUT http://api.engagedly.com/beta/departments/<ID>`
+`PUT https://api.engagedly.com/beta/departments/<ID>`
 
 ### URL Parameters
 
@@ -185,7 +185,7 @@ ID | The ID of the department
 
 ```shell
 
-PUT http://api.engagedly.com/beta/departments/f5afec62-21ff-40d3-a06e-9a2162ef6b69
+PUT https://api.engagedly.com/beta/departments/f5afec62-21ff-40d3-a06e-9a2162ef6b69
 
 ```
 
@@ -223,7 +223,7 @@ content-type: application/json
 
 ## Delete a department
 
-`DELETE http://api.engagedly.com/beta/departments/<ID>`
+`DELETE https://api.engagedly.com/beta/departments/<ID>`
 
 ### URL Parameters
 
@@ -234,7 +234,7 @@ ID | The ID of the department
 > Sample Request
 
 ```shell
-DELETE http://api.engagedly.com/beta/departments/f5afec62-21ff-40d3-a06e-9a2162ef6b69
+DELETE https://api.engagedly.com/beta/departments/f5afec62-21ff-40d3-a06e-9a2162ef6b69
 ```
 
 > Sample Response

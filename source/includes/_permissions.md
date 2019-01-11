@@ -2,12 +2,12 @@
 
 ## List all permissions
 
-`GET http://api.engagedly.com/beta/permissions`
+`GET https://api.engagedly.com/beta/permissions`
 
 > Sample Request
 
 ```shell
-GET http://api.engagedly.com/beta/permissions
+GET https://api.engagedly.com/beta/permissions
 ```
 > Sample Response
 

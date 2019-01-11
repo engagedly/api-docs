@@ -2,7 +2,7 @@
 
 ## List all users
 
-`GET http://api.engagedly.com/beta/users`
+`GET https://api.engagedly.com/beta/users`
 
 ### URL Parameters for extra information
 
@@ -13,12 +13,12 @@ include | primary_reporter,direct_reports
 > Sample Request
 
 ```shell
-GET http://api.engagedly.com/beta/users
+GET https://api.engagedly.com/beta/users
 ```
 > Sample Request with extra information
 
 ```shell
-GET http://api.engagedly.com/beta/users?include=primary_reporter,direct_reports
+GET https://api.engagedly.com/beta/users?include=primary_reporter,direct_reports
 ```
 
 > Sample Response
@@ -66,7 +66,7 @@ content-type: application/json
 
 ## Get a single user
 
-`GET http://api.engagedly.com/beta/users/<ID>`
+`GET https://api.engagedly.com/beta/users/<ID>`
 
 ### URL Parameters
 
@@ -140,7 +140,7 @@ content-type: application/json
 
 ## Create a new user
 
-`POST http://api.engagedly.com/beta/users`
+`POST https://api.engagedly.com/beta/users`
 
 ### Parameters
 
@@ -205,7 +205,7 @@ content-type: application/json
 > Sample Request
 
 ```shell
-POST http://api.engagedly.com/beta/users
+POST https://api.engagedly.com/beta/users
 ```
 
 > Sample Response
@@ -256,7 +256,7 @@ content-type: application/json
 
 ## Update an existing user
 
-`PUT http://api.engagedly.com/beta/users/<ID>`
+`PUT https://api.engagedly.com/beta/users/<ID>`
 
 ### URL Parameters
 
@@ -422,7 +422,7 @@ content-type: application/json
 
 ## Deactivate an user
 
-`PUT http://api.engagedly.com/beta/users/<ID>/deactivate`
+`PUT https://api.engagedly.com/beta/users/<ID>/deactivate`
 
 ### URL Parameters
 
@@ -477,7 +477,7 @@ content-type: application/json
 
 ## Activate an user
 
-`PUT http://api.engagedly.com/beta/users/<ID>/activate`
+`PUT https://api.engagedly.com/beta/users/<ID>/activate`
 
 ### URL Parameters
 
@@ -532,7 +532,7 @@ content-type: application/json
 
 ## Permissions of an user
 
-`GET http://api.engagedly.com/beta/users/<ID>/permissions`
+`GET https://api.engagedly.com/beta/users/<ID>/permissions`
 
 ### URL Parameters
 
@@ -576,7 +576,7 @@ content-type: application/json
 
 ## Update permissions of an user
 
-`PUT http://api.engagedly.com/beta/users/<ID>/permissions`
+`PUT https://api.engagedly.com/beta/users/<ID>/permissions`
 
 ### URL Parameters
 

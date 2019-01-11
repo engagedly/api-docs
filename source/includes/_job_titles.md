@@ -2,12 +2,12 @@
 
 ## List all job titles
 
-`GET http://api.engagedly.com/beta/job_titles`
+`GET https://api.engagedly.com/beta/job_titles`
 
 > Sample Request
 
 ```shell
-GET http://api.engagedly.com/beta/job_titles
+GET https://api.engagedly.com/beta/job_titles
 ```
 
 > Sample Response
@@ -39,7 +39,7 @@ content-type: application/json
 
 ## Get a single job title
 
-`GET http://api.engagedly.com/beta/job_titles/<ID>`
+`GET https://api.engagedly.com/beta/job_titles/<ID>`
 
 ### URL Parameters
 
@@ -74,7 +74,7 @@ content-type: application/json
 
 ## Create a new job title
 
-`POST http://api.engagedly.com/beta/job_titles`
+`POST https://api.engagedly.com/beta/job_titles`
 
 ### Parameters
 
@@ -129,7 +129,7 @@ content-type: application/json
 
 ## Update an existing job title
 
-`PUT http://api.engagedly.com/beta/job_titles/<ID>`
+`PUT https://api.engagedly.com/beta/job_titles/<ID>`
 
 ### URL Parameters
 
@@ -189,7 +189,7 @@ content-type: application/json
 
 ## Delete a job title 
 
-`DELETE http://api.engagedly.com/beta/job_titles/<ID>`
+`DELETE https://api.engagedly.com/beta/job_titles/<ID>`
 
 ### URL Parameters
 
