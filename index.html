@@ -775,7 +775,7 @@ content-type: application/json
   <tr>
     <td>level</td>
     <td>string</td>
-    <td>Indicative level(Hierarchical/Non-Hierarchical) of the employee</td>
+    <td>Level of the employee</td>
   </tr>
   <tr>
     <td>phone_number</td>
@@ -806,12 +806,12 @@ content-type: application/json
     </tr>
   <tr>
         <td>hr_managers</td>
-        <td>array of objects</td>
+        <td>array of ids</td>
         <td>Array of HR Managers for the Employee</td>
     </tr>
   <tr>
         <td>secondary_managers</td>
-        <td>array of objects</td>
+        <td>array of ids</td>
         <td>Array of Secondary Managers to whom the user may report to.</td>
     </tr>
 </table>
@@ -908,6 +908,33 @@ content-type: application/json
         <td>string</td>
         <td>Employee Id</td>
     </tr>
+  <tr>
+    <td>promotion_date</td>
+    <td>string</td>
+    <td>Impending Promotion Date of the Employee </td>
+  </tr>
+  <tr>
+  <tr>
+    <td>review_date</td>
+    <td>string</td>
+    <td>Impending Review Date of the Employee </td>
+  </tr>
+  <tr>
+    <td>level</td>
+    <td>string</td>
+    <td>Level of the employee</td>
+  </tr>
+  <tr>
+    <td>phone_number</td>
+    <td>string</td>
+    <td>Phone number of the Epmloyee</td>
+  </tr>
+  <tr>
+    <td>secondary_phone_number</td>
+    <td>string</td>
+    <td>Secondary Phone number of the Epmloyee </td>
+  </tr>
+
     <tr>
         <td>joining_date</td>
         <td>date</td>
@@ -933,6 +960,16 @@ content-type: application/json
         <td>array of department ids</td>
         <td>Array of departments for which this use would be part of</td>
     </tr>
+  <tr>
+    <td>hr_managers</td>
+    <td>array of ids</td>
+    <td>Array of HR Managers for the Employee</td>
+  </tr>
+  <tr>
+    <td>secondary_managers</td>
+    <td>array of ids</td>
+    <td>Array of Secondary Managers to whom the user may report to.</td>
+  </tr>
 </table>
 
 <blockquote>
