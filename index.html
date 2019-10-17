@@ -341,6 +341,14 @@
                   </li>
               </ul>
           </li>
+          <li>
+            <a href="#activities" class="toc-h1 toc-link" data-title="Activities">Activities</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-all-public-praises" class="toc-h2 toc-link" data-title="Get all public Praises">Get all public Praises</a>
+                  </li>
+              </ul>
+          </li>
       </ul>
     </div>
     <div class="page-wrapper">
@@ -1953,6 +1961,138 @@ content-type: application/json
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
+</span></code></pre><h1 id='activities'>Activities</h1><h2 id='get-all-public-praises'>Get all public Praises</h2>
+<p><code>GET https://api.engagedly.com/beta/activities/praises</code></p>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>GET https://api.engagedly.com/beta/activities/praises
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight http tab-http"><code><span class="err">200 OK
+content-type: application/json
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"has_more"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"total_records"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">107781</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"activity_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Praise"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"activity_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-01-30T06:56:24.895Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"last_updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-01-30T06:56:24.895Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"goodd work..."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"pinned"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aaron Kutcher"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9fcb1375-e11a-4492-b7e8-39d3912231dd"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"display_picture"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://social.engagedly.local:3005/uploads/picture/file/3073/reduced_images__2_.jpg"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"original"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://social.engagedly.local:3005/uploads/picture/file/3073/images__2_.jpg"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"reduced"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://social.engagedly.local:3005/uploads/picture/file/3073/reduced_images__2_.jpg"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="s2">"designation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Promoter"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"audience"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Everyone"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6e9c487c-c23a-44ec-9fe6-a4a4e527552c"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"display_picture"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                        </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"original"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"reduced"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+                    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Group"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+            </span><span class="s2">"attachments"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+            </span><span class="s2">"comment_details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"like_details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"is_liked"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"can_edit"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"can_delete"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recognized_actors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Looks L  Das"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e5838577-2612-44f8-a684-167fdcf2e524"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"display_picture"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                        </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"original"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"reduced"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+                    </span><span class="s2">"designation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Accountant"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">107780</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"activity_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Praise"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"activity_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-01-30T06:54:25.287Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"last_updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-01-30T06:54:25.287Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"good work..."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"pinned"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aaronn Astons"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9fcb1375-e11a-4492-b7e8-39d3912231dd"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"display_picture"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://social.engagedly.local:3005/uploads/picture/file/3073/reduced_images__2_.jpg"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"original"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://social.engagedly.local:3005/uploads/picture/file/3073/images__2_.jpg"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"reduced"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://social.engagedly.local:3005/uploads/picture/file/3073/reduced_images__2_.jpg"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="s2">"designation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Promoter"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"audience"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Everyone"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6e9c487c-c23a-44ec-9fe6-a4a4e527552c"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"display_picture"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                        </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"original"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"reduced"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+                    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Group"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+            </span><span class="s2">"attachments"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+            </span><span class="s2">"comment_details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"like_details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"is_liked"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"can_edit"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"can_delete"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recognized_actors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Looks L  Das"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e5838577-2612-44f8-a684-167fdcf2e524"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"display_picture"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                        </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"original"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"reduced"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+                    </span><span class="s2">"designation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Accountant"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
 </span></code></pre>
       </div>
       <div class="dark-box">
