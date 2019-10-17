@@ -9,7 +9,6 @@
 Parameter | Description
 --------- | -----------
 include | primary_reporter,direct_reports
-
 > Sample Request
 
 ```shell
@@ -78,7 +77,8 @@ ID | The ID of the user
 
 Parameter | Description
 --------- | -----------
-include | direct_reports
+include | primary_reporter,direct_reports,hr_managers,secondary_managers
+
 
 > Sample Request
 
@@ -101,40 +101,70 @@ content-type: application/json
 
 ```json
 {
-  	"success": true,
-  	"data": {
-		"id": "b62167d0-2718-4e45-9721-27535991becf",
-		"name": "Adam Smith",
-		"status": "Active",
-		"email": "adam.smith@teamyogi.com",
-		"first_name": "Adam",
-		"middle_name": null,
-		"last_name": "Smith",
-		"employee_id": "E007",
-		"education": "BS- Anthropology, Stanford University",
-		"about_me": "I love exploring whether it is in business or ancient sites. Lets discover together.",
-		"display_picture": {
-			"medium": "https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg",
-			"large": "https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg",
-			"small": "https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"
-		},
-		"job_title": {
-		"id": "261",
-		"name": "CEO"
-		},
-    	"joining_date": null,
-		"location": {
-		"id": "11",
-		"name": "United States"
-		},
-		"departments": [
-			{
-            	"id": "1",
-            	"name": "Customer Support",
-            	"is_admin" : true
-       		 }
-		]
-  	}
+    "success": true,
+    "data": {
+        "id": "b62167d0-2718-4e45-9721-27535991becf",
+        "name": "Aron Jhon",
+        "first_name": "Aron",
+        "middle_name": null,
+        "last_name": "Jhon",
+        "employee_id": "s1212",
+        "status": "Active",
+        "email": "aron@teamyogi.com",
+        "display_picture": {
+            "medium": "http://social.engagedly.com//uploads/picture/file/751/reduced_Dan_Farmer1.jpg",
+            "small": "http://social.engagedly.com//uploads/picture/file/751/small_Dan_Farmer1.jpg"
+        },
+        "business_unit": [],
+        "employee_type": null,
+        "birthdate": "12-10-1983",
+        "departments": [],
+        "primary_reporter": null,
+        "direct_reports": [
+            {
+                "id": "1f6bec89-4d03-49d0-bf3d-ae0300830693",
+                "name": "satyam s  s",
+                "first_name": "satyam",
+                "middle_name": "s",
+                "last_name": "s",
+                "employee_id": "980",
+                "status": "Active",
+                "email": "satyam@teamyogi.com",
+                "display_picture": null,
+                "job_title": null,
+                "business_unit": [],
+                "employee_type": null,
+                "location": null,
+                "birthdate": "12-10-1985",
+                "primary_reporter": null,
+                "education": null,
+                "about_me": null,
+                "phone_number": 2452323131,
+                "level": "3",
+                "secondary_phone_number": null,
+                "joining_date": "2014-05-23T10:39:48Z2",
+                "promotion_date": "2015-04-22T10:39:48Z2",
+                "review_date": nu"2015-04-22T10:39:48Z2"ll
+            }
+
+        ],
+        "job_title": {
+            "id": "261",
+            "name": "CEO"
+        },
+        "location": {
+            "id": "11",
+            "name": "United States"
+        },
+        "education": "b.tech,MS",
+        "about_me": "Fun loving",
+        "phone_number": "3123433234",
+        "level": "2",
+        "secondary_phone_number": "2452323131",
+        "joining_date": "2013-04-22T10:39:48Z2",
+        "promotion_date": "2015-04-22T10:39:48Z",
+        "review_date": "2015-04-22T10:39:48Z"
+    }
 }
 ```
 
@@ -195,10 +225,52 @@ content-type: application/json
 		<td>string</td>
 		<td>Id of the job title</td>
 	</tr>
+  <tr>
+    <td>employee_type</td>
+    <td>string</td>
+    <td>Type to which Emplyee belongs to </td>
+  </tr>
+  <tr>
+    <td>level</td>
+    <td>string</td>
+    <td>Indicative level(Hierarchical/Non-Hierarchical) of the employee</td>
+  </tr>
+  <tr>
+    <td>phone_number</td>
+    <td>string</td>
+    <td>Phone number of the Epmloyee</td>
+  </tr>
+  <tr>
+    <td>secondary_phone_number</td>
+    <td>string</td>
+    <td>Secondary Phone number of the Epmloyee </td>
+  </tr>
+  <tr>
+    <td>promotion_date</td>
+    <td>string</td>
+    <td>Impending Promotion Date of the Employee </td>
+  </tr>
+  <tr>
+  <tr>
+    <td>review_date</td>
+    <td>string</td>
+    <td>Impending Review Date of the Employee </td>
+  </tr>
+  <tr>
 	<tr>
 		<td>departments</td>
 		<td>array of department ids</td>
-		<td>Array of departments for which this use would be part of</td>
+		<td>Array of departments for which this user would be part of</td>
+	</tr>
+  <tr>
+		<td>hr_managers</td>
+		<td>array of objects</td>
+		<td>Array of HR Managers for the Employee</td>
+	</tr>
+  <tr>
+		<td>secondary_managers</td>
+		<td>array of objects</td>
+		<td>Array of Secondary Managers to whom the user may report to.</td>
 	</tr>
 </table>
 
