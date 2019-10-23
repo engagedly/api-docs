@@ -45,6 +45,12 @@ content-type: application/json
                 },
                 "designation": "Promoter"
             },
+            "tags": [
+              {
+                  "code": "goodwork",
+                  "label": "goodwork"
+              }
+            ],
             "audience": [
                 {
                     "name": "Everyone",

@@ -10,6 +10,7 @@ includes:
   - locations
   - job_titles
   - permissions
+  - activities
 
 
 search: true
@@ -158,6 +159,3 @@ validation_error | Errors triggered by our client-side libraries when failing to
 Most of the API responses that returns the list of objects are paginated. The parameters that control the pagination are 'page' and 'size', indicating the page number and the items per page values. Within the response, a pagination attribute will be set and will contain the provided 'page' and 'size' along with 'has_more' and 'record_count' indicating whether there are more items that can be fetched and total number of records.
 
 The page number starts with 1 and by default the number of records returned are 25. The maximum number of records (size) that can be returned is 50.
-
-
-
