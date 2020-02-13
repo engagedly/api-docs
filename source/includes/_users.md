@@ -272,6 +272,11 @@ content-type: application/json
 		<td>array of ids</td>
 		<td>Array of Secondary Managers to whom the user may report to.</td>
 	</tr>
+  <tr>
+		<td>manager_id</td>
+		<td>string</td>
+		<td>Unique identifier of Manager to whom the user may report to.</td>
+	</tr>
 </table>
 
 > Sample Request
@@ -322,7 +327,7 @@ content-type: application/json
             	"is_admin" : true
        		 }
 		]
-  	}
+  }
 }
 ```
 
