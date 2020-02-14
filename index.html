@@ -822,6 +822,11 @@ content-type: application/json
         <td>array of ids</td>
         <td>Array of Secondary Managers to whom the user may report to.</td>
     </tr>
+  <tr>
+        <td>manager_id</td>
+        <td>string</td>
+        <td>Unique identifier of Manager to whom the user may report to.</td>
+    </tr>
 </table>
 
 <blockquote>
@@ -868,7 +873,7 @@ content-type: application/json
                 </span><span class="s2">"is_admin"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
              </span><span class="p">}</span><span class="w">
         </span><span class="p">]</span><span class="w">
-    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='update-an-existing-user'>Update an existing user</h2>
 <p><code>PUT https://api.engagedly.com/beta/users/&lt;ID&gt;</code></p>
