@@ -7,6 +7,7 @@ language_tabs:
 includes:
   - users
   - departments
+  - businesses
   - locations
   - job_titles
   - permissions

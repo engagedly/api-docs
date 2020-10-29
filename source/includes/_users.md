@@ -263,6 +263,11 @@ content-type: application/json
 		<td>Array of departments for which this user would be part of</td>
 	</tr>
   <tr>
+    <td>businesses</td>
+    <td>array of business ids</td>
+    <td>Array of businesses for which this user would be part of</td>
+  </tr>
+  <tr>
 		<td>hr_managers</td>
 		<td>array of ids</td>
 		<td>Array of HR Managers for the Employee</td>
@@ -426,6 +431,11 @@ ID | The ID of the user
 		<td>array of department ids</td>
 		<td>Array of departments for which this use would be part of</td>
 	</tr>
+  <tr>
+    <td>businesses</td>
+    <td>array of business ids</td>
+    <td>Array of businesses for which this user would be part of</td>
+  </tr>
   <tr>
     <td>hr_managers</td>
     <td>array of ids</td>
