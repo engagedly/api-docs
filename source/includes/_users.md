@@ -6,9 +6,10 @@
 
 ### URL Parameters for extra information
 
-Parameter | Description
---------- | -----------
-include | primary_reporter,direct_reports
+Parameter       | Description
+--------------- | -----------
+include         | primary_reporter,direct_reports
+email           | filter based on an email
 > Sample Request
 
 ```shell
