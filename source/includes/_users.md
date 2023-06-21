@@ -550,6 +550,62 @@ content-type: application/json
 }
 ```
 
+## Get Block Reason Codes for User Deactivation
+
+`GET https://api.engagedly.com/beta/users/block-reason-codes`
+
+### URL Parameters
+
+
+> Sample Request
+
+```shell
+GET https://api.engagedly.com/beta/users/block-reason-codes
+```
+
+> Sample Response
+
+```http
+200 OK
+content-type: application/json
+```
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "code": "involuntary",
+            "display_text": "Involuntary",
+            "description": "Initiated by the business. Example, RIF (Reduction in Force)"
+        },
+
+        {
+            "code": "dismissal_with_cause",
+            "display_text": "Dismissal with Cause",
+            "description": "Initiated by business. This field is for individuals that the business generally will not work with in the future and include this information in their employee record. Example, consistently poor performance, violation of company code of conduct"
+        },
+        {
+            "code": "fatigue",
+            "display_text": "Burnout",
+            "description": "Initiated by individual, but business can have a role in this as well."
+        },
+        {
+            "code": "sabatical",
+            "display_text": "Sabatical",
+            "description": "Initiated by business or individual. This field is for individuals that the organization may potentially want to work with again in the future. Example, personal leave of absence, contract expiration."
+        },
+        {
+            "code": "not_known",
+            "display_text": "Not Known",
+            "description": "The reason for deactivation is not known"
+        }
+    ]
+}
+```
+
+
+
 ## Deactivate an user
 
 `PUT https://api.engagedly.com/beta/users/<ID>/deactivate`
@@ -559,12 +615,19 @@ content-type: application/json
 Parameter | Description
 --------- | -----------
 ID | The ID of the user
+block_reason_code | code for blocking reason (optional)
 
 
 > Sample Request
 
 ```shell
 PUT https://api.engagedly.com/api/beta/users/b62167d0-2718-4e45-9721-27535991becf/deactivate
+
+```json
+    {
+        "block_reason_code": "involuntary"
+    }
+```
 ```
 
 > Sample Response
