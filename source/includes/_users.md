@@ -550,11 +550,10 @@ content-type: application/json
 }
 ```
 
-## Get Block Reason Codes for User Deactivation
+## Get Block Reason Codes
 
 `GET https://api.engagedly.com/beta/users/block-reason-codes`
 
-### URL Parameters
 
 
 > Sample Request
@@ -623,11 +622,10 @@ block_reason_code | code for blocking reason (optional)
 ```shell
 PUT https://api.engagedly.com/api/beta/users/b62167d0-2718-4e45-9721-27535991becf/deactivate
 
-```json
     {
         "block_reason_code": "involuntary"
     }
-```
+
 ```
 
 > Sample Response
