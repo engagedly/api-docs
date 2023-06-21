@@ -260,6 +260,9 @@
                     <a href="#update-user-39-s-profile-picture" class="toc-h2 toc-link" data-title="Update user's profile picture">Update user's profile picture</a>
                   </li>
                   <li>
+                    <a href="#get-block-reason-codes" class="toc-h2 toc-link" data-title="Get Block Reason Codes">Get Block Reason Codes</a>
+                  </li>
+                  <li>
                     <a href="#deactivate-an-user" class="toc-h2 toc-link" data-title="Deactivate an user">Deactivate an user</a>
                   </li>
                   <li>
@@ -1111,6 +1114,50 @@ content-type: application/json
 </span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='get-block-reason-codes'>Get Block Reason Codes</h2>
+<p><code>GET https://api.engagedly.com/beta/users/block-reason-codes</code></p>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>GET https://api.engagedly.com/beta/users/block-reason-codes
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight http tab-http"><code><span class="err">200 OK
+content-type: application/json
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"involuntary"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"display_text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Involuntary"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Initiated by the business. Example, RIF (Reduction in Force)"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dismissal_with_cause"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"display_text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dismissal with Cause"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Initiated by business. This field is for individuals that the business generally will not work with in the future and include this information in their employee record. Example, consistently poor performance, violation of company code of conduct"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fatigue"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"display_text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Burnout"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Initiated by individual, but business can have a role in this as well."</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sabatical"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"display_text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sabatical"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Initiated by business or individual. This field is for individuals that the organization may potentially want to work with again in the future. Example, personal leave of absence, contract expiration."</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"not_known"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"display_text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Not Known"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The reason for deactivation is not known"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='deactivate-an-user'>Deactivate an user</h2>
 <p><code>PUT https://api.engagedly.com/beta/users/&lt;ID&gt;/deactivate</code></p>
 <h3 id='url-parameters-4'>URL Parameters</h3>
@@ -1124,12 +1171,21 @@ content-type: application/json
 <td>ID</td>
 <td>The ID of the user</td>
 </tr>
+<tr>
+<td>block_reason_code</td>
+<td>code for blocking reason (optional)</td>
+</tr>
 </tbody></table>
 
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
 <pre class="highlight shell tab-shell"><code>PUT https://api.engagedly.com/api/beta/users/b62167d0-2718-4e45-9721-27535991becf/deactivate
+
+    <span class="o">{</span>
+        <span class="s2">"block_reason_code"</span>: <span class="s2">"involuntary"</span>
+    <span class="o">}</span>
+
 </code></pre>
 <blockquote>
 <p>Sample Response</p>
