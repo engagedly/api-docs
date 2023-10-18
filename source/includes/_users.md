@@ -506,6 +506,184 @@ content-type: application/json
 }
 ```
 
+
+## Partially Update an existing user
+
+`PUT https://api.engagedly.com/beta/users/<ID>`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+ID | The ID of the user
+
+### Any Combination of Parameters can be sent in JSON body
+
+<table>
+	<tr>
+		<th width="30%">ATTRIBUTE</th>
+		<th width="30%">TYPE</th>
+		<th width="60%">DESCRIPTION</th>
+	</tr>
+	<tr>
+		<td>first_name </td>
+		<td>string</td>
+		<td>First name of the user</td>
+	</tr>
+	<tr>
+		<td>middle_name</td>
+		<td>string</td>
+		<td>Middle name of the user</td>
+	</tr>
+	<tr>
+		<td>last_name</td>
+		<td>string</td>
+		<td>Last name of the user</td>
+	</tr>
+	<tr>
+		<td>email</td>
+		<td>string</td>
+		<td>Email Id of the user</td>
+	</tr>
+	<tr>
+		<td>employee_id</td>
+		<td>string</td>
+		<td>Employee Id</td>
+	</tr>
+  <tr>
+    <td>promotion_date</td>
+    <td>string</td>
+    <td>Impending Promotion Date of the Employee </td>
+  </tr>
+  <tr>
+  <tr>
+    <td>review_date</td>
+    <td>string</td>
+    <td>Impending Review Date of the Employee </td>
+  </tr>
+  <tr>
+    <td>level</td>
+    <td>string</td>
+    <td>Level of the employee</td>
+  </tr>
+  <tr>
+    <td>phone_number</td>
+    <td>string</td>
+    <td>Phone number of the Epmloyee</td>
+  </tr>
+  <tr>
+    <td>secondary_phone_number</td>
+    <td>string</td>
+    <td>Secondary Phone number of the Epmloyee </td>
+  </tr>
+
+	<tr>
+		<td>joining_date</td>
+		<td>date</td>
+		<td>Date of which employee was hired</td>
+	</tr>
+	<tr>
+		<td>birth_date</td>
+		<td>date</td>
+		<td>Date of birth of the user</td>
+	</tr>
+	<tr>
+		<td>location</td>
+		<td>string</td>
+		<td>Id of the location</td>
+	</tr>
+	<tr>
+		<td>job_title</td>
+		<td>string</td>
+		<td>Id of the job title</td>
+	</tr>
+	<tr>
+		<td>departments</td>
+		<td>array of department ids</td>
+		<td>Array of departments for which this use would be part of</td>
+	</tr>
+  <tr>
+    <td>businesses</td>
+    <td>array of business ids</td>
+    <td>Array of businesses for which this user would be part of</td>
+  </tr>
+  <tr>
+    <td>hr_managers</td>
+    <td>array of ids</td>
+    <td>Array of HR Managers for the Employee</td>
+  </tr>
+  <tr>
+    <td>secondary_managers</td>
+    <td>array of ids</td>
+    <td>Array of Secondary Managers to whom the user may report to.</td>
+  </tr>
+    <td>manager_id</td>
+    <td>string</td>
+    <td>Unique identifier of Manager to whom the user may report to.</td>
+  </tr>
+
+</table>
+
+> Sample Request
+
+```shell
+PATCH https://api.engagedly.com/api/beta/users/b62167d0-2718-4e45-9721-27535991becf
+
+{
+	"last_name": "Smith",
+	"employee_id": "E007",
+	"education": "BS- Anthropology, Stanford University",
+	"departments": ["12312x1-1ex1-12eex-132e23ex-dw223e"]
+}
+```
+
+> Sample Response
+
+```http
+200 OK
+content-type: application/json
+```
+
+```json
+{
+  	"success": true,
+  	"data": {
+		"id": "b62167d0-2718-4e45-9721-27535991becf",
+		"name": "Adam Smith",
+		"status": "Active",
+		"email": "adam.smith@teamyogi.com",
+		"first_name": "Adam",
+		"middle_name": null,
+		"last_name": "Smith",
+		"employee_id": "E007",
+		"education": "BS- Anthropology, Stanford University",
+		"about_me": "I love exploring whether it is in business or ancient sites. Lets discover together.",
+		"display_picture": {
+			"medium": "https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg",
+			"large": "https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg",
+			"small": "https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"
+		},
+		"job_title": {
+		"id": "261",
+		"name": "CEO"
+		},
+    	"joining_date": null,
+		"location": {
+		"id": "11",
+		"name": "United States"
+		},
+		"departments": [
+			{
+            	"id": "1",
+            	"name": "Customer Support",
+            	"is_admin" : true
+       		 }
+		]
+  	}
+}
+```
+
+
 ## Update user's profile picture
 
 `PUT https://api.engagedly.com/beta/users/<ID>/profile/picture`
