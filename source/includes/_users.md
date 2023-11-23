@@ -509,7 +509,7 @@ content-type: application/json
 
 ## Partially Update an existing user
 
-`PUT https://api.engagedly.com/beta/users/<ID>`
+`PATCH https://api.engagedly.com/beta/users/<ID>`
 
 ### URL Parameters
 
