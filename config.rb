@@ -1,5 +1,8 @@
 # Unique header generation
 require './lib/unique_head.rb'
+require 'tilt/handlebars'
+require 'org-ruby'
+
 
 # Markdown
 set :markdown_engine, :redcarpet
