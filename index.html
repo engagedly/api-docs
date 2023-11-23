@@ -257,7 +257,10 @@
                     <a href="#update-an-existing-user" class="toc-h2 toc-link" data-title="Update an existing user">Update an existing user</a>
                   </li>
                   <li>
-                    <a href="#update-user-39-s-profile-picture" class="toc-h2 toc-link" data-title="Update user's profile picture">Update user's profile picture</a>
+                    <a href="#partially-update-an-existing-user" class="toc-h2 toc-link" data-title="Partially Update an existing user">Partially Update an existing user</a>
+                  </li>
+                  <li>
+                    <a href="#update-user-39-s-profile-picture" class="toc-h2 toc-link" data-title="Update user’s profile picture">Update user’s profile picture</a>
                   </li>
                   <li>
                     <a href="#get-block-reason-codes" class="toc-h2 toc-link" data-title="Get Block Reason Codes">Get Block Reason Codes</a>
@@ -380,7 +383,7 @@
         <h1 id='introduction'>Introduction</h1>
 <p>Engagedly is a cloud based new age Performance Management Software that redefines performance appraisals by simplifying and incorporating elements of employee engagement into the performance review process.</p>
 
-<p>Engagedly API are designed to be REST (<strong>Representational State Transfer</strong>) APIs. These &#39;RESTful&#39; APIs allows operations such as reading, modifying, adding or deleting data from your Engagedly Instance.</p>
+<p>Engagedly API are designed to be REST (<strong>Representational State Transfer</strong>) APIs. These &lsquo;RESTful&rsquo; APIs allows operations such as reading, modifying, adding or deleting data from your Engagedly Instance.</p>
 
 <aside class="notice">Engagedly APIs does not support Cross-Origin Resource Sharing (CORS).</aside>
 <h1 id='getting-started'>Getting Started</h1><h2 id='authentication'>Authentication</h2>
@@ -460,11 +463,11 @@
 </thead><tbody>
 <tr>
 <td>200</td>
-<td>OK -- Everything worked as expected.</td>
+<td>OK &ndash; Everything worked as expected.</td>
 </tr>
 <tr>
 <td>201</td>
-<td>Created -- The request was a success and one or more resources have been created.</td>
+<td>Created &ndash; The request was a success and one or more resources have been created.</td>
 </tr>
 <tr>
 <td>204</td>
@@ -472,35 +475,35 @@
 </tr>
 <tr>
 <td>400</td>
-<td>Bad Request -- The request cannot be performed. Usually because of malformed parameter or missing parameter.</td>
+<td>Bad Request &ndash; The request cannot be performed. Usually because of malformed parameter or missing parameter.</td>
 </tr>
 <tr>
 <td>401</td>
-<td>Unauthorized -- Request was rejected because of invalid AuthToken.</td>
+<td>Unauthorized &ndash; Request was rejected because of invalid AuthToken.</td>
 </tr>
 <tr>
 <td>402</td>
-<td>Request Failed -- The parameters were valid but the request failed.</td>
+<td>Request Failed &ndash; The parameters were valid but the request failed.</td>
 </tr>
 <tr>
 <td>403</td>
-<td>Forbidden -- The user does not have enough permission or possibly not an user of the respective organization to access the resource.</td>
+<td>Forbidden &ndash; The user does not have enough permission or possibly not an user of the respective organization to access the resource.</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found -- The URL you’ve sent is wrong. It’s possible that the resource you’ve requested has been moved to another URL.</td>
+<td>Not Found &ndash; The URL you’ve sent is wrong. It’s possible that the resource you’ve requested has been moved to another URL.</td>
 </tr>
 <tr>
 <td>405</td>
-<td>Method Not Allowed -- The requested resource does not support the HTTP method used.</td>
+<td>Method Not Allowed &ndash; The requested resource does not support the HTTP method used.</td>
 </tr>
 <tr>
 <td>406</td>
-<td>Not Acceptable -- The requested response type is not supported by the client.</td>
+<td>Not Acceptable &ndash; The requested response type is not supported by the client.</td>
 </tr>
 <tr>
 <td>409</td>
-<td>Conflict -- The request conflicts with another request (perhaps due to using the same idempotent key).</td>
+<td>Conflict &ndash; The request conflicts with another request (perhaps due to using the same idempotent key).</td>
 </tr>
 <tr>
 <td>415</td>
@@ -512,11 +515,11 @@
 </tr>
 <tr>
 <td>429</td>
-<td>Too Many Requests -- Too many requests within a certain time frame.</td>
+<td>Too Many Requests &ndash; Too many requests within a certain time frame.</td>
 </tr>
 <tr>
 <td>500</td>
-<td>Server Errors -- Something went wrong on Engagedly&#39;s end.</td>
+<td>Server Errors &ndash; Something went wrong on Engagedly&rsquo;s end.</td>
 </tr>
 </tbody></table>
 <h3 id='error-response'>Error Response</h3>
@@ -570,7 +573,7 @@
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre><h2 id='pagination'>Pagination</h2>
-<p>Most of the API responses that returns the list of objects are paginated. The parameters that control the pagination are &#39;page&#39; and &#39;size&#39;, indicating the page number and the items per page values. Within the response, a pagination attribute will be set and will contain the provided &#39;page&#39; and &#39;size&#39; along with &#39;has_more&#39; and &#39;record_count&#39; indicating whether there are more items that can be fetched and total number of records.</p>
+<p>Most of the API responses that returns the list of objects are paginated. The parameters that control the pagination are &lsquo;page&rsquo; and &lsquo;size&rsquo;, indicating the page number and the items per page values. Within the response, a pagination attribute will be set and will contain the provided &lsquo;page&rsquo; and &lsquo;size&rsquo; along with &lsquo;has_more&rsquo; and &lsquo;record_count&rsquo; indicating whether there are more items that can be fetched and total number of records.</p>
 
 <p>The page number starts with 1 and by default the number of records returned are 25. The maximum number of records (size) that can be returned is 50.</p>
 <h1 id='users'>Users</h1><h2 id='list-all-users'>List all users</h2>
@@ -1073,9 +1076,182 @@ content-type: application/json
         </span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h2 id='update-user-39-s-profile-picture'>Update user&#39;s profile picture</h2>
-<p><code>PUT https://api.engagedly.com/beta/users/&lt;ID&gt;/profile/picture</code></p>
+</span></code></pre><h2 id='partially-update-an-existing-user'>Partially Update an existing user</h2>
+<p><code>PUT https://api.engagedly.com/beta/users/&lt;ID&gt;</code></p>
 <h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the user</td>
+</tr>
+</tbody></table>
+<h3 id='any-combination-of-parameters-can-be-sent-in-json-body'>Any Combination of Parameters can be sent in JSON body</h3>
+<table>
+    <tr>
+        <th width="30%">ATTRIBUTE</th>
+        <th width="30%">TYPE</th>
+        <th width="60%">DESCRIPTION</th>
+    </tr>
+    <tr>
+        <td>first_name </td>
+        <td>string</td>
+        <td>First name of the user</td>
+    </tr>
+    <tr>
+        <td>middle_name</td>
+        <td>string</td>
+        <td>Middle name of the user</td>
+    </tr>
+    <tr>
+        <td>last_name</td>
+        <td>string</td>
+        <td>Last name of the user</td>
+    </tr>
+    <tr>
+        <td>email</td>
+        <td>string</td>
+        <td>Email Id of the user</td>
+    </tr>
+    <tr>
+        <td>employee_id</td>
+        <td>string</td>
+        <td>Employee Id</td>
+    </tr>
+  <tr>
+    <td>promotion_date</td>
+    <td>string</td>
+    <td>Impending Promotion Date of the Employee </td>
+  </tr>
+  <tr>
+  <tr>
+    <td>review_date</td>
+    <td>string</td>
+    <td>Impending Review Date of the Employee </td>
+  </tr>
+  <tr>
+    <td>level</td>
+    <td>string</td>
+    <td>Level of the employee</td>
+  </tr>
+  <tr>
+    <td>phone_number</td>
+    <td>string</td>
+    <td>Phone number of the Epmloyee</td>
+  </tr>
+  <tr>
+    <td>secondary_phone_number</td>
+    <td>string</td>
+    <td>Secondary Phone number of the Epmloyee </td>
+  </tr>
+
+    <tr>
+        <td>joining_date</td>
+        <td>date</td>
+        <td>Date of which employee was hired</td>
+    </tr>
+    <tr>
+        <td>birth_date</td>
+        <td>date</td>
+        <td>Date of birth of the user</td>
+    </tr>
+    <tr>
+        <td>location</td>
+        <td>string</td>
+        <td>Id of the location</td>
+    </tr>
+    <tr>
+        <td>job_title</td>
+        <td>string</td>
+        <td>Id of the job title</td>
+    </tr>
+    <tr>
+        <td>departments</td>
+        <td>array of department ids</td>
+        <td>Array of departments for which this use would be part of</td>
+    </tr>
+  <tr>
+    <td>businesses</td>
+    <td>array of business ids</td>
+    <td>Array of businesses for which this user would be part of</td>
+  </tr>
+  <tr>
+    <td>hr_managers</td>
+    <td>array of ids</td>
+    <td>Array of HR Managers for the Employee</td>
+  </tr>
+  <tr>
+    <td>secondary_managers</td>
+    <td>array of ids</td>
+    <td>Array of Secondary Managers to whom the user may report to.</td>
+  </tr>
+    <td>manager_id</td>
+    <td>string</td>
+    <td>Unique identifier of Manager to whom the user may report to.</td>
+  </tr>
+
+</table>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>PATCH https://api.engagedly.com/api/beta/users/b62167d0-2718-4e45-9721-27535991becf
+
+<span class="o">{</span>
+    <span class="s2">"last_name"</span>: <span class="s2">"Smith"</span>,
+    <span class="s2">"employee_id"</span>: <span class="s2">"E007"</span>,
+    <span class="s2">"education"</span>: <span class="s2">"BS- Anthropology, Stanford University"</span>,
+    <span class="s2">"departments"</span>: <span class="o">[</span><span class="s2">"12312x1-1ex1-12eex-132e23ex-dw223e"</span><span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight http tab-http"><code><span class="err">200 OK
+content-type: application/json
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b62167d0-2718-4e45-9721-27535991becf"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam Smith"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"adam.smith@teamyogi.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adam"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"middle_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Smith"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"employee_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"E007"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"education"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BS- Anthropology, Stanford University"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"about_me"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I love exploring whether it is in business or ancient sites. Lets discover together."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"display_picture"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"medium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"small"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"job_title"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"261"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CEO"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"joining_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United States"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"departments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Customer Support"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"is_admin"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+             </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='update-user-39-s-profile-picture'>Update user&rsquo;s profile picture</h2>
+<p><code>PUT https://api.engagedly.com/beta/users/&lt;ID&gt;/profile/picture</code></p>
+<h3 id='url-parameters-4'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1160,7 +1336,7 @@ content-type: application/json
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='deactivate-an-user'>Deactivate an user</h2>
 <p><code>PUT https://api.engagedly.com/beta/users/&lt;ID&gt;/deactivate</code></p>
-<h3 id='url-parameters-4'>URL Parameters</h3>
+<h3 id='url-parameters-5'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1222,7 +1398,7 @@ content-type: application/json
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='activate-an-user'>Activate an user</h2>
 <p><code>PUT https://api.engagedly.com/beta/users/&lt;ID&gt;/activate</code></p>
-<h3 id='url-parameters-5'>URL Parameters</h3>
+<h3 id='url-parameters-6'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1275,7 +1451,7 @@ content-type: application/json
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='permissions-of-an-user'>Permissions of an user</h2>
 <p><code>GET https://api.engagedly.com/beta/users/&lt;ID&gt;/permissions</code></p>
-<h3 id='url-parameters-6'>URL Parameters</h3>
+<h3 id='url-parameters-7'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1317,7 +1493,7 @@ content-type: application/json
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='update-permissions-of-an-user'>Update permissions of an user</h2>
 <p><code>PUT https://api.engagedly.com/beta/users/&lt;ID&gt;/permissions</code></p>
-<h3 id='url-parameters-7'>URL Parameters</h3>
+<h3 id='url-parameters-8'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
