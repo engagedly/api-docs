@@ -6,15 +6,17 @@
 
 ### URL Parameters for extra information
 
-Parameter       | Description
---------------- | -----------
-include         | primary_reporter,direct_reports
-email           | filter based on an email
+| Parameter | Description                     |
+| --------- | ------------------------------- |
+| include   | primary_reporter,direct_reports |
+| email     | filter based on an email        |
+
 > Sample Request
 
 ```shell
 GET https://api.engagedly.com/beta/users
 ```
+
 > Sample Request with extra information
 
 ```shell
@@ -30,37 +32,65 @@ content-type: application/json
 
 ```json
 {
-    "success": true,
-    "pagination": {
-        "page": 1,
-        "size": 30,
-        "has_more": false,
-        "total_records": 1
-    },
-	"data": [
-		{
-			"id": "b62167d0-2718-4e45-9721-27535991becf",
-			"name": "Adam Smith",
-			"status": "Active",
-			"email": "adam.smith@teamyogi.com",
-			"first_name": "Adam",
-			"middle_name": null,
-			"last_name": "Smith",
-			"employee_id": "E007",
-			"display_picture": {
-				"medium": "https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg",
-				"small": "https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"
-			},
-			"job_title": {
-				"id": "261",
-				"name": "CEO"
-			},
-			"location": {
-				"id": "11",
-				"name": "United States"
-			}
-		}
-	]
+  "success": true,
+  "pagination": {
+    "page": 1,
+    "size": 30,
+    "has_more": false,
+    "total_records": 1
+  },
+  "data": [
+    {
+      "id": "b62167d0-2718-4e45-9721-27535991becf",
+      "name": "Adam Smith",
+      "status": "Active",
+      "email": "adam.smith@teamyogi.com",
+      "first_name": "Adam",
+      "middle_name": null,
+      "last_name": "Smith",
+      "employee_id": "E007",
+      "display_picture": {
+        "medium": "https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg",
+        "small": "https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"
+      },
+      "job_title": {
+        "id": "261",
+        "name": "CEO"
+      },
+      "location": {
+        "id": "11",
+        "name": "United States"
+      },
+      "custom_attributes": {
+        "custom-attribute-35ba2": {
+          "name": "Date Field",
+          "value": "2024-05-15"
+        },
+        "custom-attribute-18e28": {
+          "name": "Text Field",
+          "value": "Sample Text "
+        },
+        "custom-attribute-6c6f6": {
+          "name": "Single Select",
+          "value": "Dayshift"
+        },
+        "custom-attribute-8907a": {
+          "name": "Number Field",
+          "value": "314"
+        },
+        "custom-attribute-bcfb6": {
+          "name": "Boolean",
+          "value": "true"
+        },
+        "custom-attribute-5d2c8": {
+          "name": "Multi Select",
+          "value": [
+              "English",
+              "Kannada"
+          ]
+        }
+    }
+  ]
 }
 ```
 
@@ -70,16 +100,15 @@ content-type: application/json
 
 ### URL Parameters
 
-Parameter | Description
---------- | -----------
-ID | The ID of the user
+| Parameter | Description        |
+| --------- | ------------------ |
+| ID        | The ID of the user |
 
 ### URL Parameters for extra information
 
-Parameter | Description
---------- | -----------
-include | primary_reporter,direct_reports,hr_managers,secondary_managers
-
+| Parameter | Description                                                    |
+| --------- | -------------------------------------------------------------- |
+| include   | primary_reporter,direct_reports,hr_managers,secondary_managers |
 
 > Sample Request
 
@@ -175,6 +204,8 @@ content-type: application/json
 
 ### Parameters
 
+#### System Attributes
+
 <table>
 	<tr>
 		<th width="30%">ATTRIBUTE</th>
@@ -252,12 +283,10 @@ content-type: application/json
     <td>Impending Promotion Date of the Employee </td>
   </tr>
   <tr>
-  <tr>
     <td>review_date</td>
     <td>string</td>
     <td>Impending Review Date of the Employee </td>
   </tr>
-  <tr>
 	<tr>
 		<td>departments</td>
 		<td>array of department ids</td>
@@ -285,10 +314,46 @@ content-type: application/json
 	</tr>
 </table>
 
+#### Custom Attributes
+
+Custom attributes are passed as individual fields using their `attribute_key` as the field name. The field names will be different from the system attributes listed above.
+
+<table>
+	<tr>
+		<th width="30%">FIELD NAME</th>
+		<th width="30%">TYPE</th>
+		<th width="60%">DESCRIPTION</th>
+	</tr>
+	<tr>
+		<td>{attribute_key}</td>
+		<td>varies</td>
+		<td>Custom attribute value. The field name is the <code>attribute_key</code> from the user-attributes endpoint.</td>
+	</tr>
+</table>
+
+<aside class="warning">
+Custom attribute field names are dynamic and based on the <code>attribute_key</code> from your organization's user-attributes configuration. Always use <code>GET /beta/user-attributes</code> to get the correct field names for your custom attributes.
+</aside>
+
 > Sample Request
 
 ```shell
 POST https://api.engagedly.com/beta/users
+```
+
+```json
+{
+  "first_name": "John",
+  "last_name": "Doe",
+  "email": "john.doe@company.com",
+  "employee_id": "EMP001",
+  "departments": ["dept-123"],
+  "businesses": ["biz-456"],
+  "hr_managers": ["manager-789"],
+  "custom-attribute-93cbf": "Product Management",
+  "custom-attribute-d3b49": 9,
+  "custom-attribute-eb39c": "Meets Expectations"
+}
 ```
 
 > Sample Response
@@ -300,39 +365,39 @@ content-type: application/json
 
 ```json
 {
-  	"success": true,
-  	"data": {
-		"id": "b62167d0-2718-4e45-9721-27535991becf",
-		"name": "Adam Smith",
-		"status": "Active",
-		"email": "adam.smith@teamyogi.com",
-		"first_name": "Adam",
-		"middle_name": null,
-		"last_name": "Smith",
-		"education": "BS- Anthropology, Stanford University",
-		"about_me": "I love exploring whether it is in business or ancient sites. Lets discover together.",
-		"employee_id": "E007",
-		"display_picture": {
-			"medium": "https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg",
-			"large": "https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg",
-			"small": "https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"
-		},
-		"job_title": {
-		"id": "261",
-		"name": "CEO"
-		},
-    	"joining_date": null,
-		"location": {
-		"id": "11",
-		"name": "United States"
-		},
-		"departments": [
-			{
-            	"id": "1",
-            	"name": "Customer Support",
-            	"is_admin" : true
-       		 }
-		]
+  "success": true,
+  "data": {
+    "id": "b62167d0-2718-4e45-9721-27535991becf",
+    "name": "Adam Smith",
+    "status": "Active",
+    "email": "adam.smith@teamyogi.com",
+    "first_name": "Adam",
+    "middle_name": null,
+    "last_name": "Smith",
+    "education": "BS- Anthropology, Stanford University",
+    "about_me": "I love exploring whether it is in business or ancient sites. Lets discover together.",
+    "employee_id": "E007",
+    "display_picture": {
+      "medium": "https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg",
+      "large": "https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg",
+      "small": "https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"
+    },
+    "job_title": {
+      "id": "261",
+      "name": "CEO"
+    },
+    "joining_date": null,
+    "location": {
+      "id": "11",
+      "name": "United States"
+    },
+    "departments": [
+      {
+        "id": "1",
+        "name": "Customer Support",
+        "is_admin": true
+      }
+    ]
   }
 }
 ```
@@ -343,9 +408,9 @@ content-type: application/json
 
 ### URL Parameters
 
-Parameter | Description
---------- | -----------
-ID | The ID of the user
+| Parameter | Description        |
+| --------- | ------------------ |
+| ID        | The ID of the user |
 
 ### Parameters
 
@@ -407,31 +472,32 @@ ID | The ID of the user
     <td>Secondary Phone number of the Epmloyee </td>
   </tr>
 
-	<tr>
-		<td>joining_date</td>
-		<td>date</td>
-		<td>Date of which employee was hired</td>
-	</tr>
-	<tr>
-		<td>birth_date</td>
-		<td>date</td>
-		<td>Date of birth of the user</td>
-	</tr>
-	<tr>
-		<td>location</td>
-		<td>string</td>
-		<td>Id of the location</td>
-	</tr>
-	<tr>
-		<td>job_title</td>
-		<td>string</td>
-		<td>Id of the job title</td>
-	</tr>
-	<tr>
-		<td>departments</td>
-		<td>array of department ids</td>
-		<td>Array of departments for which this use would be part of</td>
-	</tr>
+    <tr>
+    	<td>joining_date</td>
+    	<td>date</td>
+    	<td>Date of which employee was hired</td>
+    </tr>
+    <tr>
+    	<td>birth_date</td>
+    	<td>date</td>
+    	<td>Date of birth of the user</td>
+    </tr>
+    <tr>
+    	<td>location</td>
+    	<td>string</td>
+    	<td>Id of the location</td>
+    </tr>
+    <tr>
+    	<td>job_title</td>
+    	<td>string</td>
+    	<td>Id of the job title</td>
+    </tr>
+    <tr>
+    	<td>departments</td>
+    	<td>array of department ids</td>
+    	<td>Array of departments for which this use would be part of</td>
+    </tr>
+
   <tr>
     <td>businesses</td>
     <td>array of business ids</td>
@@ -447,10 +513,16 @@ ID | The ID of the user
     <td>array of ids</td>
     <td>Array of Secondary Managers to whom the user may report to.</td>
   </tr>
+  <tr>
     <td>manager_id</td>
     <td>string</td>
     <td>Unique identifier of Manager to whom the user may report to.</td>
   </tr>
+  <tr>
+		<td>custom_attributes</td>
+		<td>object</td>
+		<td>Custom attributes using their attribute_key as field names. Use <code>GET /beta/user-attributes</code> to retrieve available attributes.</td>
+	</tr>
 
 </table>
 
@@ -469,43 +541,42 @@ content-type: application/json
 
 ```json
 {
-  	"success": true,
-  	"data": {
-		"id": "b62167d0-2718-4e45-9721-27535991becf",
-		"name": "Adam Smith",
-		"status": "Active",
-		"email": "adam.smith@teamyogi.com",
-		"first_name": "Adam",
-		"middle_name": null,
-		"last_name": "Smith",
-		"employee_id": "E007",
-		"education": "BS- Anthropology, Stanford University",
-		"about_me": "I love exploring whether it is in business or ancient sites. Lets discover together.",
-		"display_picture": {
-			"medium": "https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg",
-			"large": "https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg",
-			"small": "https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"
-		},
-		"job_title": {
-		"id": "261",
-		"name": "CEO"
-		},
-    	"joining_date": null,
-		"location": {
-		"id": "11",
-		"name": "United States"
-		},
-		"departments": [
-			{
-            	"id": "1",
-            	"name": "Customer Support",
-            	"is_admin" : true
-       		 }
-		]
-  	}
+  "success": true,
+  "data": {
+    "id": "b62167d0-2718-4e45-9721-27535991becf",
+    "name": "Adam Smith",
+    "status": "Active",
+    "email": "adam.smith@teamyogi.com",
+    "first_name": "Adam",
+    "middle_name": null,
+    "last_name": "Smith",
+    "employee_id": "E007",
+    "education": "BS- Anthropology, Stanford University",
+    "about_me": "I love exploring whether it is in business or ancient sites. Lets discover together.",
+    "display_picture": {
+      "medium": "https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg",
+      "large": "https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg",
+      "small": "https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"
+    },
+    "job_title": {
+      "id": "261",
+      "name": "CEO"
+    },
+    "joining_date": null,
+    "location": {
+      "id": "11",
+      "name": "United States"
+    },
+    "departments": [
+      {
+        "id": "1",
+        "name": "Customer Support",
+        "is_admin": true
+      }
+    ]
+  }
 }
 ```
-
 
 ## Partially Update an existing user
 
@@ -513,9 +584,9 @@ content-type: application/json
 
 ### URL Parameters
 
-Parameter | Description
---------- | -----------
-ID | The ID of the user
+| Parameter | Description        |
+| --------- | ------------------ |
+| ID        | The ID of the user |
 
 ### Any Combination of Parameters can be sent in JSON body
 
@@ -577,31 +648,32 @@ ID | The ID of the user
     <td>Secondary Phone number of the Epmloyee </td>
   </tr>
 
-	<tr>
-		<td>joining_date</td>
-		<td>date</td>
-		<td>Date of which employee was hired</td>
-	</tr>
-	<tr>
-		<td>birth_date</td>
-		<td>date</td>
-		<td>Date of birth of the user</td>
-	</tr>
-	<tr>
-		<td>location</td>
-		<td>string</td>
-		<td>Id of the location</td>
-	</tr>
-	<tr>
-		<td>job_title</td>
-		<td>string</td>
-		<td>Id of the job title</td>
-	</tr>
-	<tr>
-		<td>departments</td>
-		<td>array of department ids</td>
-		<td>Array of departments for which this use would be part of</td>
-	</tr>
+    <tr>
+    	<td>joining_date</td>
+    	<td>date</td>
+    	<td>Date of which employee was hired</td>
+    </tr>
+    <tr>
+    	<td>birth_date</td>
+    	<td>date</td>
+    	<td>Date of birth of the user</td>
+    </tr>
+    <tr>
+    	<td>location</td>
+    	<td>string</td>
+    	<td>Id of the location</td>
+    </tr>
+    <tr>
+    	<td>job_title</td>
+    	<td>string</td>
+    	<td>Id of the job title</td>
+    </tr>
+    <tr>
+    	<td>departments</td>
+    	<td>array of department ids</td>
+    	<td>Array of departments for which this use would be part of</td>
+    </tr>
+
   <tr>
     <td>businesses</td>
     <td>array of business ids</td>
@@ -617,10 +689,16 @@ ID | The ID of the user
     <td>array of ids</td>
     <td>Array of Secondary Managers to whom the user may report to.</td>
   </tr>
+  <tr>
     <td>manager_id</td>
     <td>string</td>
     <td>Unique identifier of Manager to whom the user may report to.</td>
   </tr>
+  <tr>
+		<td>custom_attributes</td>
+		<td>object</td>
+		<td>Custom attributes using their attribute_key as field names. Use <code>GET /beta/user-attributes</code> to retrieve available attributes.</td>
+	</tr>
 
 </table>
 
@@ -633,7 +711,10 @@ PATCH https://api.engagedly.com/api/beta/users/b62167d0-2718-4e45-9721-27535991b
 	"last_name": "Smith",
 	"employee_id": "E007",
 	"education": "BS- Anthropology, Stanford University",
-	"departments": ["12312x1-1ex1-12eex-132e23ex-dw223e"]
+	"departments": ["12312x1-1ex1-12eex-132e23ex-dw223e"],
+	"custom-attribute-93cbf": "Product Management",
+	"custom-attribute-d3b49": 9,
+	"custom-attribute-eb39c": "Meets Expectations"
 }
 ```
 
@@ -646,43 +727,42 @@ content-type: application/json
 
 ```json
 {
-  	"success": true,
-  	"data": {
-		"id": "b62167d0-2718-4e45-9721-27535991becf",
-		"name": "Adam Smith",
-		"status": "Active",
-		"email": "adam.smith@teamyogi.com",
-		"first_name": "Adam",
-		"middle_name": null,
-		"last_name": "Smith",
-		"employee_id": "E007",
-		"education": "BS- Anthropology, Stanford University",
-		"about_me": "I love exploring whether it is in business or ancient sites. Lets discover together.",
-		"display_picture": {
-			"medium": "https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg",
-			"large": "https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg",
-			"small": "https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"
-		},
-		"job_title": {
-		"id": "261",
-		"name": "CEO"
-		},
-    	"joining_date": null,
-		"location": {
-		"id": "11",
-		"name": "United States"
-		},
-		"departments": [
-			{
-            	"id": "1",
-            	"name": "Customer Support",
-            	"is_admin" : true
-       		 }
-		]
-  	}
+  "success": true,
+  "data": {
+    "id": "b62167d0-2718-4e45-9721-27535991becf",
+    "name": "Adam Smith",
+    "status": "Active",
+    "email": "adam.smith@teamyogi.com",
+    "first_name": "Adam",
+    "middle_name": null,
+    "last_name": "Smith",
+    "employee_id": "E007",
+    "education": "BS- Anthropology, Stanford University",
+    "about_me": "I love exploring whether it is in business or ancient sites. Lets discover together.",
+    "display_picture": {
+      "medium": "https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg",
+      "large": "https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg",
+      "small": "https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"
+    },
+    "job_title": {
+      "id": "261",
+      "name": "CEO"
+    },
+    "joining_date": null,
+    "location": {
+      "id": "11",
+      "name": "United States"
+    },
+    "departments": [
+      {
+        "id": "1",
+        "name": "Customer Support",
+        "is_admin": true
+      }
+    ]
+  }
 }
 ```
-
 
 ## Update user's profile picture
 
@@ -690,9 +770,9 @@ content-type: application/json
 
 ### URL Parameters
 
-Parameter | Description
---------- | -----------
-ID | The ID of the user
+| Parameter | Description        |
+| --------- | ------------------ |
+| ID        | The ID of the user |
 
 ### Parameters
 
@@ -724,15 +804,13 @@ content-type: application/json
 
 ```json
 {
-  	"success": true
+  "success": true
 }
 ```
 
 ## Get Block Reason Codes
 
 `GET https://api.engagedly.com/beta/users/block-reason-codes`
-
-
 
 > Sample Request
 
@@ -749,39 +827,37 @@ content-type: application/json
 
 ```json
 {
-    "success": true,
-    "data": [
-        {
-            "code": "involuntary",
-            "display_text": "Involuntary",
-            "description": "Initiated by the business. Example, RIF (Reduction in Force)"
-        },
+  "success": true,
+  "data": [
+    {
+      "code": "involuntary",
+      "display_text": "Involuntary",
+      "description": "Initiated by the business. Example, RIF (Reduction in Force)"
+    },
 
-        {
-            "code": "dismissal_with_cause",
-            "display_text": "Dismissal with Cause",
-            "description": "Initiated by business. This field is for individuals that the business generally will not work with in the future and include this information in their employee record. Example, consistently poor performance, violation of company code of conduct"
-        },
-        {
-            "code": "fatigue",
-            "display_text": "Burnout",
-            "description": "Initiated by individual, but business can have a role in this as well."
-        },
-        {
-            "code": "sabatical",
-            "display_text": "Sabatical",
-            "description": "Initiated by business or individual. This field is for individuals that the organization may potentially want to work with again in the future. Example, personal leave of absence, contract expiration."
-        },
-        {
-            "code": "not_known",
-            "display_text": "Not Known",
-            "description": "The reason for deactivation is not known"
-        }
-    ]
+    {
+      "code": "dismissal_with_cause",
+      "display_text": "Dismissal with Cause",
+      "description": "Initiated by business. This field is for individuals that the business generally will not work with in the future and include this information in their employee record. Example, consistently poor performance, violation of company code of conduct"
+    },
+    {
+      "code": "fatigue",
+      "display_text": "Burnout",
+      "description": "Initiated by individual, but business can have a role in this as well."
+    },
+    {
+      "code": "sabatical",
+      "display_text": "Sabatical",
+      "description": "Initiated by business or individual. This field is for individuals that the organization may potentially want to work with again in the future. Example, personal leave of absence, contract expiration."
+    },
+    {
+      "code": "not_known",
+      "display_text": "Not Known",
+      "description": "The reason for deactivation is not known"
+    }
+  ]
 }
 ```
-
-
 
 ## Deactivate an user
 
@@ -789,11 +865,10 @@ content-type: application/json
 
 ### URL Parameters
 
-Parameter | Description
---------- | -----------
-ID | The ID of the user
-block_reason_code | code for blocking reason (optional)
-
+| Parameter         | Description                         |
+| ----------------- | ----------------------------------- |
+| ID                | The ID of the user                  |
+| block_reason_code | code for blocking reason (optional) |
 
 > Sample Request
 
@@ -815,32 +890,32 @@ content-type: application/json
 
 ```json
 {
-  	"success": true,
-  	"data": {
-		"id": "b62167d0-2718-4e45-9721-27535991becf",
-		"name": "Adam Smith",
-		"status": "Blocked",
-		"email": "adam.smith@teamyogi.com",
-		"first_name": "Adam",
-		"middle_name": null,
-		"last_name": "Smith",
-		"education": "BS- Anthropology, Stanford University",
-		"about_me": "I love exploring whether it is in business or ancient sites. Lets discover together.",
-		"display_picture": {
-			"medium": "https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg",
-			"large": "https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg",
-			"small": "https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"
-		},
-		"job_title": {
-		"id": "261",
-		"name": "CEO"
-		},
-    	"joining_date": null,
-		"location": {
-		"id": "11",
-		"name": "United States"
-		}
-  	}
+  "success": true,
+  "data": {
+    "id": "b62167d0-2718-4e45-9721-27535991becf",
+    "name": "Adam Smith",
+    "status": "Blocked",
+    "email": "adam.smith@teamyogi.com",
+    "first_name": "Adam",
+    "middle_name": null,
+    "last_name": "Smith",
+    "education": "BS- Anthropology, Stanford University",
+    "about_me": "I love exploring whether it is in business or ancient sites. Lets discover together.",
+    "display_picture": {
+      "medium": "https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg",
+      "large": "https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg",
+      "small": "https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"
+    },
+    "job_title": {
+      "id": "261",
+      "name": "CEO"
+    },
+    "joining_date": null,
+    "location": {
+      "id": "11",
+      "name": "United States"
+    }
+  }
 }
 ```
 
@@ -850,10 +925,9 @@ content-type: application/json
 
 ### URL Parameters
 
-Parameter | Description
---------- | -----------
-ID | The ID of the user
-
+| Parameter | Description        |
+| --------- | ------------------ |
+| ID        | The ID of the user |
 
 > Sample Request
 
@@ -870,32 +944,32 @@ content-type: application/json
 
 ```json
 {
-  	"success": true,
-  	"data": {
-		"id": "b62167d0-2718-4e45-9721-27535991becf",
-		"name": "Adam Smith",
-		"status": "Active",
-		"email": "adam.smith@teamyogi.com",
-		"first_name": "Adam",
-		"middle_name": null,
-		"last_name": "Smith",
-		"education": "BS- Anthropology, Stanford University",
-		"about_me": "I love exploring whether it is in business or ancient sites. Lets discover together.",
-		"display_picture": {
-			"medium": "https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg",
-			"large": "https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg",
-			"small": "https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"
-		},
-		"job_title": {
-		"id": "261",
-		"name": "CEO"
-		},
-    	"joining_date": null,
-		"location": {
-		"id": "11",
-		"name": "United States"
-		}
-  	}
+  "success": true,
+  "data": {
+    "id": "b62167d0-2718-4e45-9721-27535991becf",
+    "name": "Adam Smith",
+    "status": "Active",
+    "email": "adam.smith@teamyogi.com",
+    "first_name": "Adam",
+    "middle_name": null,
+    "last_name": "Smith",
+    "education": "BS- Anthropology, Stanford University",
+    "about_me": "I love exploring whether it is in business or ancient sites. Lets discover together.",
+    "display_picture": {
+      "medium": "https://social.engagedly.com/uploads/picture/file/9634/reduced_Denzel.jpg",
+      "large": "https://social.engagedly.com/uploads/picture/file/9634/large_thumbnail_Denzel.jpg",
+      "small": "https://social.engagedly.com/uploads/picture/file/9634/small_Denzel.jpg"
+    },
+    "job_title": {
+      "id": "261",
+      "name": "CEO"
+    },
+    "joining_date": null,
+    "location": {
+      "id": "11",
+      "name": "United States"
+    }
+  }
 }
 ```
 
@@ -905,10 +979,9 @@ content-type: application/json
 
 ### URL Parameters
 
-Parameter | Description
---------- | -----------
-ID | The ID of the user
-
+| Parameter | Description        |
+| --------- | ------------------ |
+| ID        | The ID of the user |
 
 > Sample Request
 
@@ -925,21 +998,21 @@ content-type: application/json
 
 ```json
 {
-    "success": true,
-    "data": [
-        {
-            "id": 1,
-            "name": "Cycle - create / edit / delete performance review cycles",
-            "is_admin": null,
-            "description": ""
-        },
-        {
-            "id": 2,
-            "name": "Site Administrator",
-            "is_admin": true,
-            "description": "This role will be by default given to the admin. This role will contain all the permission. This role cannot be seperately given or remove to any other user. The user that has been marked as the org admin will by default get this role and will be removed from the role when the user is removed from the admin"
-        }
-    ]
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "name": "Cycle - create / edit / delete performance review cycles",
+      "is_admin": null,
+      "description": ""
+    },
+    {
+      "id": 2,
+      "name": "Site Administrator",
+      "is_admin": true,
+      "description": "This role will be by default given to the admin. This role will contain all the permission. This role cannot be seperately given or remove to any other user. The user that has been marked as the org admin will by default get this role and will be removed from the role when the user is removed from the admin"
+    }
+  ]
 }
 ```
 
@@ -949,9 +1022,9 @@ content-type: application/json
 
 ### URL Parameters
 
-Parameter | Description
---------- | -----------
-ID | The ID of the user
+| Parameter | Description        |
+| --------- | ------------------ |
+| ID        | The ID of the user |
 
 ### Parameters
 
@@ -968,7 +1041,6 @@ ID | The ID of the user
 	</tr>
 </table>
 
-
 > Sample Request
 
 ```shell
@@ -984,20 +1056,59 @@ content-type: application/json
 
 ```json
 {
-    "success": true,
-    "data": [
-        {
-            "id": 2070,
-            "name": "Cycle - create / edit / delete performance review cycles",
-            "is_admin": null,
-            "description": ""
-        },
-        {
-            "id": 45,
-            "name": "Site Administrator",
-            "is_admin": true,
-            "description": "This role will be by default given to the admin. This role will contain all the permission. This role cannot be seperately given or remove to any other user. The user that has been marked as the org admin will by default get this role and will be removed from the role when the user is removed from the admin"
-        }
-    ]
+  "success": true,
+  "data": [
+    {
+      "id": 2070,
+      "name": "Cycle - create / edit / delete performance review cycles",
+      "is_admin": null,
+      "description": ""
+    },
+    {
+      "id": 45,
+      "name": "Site Administrator",
+      "is_admin": true,
+      "description": "This role will be by default given to the admin. This role will contain all the permission. This role cannot be seperately given or remove to any other user. The user that has been marked as the org admin will by default get this role and will be removed from the role when the user is removed from the admin"
+    }
+  ]
 }
 ```
+
+## Custom Attributes
+
+Custom attributes allow you to store additional user-specific data beyond the standard system attributes. These attributes are defined at the organization level and can be used to capture domain-specific information.
+
+### How Custom Attributes Work
+
+1. **Field Names:** Custom attributes use their `attribute_key` as the field name in API requests
+2. **Dynamic Schema:** The available custom attributes and their field names vary by organization
+3. **Mixed Usage:** You can use both system attributes and custom attributes in the same request
+
+### Example: Mixed System and Custom Attributes
+
+```json
+{
+  "first_name": "Jane",
+  "last_name": "Smith",
+  "email": "jane.smith@company.com",
+  "departments": ["dept-123"],
+  "businesses": ["biz-456"],
+  "hr_managers": ["manager-789"],
+  "custom-attribute-93cbf": "Product Management",
+  "custom-attribute-d3b49": 9,
+  "custom-attribute-eb39c": "Meets Expectations"
+}
+```
+
+In this example:
+
+- `departments`, `businesses`, `hr_managers` are **system attributes** with predefined field names
+- `custom-attribute-93cbf`, `custom-attribute-d3b49`, `custom-attribute-eb39c` are **custom attributes** with dynamic field names based on your organization's configuration
+
+### Getting Available Custom Attributes
+
+Use the `GET /beta/user-attributes` endpoint to retrieve all available custom attributes for your organization. This will return the `attribute_key` values that you should use as field names in your API requests.
+
+<aside class="notice">
+Custom attribute field names are organization-specific and may change over time. Always fetch the current list of available attributes before making API calls to ensure you're using the correct field names.
+</aside>
