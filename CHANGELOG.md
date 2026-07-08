@@ -9,11 +9,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/) and [Semantic Ver
 
 - **Rate limits** — a request-throttling policy (limits, `X-RateLimit-*` response headers, and `429 Too Many Requests` behavior). Docs will be added here and in the API reference once it's implemented and the policy is finalized.
 
-## [1.1.0] — Unreleased
+## [1.1.0] — 2026-07-08
 ### Changed
-- Upgraded **Ruby 2.3.1 → 3.4.9** and **Middleman 4.2.1 → 4.4.3**, modernizing the full gem stack (nokogiri, rack, rouge, redcarpet, haml, …); moved to Bundler 2.
+- Upgraded **Ruby 2.3.1 → 3.4.9** and **Middleman 4.2.1 → 4.6.3**, modernizing the full gem stack (activesupport, nokogiri, rack, rouge, redcarpet, haml, …); moved to Bundler 2.
+- Replaced the IcoMoon icon **webfont with inline-SVG icons** (CSS `mask` + `currentColor`) for the notice/warning callouts and search box.
 ### Security
 - Updated nokogiri, rack, and redcarpet to patched releases, resolving the outstanding Dependabot advisories.
+- Resolved the ActiveSupport XSS advisory (CVE-2026-33170 / GHSA-89vf-4333-qx8v) — activesupport now 8.1.3 (past the patched 8.1.2.1).
 ### Added
 - RuboCop linting.
 ### Removed
