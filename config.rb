@@ -1,8 +1,6 @@
 # Unique header generation
-require './lib/unique_head.rb'
-require 'tilt/handlebars'
+require './lib/unique_head'
 require 'org-ruby'
-
 
 # Markdown
 set :markdown_engine, :redcarpet
@@ -26,12 +24,13 @@ set :fonts_dir, 'fonts'
 # Activate the syntax highlighter
 activate :syntax
 ready do
-  require './lib/multilang.rb'
+  require './lib/multilang'
 end
 
-activate :sprockets
+activate :sprockets do |c|
+  c.supported_output_extensions = ['.js']
+end
 activate :livereload
-
 
 activate :autoprefixer do |config|
   config.browsers = ['last 2 version', 'Firefox ESR']
@@ -59,5 +58,5 @@ end
 set :port, 4567
 
 helpers do
-  require './lib/toc_data.rb'
+  require './lib/toc_data'
 end

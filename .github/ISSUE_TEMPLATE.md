@@ -1,9 +1,24 @@
-If this is a question or feature request, make sure to:
+<!--
+Thanks for helping improve the Engagedly API documentation.
+Please fill out the sections below so we can address the issue quickly.
+-->
 
-- [ ] The title starts with `Question:` or `Feature:`.
+## What's the issue?
 
-If this is an bug report, not a question, make sure to:
+<!-- e.g. incorrect/outdated information, a typo, a broken code sample, a missing endpoint, or a rendering/build problem. -->
 
-- [ ] I'm not running Windows (which is unsupported), or if I am, I can confirm this issue appears on another platform, or Vagrant.
-- [ ] This issue appears in the latest `dev` branch.
-- [ ] I've included my browser and Ruby version in this issue.
+## Where?
+
+- **Page / section:** <!-- e.g. "Users → List users", or a link to the section on https://api.engagedly.com/beta -->
+- **Source file (if known):** <!-- e.g. source/includes/_users.md -->
+
+## Details
+
+- **What the docs currently say / do:**
+- **What they should say / do:**
+
+## For a rendering or build problem (delete if not applicable)
+
+- **Steps to reproduce:**
+- **OS / Ruby version:** <!-- see .ruby-version -->
+- **Screenshot / error output:**

@@ -1,5 +1,17 @@
-!!!!! STOP AND READ !!!!!
+<!-- Thanks for contributing to the Engagedly API documentation. -->
 
-If the dropdown above says "base fork: lord/master", you are submitting your change to ALL USERS OF SLATE, not just your company. This is probably not what you want. Click "base fork" to change it to the right place.
+## Summary
 
-If you're actually trying to submit a change to upstream Slate, please submit to our dev branch, PRs sent to the master branch are generally rejected.
+<!-- What does this PR change and why? -->
+
+## Sections / files changed
+
+<!-- e.g. source/includes/_users.md, source/index.html.md -->
+
+## Checklist
+
+- [ ] Built successfully locally (`bundle exec middleman build --clean`)
+- [ ] Previewed the change in the browser (`bundle exec middleman server` → http://localhost:4567)
+- [ ] Code samples are correct and runnable
+- [ ] New sections are wired into the `includes:` list in `source/index.html.md`
+- [ ] No broken links or anchors

@@ -1,0 +1,46 @@
+# Based on the shared Engagedly config in the `learning` repo, adapted for this
+# Middleman/Slate static-site project (not Rails — the rubocop-rails plugin and
+# Rails-only cops/excludes have been removed).
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.4
+  Exclude:
+    - 'build/**/*'
+    - 'vendor/**/*'
+Layout/LineLength:
+  Max: 200
+Metrics/MethodLength:
+  Max: 50
+Metrics/ClassLength:
+  Max: 500
+Metrics/BlockLength:
+  Max: 50
+Metrics/CyclomaticComplexity:
+  Max: 25
+Metrics/PerceivedComplexity:
+  Max: 25
+Metrics/ParameterLists:
+  Max: 6
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+Style/HashSyntax:
+  EnforcedShorthandSyntax: never
+# Disabled Cops
+Style/Documentation:
+  Enabled: false
+Layout/ArgumentAlignment:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/MutableConstant:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false
+Bundler/OrderedGems:
+  Enabled: false
+Gemspec/OrderedDependencies:
+  Enabled: false
+Lint/ConstantDefinitionInBlock:
+  Enabled: false
+Style/RescueModifier:
+  Enabled: false
