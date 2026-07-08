@@ -4,20 +4,33 @@ on:
   push:
     branches:
       - master
-  workflow_dispatch: 
+  workflow_dispatch:
+    inputs:
+      target_branch:
+        description: 'Branch to deploy the built website files to'
+        required: true
+        default: 'dry-run-only'
+        type: choice
+        options:
+          - gh-pages
+          - gh-pages-staging
+          - dry-run-only
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-22.04  
+    runs-on: ubuntu-latest
+
+    env:
+      DEPLOY_BRANCH: ${{ github.event.inputs.target_branch || 'dry-run-only' }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Ruby 2.3.1
+      - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.3.1'
+          ruby-version: .ruby-version
           bundler-cache: true
 
       - name: Install dependencies
@@ -26,11 +39,11 @@ jobs:
       - name: Build Slate site
         run: bundle exec middleman build --clean
 
-      - name: Deploy to gh-pages
+      - name: Deploy to Target Branch
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
-          publish_branch: gh-pages
+          publish_branch: ${{ env.DEPLOY_BRANCH }}
           force_orphan: true
-
+          dry_run: ${{ env.DEPLOY_BRANCH == 'dry-run-only' }}
