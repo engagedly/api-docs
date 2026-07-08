@@ -3,7 +3,7 @@ name: Deploy Slate to GitHub Pages
 on:
   push:
     branches:
-      - master
+      - production
   workflow_dispatch:
     inputs:
       target_branch:
@@ -13,7 +13,6 @@ on:
         type: choice
         options:
           - gh-pages
-          - gh-pages-staging
           - dry-run-only
 
 jobs:
