@@ -1,162 +1,48 @@
-# Changelog
+# Engagedly API — Changelog
 
-## Version 2.3.1
+All notable changes to the Engagedly API and its documentation are recorded here, newest first.
+Format follows [Keep a Changelog](https://keepachangelog.com/) and [Semantic Versioning](https://semver.org/).
 
-*July 5, 2018*
+**Versioning:** `0.1.0` captures the pre-1.0 development history (2017–2025, before changes were formally versioned). `1.0.0` onward is actively versioned. A version is assigned only when a change is **released**; roadmap items that aren't built yet stay under **Planned** with no version. These numbers version the Engagedly API and its documentation as published here; the API itself is currently served at the `/beta` endpoint, independently of the changelog version.
 
-- Update `sprockets` in `Gemfile.lock` to fix security warnings
+## Planned
 
-## Version 2.3
+- **Rate limits** — a request-throttling policy (limits, `X-RateLimit-*` response headers, and `429 Too Many Requests` behavior). Docs will be added here and in the API reference once it's implemented and the policy is finalized.
 
-*July 5, 2018*
+## [1.1.0] — Unreleased
+### Changed
+- Upgraded **Ruby 2.3.1 → 3.4.9** and **Middleman 4.2.1 → 4.4.3**, modernizing the full gem stack (nokogiri, rack, rouge, redcarpet, haml, …); moved to Bundler 2.
+### Security
+- Updated nokogiri, rack, and redcarpet to patched releases, resolving the outstanding Dependabot advisories.
+### Added
+- RuboCop linting.
+### Removed
+- Unused `therubyracer`/`libv8` dependency, and redundant repo files (`.travis.yml`, `_config.yml`, `deploy.sh`, `Vagrantfile`, `lib/nesting_unique_head.rb`).
 
-- Allows strikethrough in markdown by default.
-- Upgrades jQuery to 3.2.1, thanks to [Tomi Takussaari](https://github.com/TomiTakussaari)
-- Fixes invalid HTML in `layout.erb`, thanks to [Eric Scouten](https://github.com/scouten) for pointing out
-- Hopefully fixes Vagrant memory issues, thanks to [Petter Blomberg](https://github.com/p-blomberg) for the suggestion
-- Cleans HTML in headers before setting `document.title`, thanks to [Dan Levy](https://github.com/justsml)
-- Allows trailing whitespace in markdown files, thanks to [Samuel Cousin](https://github.com/kuzyn)
-- Fixes pushState/replaceState problems with scrolling not changing the document hash, thanks to [Andrey Fedorov](https://github.com/anfedorov)
-- Removes some outdated examples, thanks [@al-tr](https://github.com/al-tr), [Jerome Dahdah](https://github.com/jdahdah), and [Ricardo Castro](https://github.com/mccricardo)
-- Fixes `nav-padding` bug, thanks [Jerome Dahdah](https://github.com/jdahdah)
-- Code style fixes thanks to [Sebastian Zaremba](https://github.com/vassyz)
-- Nokogiri version bump thanks to [Grey Baker](https://github.com/greysteil)
-- Fix to default `index.md` text thanks to [Nick Busey](https://github.com/NickBusey)
+## [1.0.0] — 2026-07-08
+### Changed
+- Updated deployment configuration (automated build & deploy via GitHub Actions to GitHub Pages).
 
-Thanks to everyone who contributed to this release!
+## [0.1.0] — Initial development (2017–2025)
 
-## Version 2.2
+Pre-1.0 history, before changes were formally versioned. Notable changes, newest first:
 
-*January 19, 2018*
+- **2025-12-15** — Custom fields support in the User APIs.
+- **2023-10-18** — User **PATCH** API for partially updating an existing user.
+- **2023-06-21** — Endpoint to retrieve block reason codes; user deactivation now accepts a `block_reason_code`.
+- **2020-12-14** — Additional email filter for the List Users API.
+- **2020-10-29** — Business Unit CRUD endpoints, and Business Unit support in the Users API.
+- **2020-02-14** — `manager_id` field added to the User Attributes list and the Users API.
+- **2019-10-23** — Updated the Praises API response.
+- **2019-10-17** — Pagination for the Praises API; additional attributes in the Users and Update User APIs.
+- **2017-11-21** — Permissions API and profile-picture API; Users API enhancements.
+- **2017-07-14** — Updated API endpoints.
+- **2017-06-13** — Departments, Job Titles, and Locations APIs.
+- **2017-05-04** — Initial Engagedly API documentation (Users and core resources).
 
-- Fixes bugs with some non-roman languages not generating unique headers
-- Adds editorconfig, thanks to [Jay Thomas](https://github.com/jaythomas)
-- Adds optional `NestingUniqueHeadCounter`, thanks to [Vladimir Morozov](https://github.com/greenhost87)
-- Small fixes to typos and language, thx [Emir Ribić](https://github.com/ribice), [Gregor Martynus](https://github.com/gr2m), and [Martius](https://github.com/martiuslim)!
-- Adds links to Spectrum chat for questions in README and ISSUE_TEMPLATE
-
-## Version 2.1
-
-*October 30, 2017*
-
-- Right-to-left text stylesheet option, thanks to [Mohammad Hossein Rabiee](https://github.com/mhrabiee)
-- Fix for HTML5 history state bug, thanks to [Zach Toolson](https://github.com/ztoolson)
-- Small styling changes, typo fixes, small bug fixes from [Marian Friedmann](https://github.com/rnarian), [Ben Wilhelm](https://github.com/benwilhelm), [Fouad Matin](https://github.com/fouad), [Nicolas Bonduel](https://github.com/NicolasBonduel), [Christian Oliff](https://github.com/coliff)
-
-Thanks to everyone who submitted PRs for this version!
-
-## Version 2.0
-
-*July 17, 2017*
-
-- All-new statically generated table of contents
-  - Should be much faster loading and scrolling for large pages
-  - Smaller Javascript file sizes
-  - Avoids the problem with the last link in the ToC not ever highlighting if the section was shorter than the page
-  - Fixes control-click not opening in a new page
-  - Automatically updates the HTML title as you scroll
-- Updated design
-  - New default colors!
-  - New spacings and sizes!
-  - System-default typefaces, just like GitHub
-- Added search input delay on large corpuses to reduce lag
-- We even bumped the major version cause hey, why not?
-- Various small bug fixes
-
-Thanks to everyone who helped debug or wrote code for this version! It was a serious community effort, and I couldn't have done it alone.
-
-## Version 1.5
-
-*February 23, 2017*
-
-- Add [multiple tabs per programming language](https://github.com/lord/slate/wiki/Multiple-language-tabs-per-programming-language) feature
-- Upgrade Middleman to add Ruby 1.4.0 compatibility
-- Switch default code highlighting color scheme to better highlight JSON
-- Various small typo and bug fixes
-
-## Version 1.4
-
-*November 24, 2016*
-
-- Upgrade Middleman and Rouge gems, should hopefully solve a number of bugs
-- Update some links in README
-- Fix broken Vagrant startup script
-- Fix some problems with deploy.sh help message
-- Fix bug with language tabs not hiding properly if no error
-- Add `!default` to SASS variables
-- Fix bug with logo margin
-- Bump tested Ruby versions in .travis.yml
-
-## Version 1.3.3
-
-*June 11, 2016*
-
-Documentation and example changes.
-
-## Version 1.3.2
-
-*February 3, 2016*
-
-A small bugfix for slightly incorrect background colors on code samples in some cases.
-
-## Version 1.3.1
-
-*January 31, 2016*
-
-A small bugfix for incorrect whitespace in code blocks.
-
-## Version 1.3
-
-*January 27, 2016*
-
-We've upgraded Middleman and a number of other dependencies, which should fix quite a few bugs.
-
-Instead of `rake build` and `rake deploy`, you should now run `bundle exec middleman build --clean` to build your server, and `./deploy.sh` to deploy it to Github Pages.
-
-## Version 1.2
-
-*June 20, 2015*
-
-**Fixes:**
-
-- Remove crash on invalid languages
-- Update Tocify to scroll to the highlighted header in the Table of Contents
-- Fix variable leak and update search algorithms
-- Update Python examples to be valid Python
-- Update gems
-- More misc. bugfixes of Javascript errors
-- Add Dockerfile
-- Remove unused gems
-- Optimize images, fonts, and generated asset files
-- Add chinese font support
-- Remove RedCarpet header ID patch
-- Update language tabs to not disturb existing query strings
-
-## Version 1.1
-
-*July 27, 2014*
-
-**Fixes:**
-
-- Finally, a fix for the redcarpet upgrade bug
-
-## Version 1.0
-
-*July 2, 2014*
-
-[View Issues](https://github.com/tripit/slate/issues?milestone=1&state=closed)
-
-**Features:**
-
-- Responsive designs for phones and tablets
-- Started tagging versions
-
-**Fixes:**
-
-- Fixed 'unrecognized expression' error
-- Fixed #undefined hash bug
-- Fixed bug where the current language tab would be unselected
-- Fixed bug where tocify wouldn't highlight the current section while searching
-- Fixed bug where ids of header tags would have special characters that caused problems
-- Updated layout so that pages with disabled search wouldn't load search.js
-- Cleaned up Javascript
+<!--
+"## Planned"               = roadmap items not yet built (no version).
+"## [x.y.z] — Unreleased"  = code built but not yet released (add the date on release).
+"## [x.y.z] — YYYY-MM-DD"  = a released version (newest first).
+Subheadings as needed: Added, Changed, Deprecated, Removed, Fixed, Security.
+-->
