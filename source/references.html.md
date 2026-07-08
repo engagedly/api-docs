@@ -19,14 +19,6 @@ search: true
 api_endpoint: https://api.engagedly.com/beta
 ---
 
-# Introduction
-
-Engagedly is a cloud based new age Performance Management Software that redefines performance appraisals by simplifying and incorporating elements of employee engagement into the performance review process.
-
-Engagedly API are designed to be REST (**Representational State Transfer**) APIs. These 'RESTful' APIs allows operations such as reading, modifying, adding or deleting data from your Engagedly Instance.
-
-<aside class="notice">Engagedly APIs does not support Cross-Origin Resource Sharing (CORS).</aside>
-
 # Getting Started
 
 ## Authentication
@@ -132,6 +124,11 @@ In addition to the HTTP status code, most errors will also return a response bod
 | validation_error      | Errors triggered by our client-side libraries when failing to validate fields (e.g., when a card number or expiration date is invalid or incomplete) |
 
 **Error Codes**
+
+| CODE              | DESCRIPTION                                         |
+| ----------------- | --------------------------------------------------- |
+| `missing_field`   | A mandatory attribute is missing from the request.  |
+| `duplicate_value` | The submitted value already exists.                 |
 
 > Sample Error Response
 

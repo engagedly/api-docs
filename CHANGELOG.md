@@ -13,6 +13,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/) and [Semantic Ver
 ### Added
 - A site favicon (the Engagedly brand icon).
 - An **Error Codes** reference table (in HTTP Status Codes) documenting `missing_field` and `duplicate_value`.
+- A top navigation **header** (logo + **Guides / API Reference / Changelog** tabs); logo moved from the sidebar into the header. Split into multiple pages: **Guides** is the landing (`/` redirects to it), the **API Reference** now lives at `/references.html`, and a **Changelog** page was added.
+### Changed
+- Moved the **Introduction** onto the Guides landing page; the API Reference now opens at *Getting Started*.
 
 ## [1.1.0] — 2026-07-08
 ### Changed
