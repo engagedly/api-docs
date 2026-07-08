@@ -9,6 +9,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/) and [Semantic Ver
 
 - **Rate limits** — a request-throttling policy (limits, `X-RateLimit-*` response headers, and `429 Too Many Requests` behavior). Docs will be added here and in the API reference once it's implemented and the policy is finalized.
 
+## [1.2.0] — Unreleased
+### Added
+- A site favicon (the Engagedly brand icon).
+- An **Error Codes** reference table (in HTTP Status Codes) documenting `missing_field` and `duplicate_value`.
+
 ## [1.1.0] — 2026-07-08
 ### Changed
 - Upgraded **Ruby 2.3.1 → 3.4.9** and **Middleman 4.2.1 → 4.6.3**, modernizing the full gem stack (activesupport, nokogiri, rack, rouge, redcarpet, haml, …); moved to Bundler 2.
