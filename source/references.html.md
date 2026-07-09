@@ -13,6 +13,8 @@ includes:
   - job_titles
   - permissions
   - activities
+  - learning_resources
+  - learning_reports
 
 search: true
 

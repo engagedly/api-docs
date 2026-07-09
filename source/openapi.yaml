@@ -127,24 +127,13 @@ tags:
   - name: Activities
   - name: Learning
     description: |
-      Learner reporting. This surface is served at `https://api.engagedly.com/learning/v1/` and
-      is **read-only**.
+      Courses, playlists, their content hierarchy, and learner reporting. These
+      endpoints are served at `https://api.engagedly.com/beta/learning/` and are
+      **read-only**. Two identifiers are the stable join keys for mapping to your
+      own data: `short_code` (human-readable course code) and `learning_resource_id`
+      (internal course ID; returned as `id` on the resource itself).
 
-      ### Scope values (`scope`)
-
-      | Value | Description |
-      | ----- | ----------- |
-      | `org` | Entire organisation (requires org-level learning-management permission). |
-      | `cxo` | Entire organisation, CXO view (requires CXO permission). |
-      | `learning` | Entire organisation (learning-management view). |
-      | `team` | The requester's direct team. |
-      | `secondary_team` | The requester's secondary team. |
-      | `entire_team` | The requester's entire team hierarchy. |
-      | `department` | The requester's department. |
-      | `user` | A single user — provide `view_for` with the user's `access_key`. |
-      | `self` | The requesting user only. |
-
-      ### Filtering & sorting (`filter_hash`)
+      ### Filtering & sorting (`filter_hash`, Learner Report)
 
       `filter_hash` is a JSON object: `filter` maps each column to a payload whose shape depends on
       the column's data type, and `sort` takes a `field_name` + `order` (`asc`/`desc`).
@@ -669,36 +658,96 @@ paths:
                     properties:
                       data: { type: array, items: { $ref: '#/components/schemas/Praise' } }
 
-  /learning/v1/reports:
+  /beta/learning/resources:
+    get:
+      tags: [Learning]
+      summary: List Resources
+      description: >
+        Returns a paginated list of the organisation's learning resources
+        (courses and playlists). All parameters are optional. Read-only.
+      parameters:
+        - { name: search_text, in: query, required: false, description: "Case-insensitive match on the resource title.", schema: { type: string } }
+        - { name: types, in: query, required: false, description: "Resource type(s). e.g. `types[]=Course`.", schema: { type: array, items: { type: string, enum: [Course, Playlist, Section] } } }
+        - { name: resource_ids, in: query, required: false, description: "Restrict to specific resource IDs.", schema: { type: array, items: { type: integer } } }
+        - { name: state, in: query, required: false, description: "Publication state(s).", schema: { type: array, items: { type: string, enum: [unpublished, published, unpublished_edit] } } }
+        - { name: languages, in: query, required: false, description: "Language code(s), e.g. `languages[]=en`.", schema: { type: array, items: { type: string } } }
+        - { name: roles, in: query, required: false, description: "Restrict to resources tagged for the given role ID(s).", schema: { type: array, items: { type: string } } }
+        - { name: providers, in: query, required: false, description: "Content provider(s), e.g. `engagedly`, `udemy`, `go1`.", schema: { type: array, items: { type: string } } }
+        - { name: authors, in: query, required: false, description: "Restrict to resources by the given author user ID(s).", schema: { type: array, items: { type: string } } }
+        - { name: category_ids, in: query, required: false, description: "Restrict to the given category ID(s).", schema: { type: array, items: { type: integer } } }
+        - { name: levels, in: query, required: false, description: "Difficulty level(s), e.g. `Beginner`.", schema: { type: array, items: { type: string } } }
+        - { name: skills, in: query, required: false, description: "Restrict to the given skill ID(s).", schema: { type: array, items: { type: string } } }
+        - { name: competencies, in: query, required: false, description: "Restrict to the given competency ID(s).", schema: { type: array, items: { type: string } } }
+        - { name: tags, in: query, required: false, description: "Restrict to the given tag(s).", schema: { type: array, items: { type: string } } }
+        - { name: "durations[min_limit]", in: query, required: false, description: "Minimum duration in minutes.", schema: { type: integer } }
+        - { name: "durations[max_limit]", in: query, required: false, description: "Maximum duration in minutes.", schema: { type: integer } }
+        - { name: certified, in: query, required: false, description: "Only resources that grant a certificate.", schema: { type: boolean } }
+        - { name: ratings, in: query, required: false, description: "Minimum average rating (1–5).", schema: { type: number } }
+        - { name: in_library, in: query, required: false, description: "Only resources in the content library.", schema: { type: boolean } }
+        - { name: short_code, in: query, required: false, description: "Return the resource with this exact short code.", schema: { type: string } }
+        - { name: archived, in: query, required: false, description: "Only archived (`true`) or active (`false`, default) resources.", schema: { type: boolean } }
+        - { name: sort, in: query, required: false, description: "Sort order (e.g. `title`, `created_at`).", schema: { type: string } }
+        - { name: learner_id, in: query, required: false, description: "Internal/advanced — intended for a learner context; may not behave meaningfully for an external org-scoped call.", schema: { type: string } }
+        - { name: favorite, in: query, required: false, description: "Internal/advanced — intended for a learner context; may not behave meaningfully for an external org-scoped call.", schema: { type: boolean } }
+        - { name: favorite_index, in: query, required: false, description: "Internal/advanced — intended for a learner context; may not behave meaningfully for an external org-scoped call.", schema: { type: integer } }
+        - { name: resources_with_points, in: query, required: false, description: "Internal/advanced — may not behave meaningfully for an external org-scoped call.", schema: { type: boolean } }
+        - { name: for_workflow_display, in: query, required: false, description: "Internal/advanced — may not behave meaningfully for an external org-scoped call.", schema: { type: boolean } }
+        - { name: workflow_selection, in: query, required: false, description: "Internal/advanced — may not behave meaningfully for an external org-scoped call.", schema: { type: string } }
+        - { name: competency_search_text, in: query, required: false, description: "Internal/advanced — may not behave meaningfully for an external org-scoped call.", schema: { type: string } }
+        - { name: enrolled, in: query, required: false, description: "Internal/advanced — intended for a learner context; may not behave meaningfully for an external org-scoped call.", schema: { type: boolean } }
+        - $ref: '#/components/parameters/page'
+        - { name: size, in: query, description: "Items per page (max 50).", schema: { type: integer, default: 30, maximum: 50 } }
+      responses:
+        '200':
+          description: A paginated list of learning resources.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/PaginatedEnvelope'
+                  - type: object
+                    properties:
+                      data: { type: array, items: { $ref: '#/components/schemas/LearningResource' } }
+
+  /beta/learning/resources/{id}/contents:
+    get:
+      tags: [Learning]
+      summary: Get Resource Contents
+      description: >
+        Returns the ordered content hierarchy of a single course or playlist. A
+        course is organised into sections, each containing units; a playlist nests
+        child resources under `contents`. Read-only.
+      parameters:
+        - { name: id, in: path, required: true, description: "The `learning_resource_id` of the course/playlist.", schema: { type: integer } }
+        - { name: role, in: query, required: false, description: "Optional viewing role. `author`/`co-author` additionally surface in-progress draft edits.", schema: { type: string, enum: [author, co-author] } }
+      responses:
+        '200':
+          description: The content hierarchy (list of sections).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean, example: true }
+                  data: { type: array, items: { $ref: '#/components/schemas/ResourceSection' } }
+
+  /beta/learning/learner_reports:
     get:
       tags: [Learning]
       summary: Learner Report
       description: >
         Returns learner data with course information. Each row is one learner's
-        enrolment in one course. Served on the Learning API surface
-        (`https://api.engagedly.com/learning/v1/`); read-only.
+        enrolment in one course. Read-only.
       parameters:
-        - { name: type, in: query, required: true, description: "Must be `reports`.", schema: { type: string, enum: [reports] } }
-        - { name: filter, in: query, required: true, description: "Must be `reports`.", schema: { type: string, enum: [reports] } }
-        - name: scope
-          in: query
-          required: true
-          description: "Data scope. See the **Learning** section for what each value means."
-          schema:
-            type: string
-            enum: [org, cxo, learning, team, secondary_team, entire_team, department, user, self]
-        - name: resource_types
-          in: query
-          required: true
-          description: "Resource type(s), passed as an array. e.g. `resource_types[]=Course`."
-          schema: { type: array, items: { type: string, enum: [Course, Playlist] } }
-        - { name: view_for, in: query, required: false, description: "Required when `scope=user`: the target user's `access_key`.", schema: { type: string } }
+        - { name: resource_types, in: query, required: false, description: "Resource type(s) to report on. Both returned when omitted. e.g. `resource_types[]=Course`.", schema: { type: array, items: { type: string, enum: [Course, Playlist] } } }
+        - { name: learning_resource_id, in: query, required: false, description: "Restrict the report to a single course by internal ID.", schema: { type: integer } }
+        - { name: learning_resource_ids, in: query, required: false, description: "Restrict the report to specific courses by internal ID.", schema: { type: array, items: { type: integer } } }
         - $ref: '#/components/parameters/page'
         - { name: size, in: query, description: "Items per page (max 50).", schema: { type: integer, default: 25, maximum: 50 } }
         - name: filter_hash
           in: query
           required: false
-          description: "Column filtering and sorting. See the **Learning** section for the full per-column filter shapes and sortable fields."
+          description: "Column filtering and sorting (includes the `title` course-title text filter). See the **Learning** section for the full per-column filter shapes and sortable fields."
           schema: { type: object }
       responses:
         '200':
@@ -1080,3 +1129,70 @@ components:
         compliance_status: { type: string }
         valid_till: { type: string, nullable: true }
         is_self_assigned: { type: boolean }
+    LearningResource:
+      type: object
+      properties:
+        id: { type: integer, description: "Internal unique ID of the resource (the learning_resource_id)." }
+        title: { type: string }
+        description: { type: string }
+        provider: { type: string, example: engagedly }
+        archived: { type: boolean }
+        language: { type: string }
+        duration: { type: string, description: "Estimated duration, formatted HH:MM:SS.", example: "01:00:00" }
+        short_code: { type: string, description: "Unique code of the resource." }
+        level: { type: string }
+        type: { type: string, enum: [Course, Playlist, Section] }
+        state: { type: string, enum: [Published, Unpublished, UnpublishedEdit] }
+        in_library: { type: boolean }
+        published_on: { type: string, nullable: true }
+        average_rating: { type: number, nullable: true }
+        tags: { type: array, items: { type: string } }
+        competencies: { type: array, items: { type: object } }
+        categories:
+          type: array
+          items:
+            type: object
+            properties: { id: { type: integer }, title: { type: string } }
+        author: { type: object, nullable: true }
+        co_authors: { type: array, items: { type: object } }
+        contents_count: { type: integer }
+        course_id: { type: integer, description: "Legacy course ID mapped to this resource." }
+        reviews_count: { type: integer }
+        skills: { type: array, items: { type: object } }
+        created_at: { type: string }
+        updated_at: { type: string }
+    ResourceSection:
+      type: object
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        description: { type: string }
+        type: { type: string, example: Section }
+        status: { type: string }
+        ongoing_edit: { type: boolean }
+        position: { type: integer }
+        content_status: { type: string, enum: [Published, Unpublished, UnpublishedEdit, MarkedForDeletion] }
+        units:
+          type: array
+          description: "Content items in the section (courses). Playlists nest resources under `contents` instead."
+          items: { $ref: '#/components/schemas/ResourceUnit' }
+    ResourceUnit:
+      type: object
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        description: { type: string }
+        type: { type: string, enum: [Attachment, RichText, Link, Quiz, SurveyStep, VideoContent, InstructorTraining, SCORM, AICC, LTI] }
+        position: { type: integer }
+        duration: { type: integer, description: "Estimated duration in minutes." }
+        unit_details: { type: object, description: "Type-specific detail; varies by `type`." }
+        status: { type: string, enum: [Active, Draft] }
+        content_status: { type: string, enum: [Active, Draft, UnpublishedEdit, MarkedForDeletion] }
+        ongoing_edit: { type: boolean }
+        mark_for_deletion: { type: boolean }
+        has_impact: { type: boolean }
+        completion_watch_threshold_pct: { type: integer, nullable: true }
+        completion_time_threshold_pct: { type: integer, nullable: true }
+        completion_require_scroll: { type: boolean }
+        created_at: { type: string }
+        updated_at: { type: string }

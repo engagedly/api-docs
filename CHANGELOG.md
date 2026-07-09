@@ -15,8 +15,10 @@ Format follows [Keep a Changelog](https://keepachangelog.com/) and [Semantic Ver
 - An **Error Codes** reference table (in HTTP Status Codes) documenting `missing_field` and `duplicate_value`.
 - A top navigation **header** (logo + **Guides / API Reference / Changelog / OpenAPI** tabs, plus GitHub and engagedly.com icon links); logo moved from the sidebar into the header. Split into multiple pages: **Guides** is the landing (`/` redirects to it), the **API Reference** lives at `/references.html`, and **Changelog** and **OpenAPI** pages were added.
 - An **OpenAPI** tab rendering an OpenAPI 3.0 spec of the full API (via Redoc, themed to match), with downloadable **OpenAPI spec** and **Postman collection**.
+- **Learning** endpoints documented on the `/beta` surface: `GET /beta/learning/resources` (list courses and playlists) and `GET /beta/learning/resources/{id}/contents` (course/playlist content hierarchy), on the API Reference, OpenAPI, and Postman collection.
 ### Changed
 - Moved the **Introduction** onto the Guides landing page; the API Reference now opens at *Getting Started*.
+- Migrated the **Learner Report** from `GET /learning/v1/reports` to `GET /beta/learning/learner_reports`; the internal `type`/`filter`/`scope` parameters are no longer part of the request.
 
 ## [1.1.0] — 2026-07-08
 ### Changed
