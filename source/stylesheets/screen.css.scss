@@ -85,6 +85,23 @@ html, body {
       }
     }
   }
+
+  .site-header-links {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    a {
+      display: inline-flex;
+      color: #5b6670;
+      transition: color 130ms linear;
+
+      &:hover { color: $main-text; }
+    }
+
+    svg { display: block; }
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

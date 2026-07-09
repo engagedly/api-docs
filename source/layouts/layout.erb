@@ -46,15 +46,7 @@ under the License.
   </head>
 
   <body class="<%= page_classes %>" data-languages="<%=h language_tabs.map{ |lang| lang.is_a?(Hash) ? lang.keys.first : lang }.to_json %>">
-    <% cur = current_page.url %>
-    <header class="site-header">
-      <a class="site-header-logo" href="<%= url_for('/guides.html') %>"><%= image_tag 'logo.png' %></a>
-      <nav class="site-header-tabs">
-        <a href="<%= url_for('/guides.html') %>" class="<%= 'active' if cur.include?('guides') %>">Guides</a>
-        <a href="<%= url_for('/references.html') %>" class="<%= 'active' if cur.include?('references') %>">API Reference</a>
-        <a href="<%= url_for('/changelog.html') %>" class="<%= 'active' if cur.include?('changelog') %>">Changelog</a>
-      </nav>
-    </header>
+    <%= partial 'partials/site_header' %>
     <a href="#" id="nav-button">
       <span>
         NAV
