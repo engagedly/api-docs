@@ -109,7 +109,7 @@ Engagedly uses conventional HTTP status codes to indicate success or failure of 
 | 409  | Conflict -- The request conflicts with another request (perhaps due to using the same idempotent key).                               |
 | 415  | Unsupported Media Type - POST/PUT/PATCH request occurred without a application/json content type.                                    |
 | 422  | Unprocessable Entry - A request to modify or create a resource failed due to a validation error.                                     |
-| 429  | Too Many Requests -- Too many requests within a certain time frame.                                                                  |
+| 429  | Too Many Requests -- Too many requests within a certain time frame. See [Rate Limiting](#rate-limiting).                             |
 | 500  | Server Errors -- Something went wrong on Engagedly's end.                                                                            |
 
 ### Error Response
@@ -157,3 +157,39 @@ In addition to the HTTP status code, most errors will also return a response bod
 Most of the API responses that returns the list of objects are paginated. The parameters that control the pagination are 'page' and 'size', indicating the page number and the items per page values. Within the response, a pagination attribute will be set and will contain the provided 'page' and 'size' along with 'has_more' and 'record_count' indicating whether there are more items that can be fetched and total number of records.
 
 The page number starts with 1 and by default the number of records returned are 25. The maximum number of records (size) that can be returned is 50.
+
+## Rate Limiting
+
+API requests are rate limited per API credential. Each `ClientKey` may make up to **100 requests per minute** to each endpoint. The limit is applied **per endpoint** — exhausting the limit on one endpoint does not affect your quota on others.
+
+Every response includes headers describing your current rate-limit state:
+
+| HEADER | DESCRIPTION |
+| ------ | ----------- |
+| `X-RateLimit-Limit` | The maximum number of requests allowed in the current window. |
+| `X-RateLimit-Remaining` | The number of requests remaining in the current window. |
+| `X-RateLimit-Reset` | The epoch time (in seconds) when the current window resets. |
+
+### Exceeding the limit
+
+When you exceed the limit, the API responds with `429 Too Many Requests` and applies a **cooldown** during which further requests to that endpoint are rejected. The cooldown **escalates** if you repeatedly exceed the limit in a short period: it starts at **1 minute**, then increases (3, 5, 10, up to 15 minutes) on repeated violations before resetting after a quiet period. The `Retry-After` response header tells you how many seconds to wait before retrying.
+
+<aside class="notice">Respect the <code>Retry-After</code> header and back off when you receive a <code>429</code>. Repeatedly hitting the limit lengthens the cooldown.</aside>
+
+> Sample 429 Response
+
+```http
+429 Too Many Requests
+content-type: application/json
+Retry-After: 60
+X-RateLimit-Limit: 100
+X-RateLimit-Remaining: 0
+X-RateLimit-Reset: 1751990460
+```
+
+```json
+{
+  "error_type": "rate_limit_exceeded",
+  "message": "Rate limit exceeded. Please retry later."
+}
+```

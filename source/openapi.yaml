@@ -28,6 +28,19 @@ info:
     the `page` and `size` query parameters; responses include a `pagination` object with `page`,
     `size`, `has_more`, and `total_records`.
 
+    ## Rate limiting
+
+    Requests are rate limited **per API credential (`ClientKey`), per endpoint** — up to
+    **100 requests per minute** on each endpoint. Exhausting the limit on one endpoint does not
+    affect your quota on others. Every response carries `X-RateLimit-Limit`,
+    `X-RateLimit-Remaining`, and `X-RateLimit-Reset` (epoch seconds) headers.
+
+    When you exceed the limit the API responds `429 Too Many Requests` and applies a **cooldown**
+    that **escalates** on repeated violations — starting at **1 minute**, then 3, 5, 10, up to
+    15 minutes before resetting after a quiet period. The `Retry-After` header gives the number of
+    seconds to wait. Back off when you receive a `429`; repeatedly hitting the limit lengthens the
+    cooldown. The `429` body is `{ "error_type": "rate_limit_exceeded", "message": "…" }`.
+
     ## HTTP status codes
 
     | Code | Meaning |
@@ -132,53 +145,6 @@ tags:
       **read-only**. Two identifiers are the stable join keys for mapping to your
       own data: `short_code` (human-readable course code) and `learning_resource_id`
       (internal course ID; returned as `id` on the resource itself).
-
-      ### Filtering & sorting (`filter_hash`, Learner Report)
-
-      `filter_hash` is a JSON object: `filter` maps each column to a payload whose shape depends on
-      the column's data type, and `sort` takes a `field_name` + `order` (`asc`/`desc`).
-
-      ```json
-      {
-        "filter": {
-          "completion_status": { "values": ["Completed"] },
-          "assigned_on": { "type": "inRange", "dateFrom": "2026-01-01", "dateTo": "2026-06-30" }
-        },
-        "sort": { "field_name": "completed_on", "order": "desc" }
-      }
-      ```
-
-      **Text filters** — `{ "filter": "acme" }` (case-insensitive contains). Columns: `title`,
-      `categories`, `language`, `learner_name`, `learner_email`, `learner_manager_name`,
-      `learner_hr_managers`, `learner_secondary_managers`, `learner_employee_id`,
-      `resource_assigner_name`, `author_name`, `author_email`.
-
-      **Set filters** — `{ "values": [...] }`. Fixed-value columns: `completion_status`
-      (Completed, In Progress, Not Started, Failed, Evaluation Pending); `compliance_status`
-      (Compliant, Not Compliant, null); `certified` / `mandatory` / `self_enrolled` / `archived` /
-      `learner_differently_abled` / `learner_veteran_status` (Yes, No); `learner_status`
-      (Active, Blocked); `provider` (Engagedly, Udemy, Go1, BizLibrary, LinkedIn Learning,
-      OpenSesame, Engagedly Academy, Learning Planet). Open-ended columns (org-configured strings):
-      `learner_job_title`, `learner_location`, `learner_department`, `learner_business_units`,
-      `learner_employee_type`, `learner_gender`, `learner_ethnicity`.
-
-      **Date filters** — `{ "type": "inRange", "dateFrom": "YYYY-MM-DD", "dateTo": "YYYY-MM-DD" }`
-      (single-date operators use only `dateFrom`). Columns & operators: `assigned_on` (equals,
-      inRange, assignedBefore, assignedAfter); `due_date` (equals, inRange, With Due Date,
-      Without Due Date); `completed_on` (equals, inRange); `compliant_till` (equals, inRange, null);
-      `learner_birthdate` (equals, inRange); `learner_hire_date` (equals, inRange).
-
-      **Number filters** — `{ "filter": "5" }`. Columns: `points`, `overall_time_taken` (minutes),
-      `delay_in_days`, `learner_age`. `overdue_by` additionally supports operators (equals, inRange,
-      greaterThan, lessThan; `inRange` uses `filter` + `filterTo`).
-
-      **Custom demographic fields** — filter with a `learner_custom_<fieldKey>` key using the
-      matching text/set/date shape.
-
-      **Sorting** — `sort.field_name` one of: assigned_on, due_date, completion_status,
-      compliance_status, completed_on, compliant_till, overall_time_taken, certified, points,
-      provider, title, learner_name, resource_assigner_name, learner_manager_name, language,
-      learner_email, author_name, author_email, overdue_by. `order` is `asc` or `desc`.
 
 paths:
   /beta/user-attributes:
@@ -671,13 +637,9 @@ paths:
         - { name: resource_ids, in: query, required: false, description: "Restrict to specific resource IDs.", schema: { type: array, items: { type: integer } } }
         - { name: state, in: query, required: false, description: "Publication state(s).", schema: { type: array, items: { type: string, enum: [unpublished, published, unpublished_edit] } } }
         - { name: languages, in: query, required: false, description: "Language code(s), e.g. `languages[]=en`.", schema: { type: array, items: { type: string } } }
-        - { name: roles, in: query, required: false, description: "Restrict to resources tagged for the given role ID(s).", schema: { type: array, items: { type: string } } }
         - { name: providers, in: query, required: false, description: "Content provider(s), e.g. `engagedly`, `udemy`, `go1`.", schema: { type: array, items: { type: string } } }
         - { name: authors, in: query, required: false, description: "Restrict to resources by the given author user ID(s).", schema: { type: array, items: { type: string } } }
-        - { name: category_ids, in: query, required: false, description: "Restrict to the given category ID(s).", schema: { type: array, items: { type: integer } } }
         - { name: levels, in: query, required: false, description: "Difficulty level(s), e.g. `Beginner`.", schema: { type: array, items: { type: string } } }
-        - { name: skills, in: query, required: false, description: "Restrict to the given skill ID(s).", schema: { type: array, items: { type: string } } }
-        - { name: competencies, in: query, required: false, description: "Restrict to the given competency ID(s).", schema: { type: array, items: { type: string } } }
         - { name: tags, in: query, required: false, description: "Restrict to the given tag(s).", schema: { type: array, items: { type: string } } }
         - { name: "durations[min_limit]", in: query, required: false, description: "Minimum duration in minutes.", schema: { type: integer } }
         - { name: "durations[max_limit]", in: query, required: false, description: "Maximum duration in minutes.", schema: { type: integer } }
@@ -687,14 +649,7 @@ paths:
         - { name: short_code, in: query, required: false, description: "Return the resource with this exact short code.", schema: { type: string } }
         - { name: archived, in: query, required: false, description: "Only archived (`true`) or active (`false`, default) resources.", schema: { type: boolean } }
         - { name: sort, in: query, required: false, description: "Sort order (e.g. `title`, `created_at`).", schema: { type: string } }
-        - { name: learner_id, in: query, required: false, description: "Internal/advanced — intended for a learner context; may not behave meaningfully for an external org-scoped call.", schema: { type: string } }
-        - { name: favorite, in: query, required: false, description: "Internal/advanced — intended for a learner context; may not behave meaningfully for an external org-scoped call.", schema: { type: boolean } }
-        - { name: favorite_index, in: query, required: false, description: "Internal/advanced — intended for a learner context; may not behave meaningfully for an external org-scoped call.", schema: { type: integer } }
-        - { name: resources_with_points, in: query, required: false, description: "Internal/advanced — may not behave meaningfully for an external org-scoped call.", schema: { type: boolean } }
-        - { name: for_workflow_display, in: query, required: false, description: "Internal/advanced — may not behave meaningfully for an external org-scoped call.", schema: { type: boolean } }
-        - { name: workflow_selection, in: query, required: false, description: "Internal/advanced — may not behave meaningfully for an external org-scoped call.", schema: { type: string } }
-        - { name: competency_search_text, in: query, required: false, description: "Internal/advanced — may not behave meaningfully for an external org-scoped call.", schema: { type: string } }
-        - { name: enrolled, in: query, required: false, description: "Internal/advanced — intended for a learner context; may not behave meaningfully for an external org-scoped call.", schema: { type: boolean } }
+        - { name: competency_search_text, in: query, required: false, description: "Case-insensitive match on the resource's competency names.", schema: { type: string } }
         - $ref: '#/components/parameters/page'
         - { name: size, in: query, description: "Items per page (max 50).", schema: { type: integer, default: 30, maximum: 50 } }
       responses:
@@ -708,6 +663,7 @@ paths:
                   - type: object
                     properties:
                       data: { type: array, items: { $ref: '#/components/schemas/LearningResource' } }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
 
   /beta/learning/resources/{id}/contents:
     get:
@@ -716,10 +672,10 @@ paths:
       description: >
         Returns the ordered content hierarchy of a single course or playlist. A
         course is organised into sections, each containing units; a playlist nests
-        child resources under `contents`. Read-only.
+        child resources under `contents`. Only published content is returned (the
+        learner view). Read-only.
       parameters:
         - { name: id, in: path, required: true, description: "The `learning_resource_id` of the course/playlist.", schema: { type: integer } }
-        - { name: role, in: query, required: false, description: "Optional viewing role. `author`/`co-author` additionally surface in-progress draft edits.", schema: { type: string, enum: [author, co-author] } }
       responses:
         '200':
           description: The content hierarchy (list of sections).
@@ -730,6 +686,7 @@ paths:
                 properties:
                   success: { type: boolean, example: true }
                   data: { type: array, items: { $ref: '#/components/schemas/ResourceSection' } }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
 
   /beta/learning/learner_reports:
     get:
@@ -744,11 +701,6 @@ paths:
         - { name: learning_resource_ids, in: query, required: false, description: "Restrict the report to specific courses by internal ID.", schema: { type: array, items: { type: integer } } }
         - $ref: '#/components/parameters/page'
         - { name: size, in: query, description: "Items per page (max 50).", schema: { type: integer, default: 25, maximum: 50 } }
-        - name: filter_hash
-          in: query
-          required: false
-          description: "Column filtering and sorting (includes the `title` course-title text filter). See the **Learning** section for the full per-column filter shapes and sortable fields."
-          schema: { type: object }
       responses:
         '200':
           description: A paginated list of learner enrolment records.
@@ -760,6 +712,7 @@ paths:
                   - type: object
                     properties:
                       data: { type: array, items: { $ref: '#/components/schemas/LearnerRecord' } }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
 
 components:
   securitySchemes:
@@ -796,6 +749,27 @@ components:
       content:
         application/json:
           schema: { $ref: '#/components/schemas/Error' }
+    TooManyRequests:
+      description: >
+        Rate limit exceeded. Each ClientKey may make up to 100 requests/minute per
+        endpoint; exceeding it triggers an escalating cooldown (starting at 1 minute).
+        See the Rate Limiting section. Applies to all `/beta` endpoints.
+      headers:
+        Retry-After:
+          description: Seconds to wait before retrying.
+          schema: { type: integer }
+        X-RateLimit-Limit:
+          description: Maximum requests allowed in the current window.
+          schema: { type: integer }
+        X-RateLimit-Remaining:
+          description: Requests remaining in the current window.
+          schema: { type: integer }
+        X-RateLimit-Reset:
+          description: Epoch seconds when the window resets.
+          schema: { type: integer }
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/RateLimitError' }
 
   schemas:
     Pagination:
@@ -822,6 +796,11 @@ components:
               field: { type: string, example: name }
               message: { type: string, example: Mandatory attribute missing }
               code: { type: string, example: missing_field }
+    RateLimitError:
+      type: object
+      properties:
+        error_type: { type: string, example: rate_limit_exceeded }
+        message: { type: string, example: "Rate limit exceeded. Please retry later." }
     DisplayPicture:
       type: object
       properties:

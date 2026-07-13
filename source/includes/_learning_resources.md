@@ -29,17 +29,14 @@ returned, newest activity first.
 Parameter | Type | Description
 --------- | ---- | -----------
 search_text | string | Case-insensitive match on the resource title.
+competency_search_text | string | Case-insensitive match on the resource's competency names.
 types[] | array | Resource type(s). Values: `Course`, `Playlist`, `Section`. Example: `types[]=Course&types[]=Playlist`.
 resource_ids[] | array | Restrict to specific resource IDs. Example: `resource_ids[]=1234`.
 state[] | array | Publication state(s). Values: `unpublished`, `published`, `unpublished_edit`.
 languages[] | array | Language code(s), e.g. `languages[]=en`.
-roles[] | array | Restrict to resources tagged for the given role ID(s).
 providers[] | array | Content provider(s), e.g. `engagedly`, `udemy`, `go1`, `linkedin-learning`, `opensesame`, `bizz-library`, `thinkific-academy`, `learning-planet`.
 authors[] | array | Restrict to resources by the given author user ID(s).
-category_ids[] | array | Restrict to the given category ID(s).
 levels[] | array | Difficulty level(s), e.g. `Beginner`, `Intermediate`, `Advanced`.
-skills[] | array | Restrict to the given skill ID(s).
-competencies[] | array | Restrict to the given competency ID(s).
 tags[] | array | Restrict to the given tag(s).
 durations[min_limit] / durations[max_limit] | object | Duration range in minutes. Example: `durations[min_limit]=30&durations[max_limit]=120`.
 certified | boolean | When `true`, only resources that grant a certificate.
@@ -50,13 +47,6 @@ archived | boolean | When `true`, only archived resources; when `false` (default
 sort | string | Sort order for the listing (e.g. `title`, `created_at`).
 page | integer | Page number, starting at 1.
 size | integer | Items per page. Maximum 50.
-
-<aside class="notice">The following parameters are accepted but are intended for
-internal/authoring contexts and may not behave meaningfully for an external
-org-scoped call: <code>learner_id</code>, <code>favorite</code>,
-<code>favorite_index</code>, <code>resources_with_points</code>,
-<code>for_workflow_display</code>, <code>workflow_selection</code>,
-<code>competency_search_text</code>, <code>enrolled</code>.</aside>
 
 > Sample Request
 
@@ -268,18 +258,13 @@ Returns the ordered content hierarchy of a single course or playlist. A course
 is organised into **sections**, each containing **units** (the individual
 content items — attachments, rich text, links, quizzes, videos, SCORM/AICC/LTI
 packages, etc.). A playlist instead nests child resources under `contents`.
+Only **published** content is returned (the learner view).
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
 ID | The `learning_resource_id` of the course/playlist (the `id` from the List Resources response).
-
-### Query Parameters
-
-Parameter | Type | Description
---------- | ---- | -----------
-role | string | Optional viewing role. Learners see only published content (default); `author`/`co-author` additionally surface in-progress draft edits.
 
 > Sample Request
 

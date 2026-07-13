@@ -4171,15 +4171,6 @@
                 {
                   "disabled": true,
                   "description": {
-                    "content": "Restrict to resources tagged for the given role ID(s).",
-                    "type": "text/plain"
-                  },
-                  "key": "roles",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": true,
-                  "description": {
                     "content": "Content provider(s), e.g. engagedly, udemy, go1.",
                     "type": "text/plain"
                   },
@@ -4198,38 +4189,11 @@
                 {
                   "disabled": true,
                   "description": {
-                    "content": "Restrict to the given category ID(s).",
-                    "type": "text/plain"
-                  },
-                  "key": "category_ids",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": true,
-                  "description": {
                     "content": "Difficulty level(s), e.g. Beginner, Intermediate, Advanced.",
                     "type": "text/plain"
                   },
                   "key": "levels",
                   "value": "Beginner"
-                },
-                {
-                  "disabled": true,
-                  "description": {
-                    "content": "Restrict to the given skill ID(s).",
-                    "type": "text/plain"
-                  },
-                  "key": "skills",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": true,
-                  "description": {
-                    "content": "Restrict to the given competency ID(s).",
-                    "type": "text/plain"
-                  },
-                  "key": "competencies",
-                  "value": "<string>"
                 },
                 {
                   "disabled": true,
@@ -4315,74 +4279,11 @@
                 {
                   "disabled": true,
                   "description": {
-                    "content": "Internal/advanced \u2014 intended for a learner context; may not behave meaningfully for an external org-scoped call.",
-                    "type": "text/plain"
-                  },
-                  "key": "learner_id",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": true,
-                  "description": {
-                    "content": "Internal/advanced \u2014 intended for a learner context; may not behave meaningfully for an external org-scoped call.",
-                    "type": "text/plain"
-                  },
-                  "key": "favorite",
-                  "value": "true"
-                },
-                {
-                  "disabled": true,
-                  "description": {
-                    "content": "Internal/advanced \u2014 intended for a learner context; may not behave meaningfully for an external org-scoped call.",
-                    "type": "text/plain"
-                  },
-                  "key": "favorite_index",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": true,
-                  "description": {
-                    "content": "Internal/advanced \u2014 may not behave meaningfully for an external org-scoped call.",
-                    "type": "text/plain"
-                  },
-                  "key": "resources_with_points",
-                  "value": "true"
-                },
-                {
-                  "disabled": true,
-                  "description": {
-                    "content": "Internal/advanced \u2014 may not behave meaningfully for an external org-scoped call.",
-                    "type": "text/plain"
-                  },
-                  "key": "for_workflow_display",
-                  "value": "true"
-                },
-                {
-                  "disabled": true,
-                  "description": {
-                    "content": "Internal/advanced \u2014 may not behave meaningfully for an external org-scoped call.",
-                    "type": "text/plain"
-                  },
-                  "key": "workflow_selection",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": true,
-                  "description": {
-                    "content": "Internal/advanced \u2014 may not behave meaningfully for an external org-scoped call.",
+                    "content": "Case-insensitive match on the resource's competency names.",
                     "type": "text/plain"
                   },
                   "key": "competency_search_text",
                   "value": "<string>"
-                },
-                {
-                  "disabled": true,
-                  "description": {
-                    "content": "Internal/advanced \u2014 intended for a learner context; may not behave meaningfully for an external org-scoped call.",
-                    "type": "text/plain"
-                  },
-                  "key": "enrolled",
-                  "value": "true"
                 },
                 {
                   "disabled": false,
@@ -4494,15 +4395,6 @@
                     {
                       "disabled": true,
                       "description": {
-                        "content": "Restrict to resources tagged for the given role ID(s).",
-                        "type": "text/plain"
-                      },
-                      "key": "roles",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": true,
-                      "description": {
                         "content": "Content provider(s), e.g. engagedly, udemy, go1.",
                         "type": "text/plain"
                       },
@@ -4521,38 +4413,11 @@
                     {
                       "disabled": true,
                       "description": {
-                        "content": "Restrict to the given category ID(s).",
-                        "type": "text/plain"
-                      },
-                      "key": "category_ids",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": true,
-                      "description": {
                         "content": "Difficulty level(s), e.g. Beginner, Intermediate, Advanced.",
                         "type": "text/plain"
                       },
                       "key": "levels",
                       "value": "Beginner"
-                    },
-                    {
-                      "disabled": true,
-                      "description": {
-                        "content": "Restrict to the given skill ID(s).",
-                        "type": "text/plain"
-                      },
-                      "key": "skills",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": true,
-                      "description": {
-                        "content": "Restrict to the given competency ID(s).",
-                        "type": "text/plain"
-                      },
-                      "key": "competencies",
-                      "value": "<string>"
                     },
                     {
                       "disabled": true,
@@ -4638,74 +4503,11 @@
                     {
                       "disabled": true,
                       "description": {
-                        "content": "Internal/advanced \u2014 intended for a learner context; may not behave meaningfully for an external org-scoped call.",
-                        "type": "text/plain"
-                      },
-                      "key": "learner_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": true,
-                      "description": {
-                        "content": "Internal/advanced \u2014 intended for a learner context; may not behave meaningfully for an external org-scoped call.",
-                        "type": "text/plain"
-                      },
-                      "key": "favorite",
-                      "value": "true"
-                    },
-                    {
-                      "disabled": true,
-                      "description": {
-                        "content": "Internal/advanced \u2014 intended for a learner context; may not behave meaningfully for an external org-scoped call.",
-                        "type": "text/plain"
-                      },
-                      "key": "favorite_index",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": true,
-                      "description": {
-                        "content": "Internal/advanced \u2014 may not behave meaningfully for an external org-scoped call.",
-                        "type": "text/plain"
-                      },
-                      "key": "resources_with_points",
-                      "value": "true"
-                    },
-                    {
-                      "disabled": true,
-                      "description": {
-                        "content": "Internal/advanced \u2014 may not behave meaningfully for an external org-scoped call.",
-                        "type": "text/plain"
-                      },
-                      "key": "for_workflow_display",
-                      "value": "true"
-                    },
-                    {
-                      "disabled": true,
-                      "description": {
-                        "content": "Internal/advanced \u2014 may not behave meaningfully for an external org-scoped call.",
-                        "type": "text/plain"
-                      },
-                      "key": "workflow_selection",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": true,
-                      "description": {
-                        "content": "Internal/advanced \u2014 may not behave meaningfully for an external org-scoped call.",
+                        "content": "Case-insensitive match on the resource's competency names.",
                         "type": "text/plain"
                       },
                       "key": "competency_search_text",
                       "value": "<string>"
-                    },
-                    {
-                      "disabled": true,
-                      "description": {
-                        "content": "Internal/advanced \u2014 intended for a learner context; may not behave meaningfully for an external org-scoped call.",
-                        "type": "text/plain"
-                      },
-                      "key": "enrolled",
-                      "value": "true"
                     },
                     {
                       "disabled": false,
@@ -4764,6 +4566,256 @@
               "body": "{\n  \"success\": \"<boolean>\",\n  \"pagination\": {\n    \"page\": \"<integer>\",\n    \"size\": \"<integer>\",\n    \"has_more\": \"<boolean>\",\n    \"total_records\": \"<integer>\"\n  },\n  \"data\": [\n    {\n      \"id\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"provider\": \"<string>\",\n      \"archived\": \"<boolean>\",\n      \"language\": \"<string>\",\n      \"duration\": \"<string>\",\n      \"short_code\": \"<string>\",\n      \"level\": \"<string>\",\n      \"type\": \"Course\",\n      \"state\": \"Published\",\n      \"in_library\": \"<boolean>\",\n      \"published_on\": \"<string>\",\n      \"average_rating\": \"<number>\",\n      \"tags\": [\n        \"<string>\"\n      ],\n      \"competencies\": [],\n      \"categories\": [\n        {\n          \"id\": \"<integer>\",\n          \"title\": \"<string>\"\n        }\n      ],\n      \"author\": {},\n      \"co_authors\": [],\n      \"contents_count\": \"<integer>\",\n      \"course_id\": \"<integer>\",\n      \"reviews_count\": \"<integer>\",\n      \"skills\": [],\n      \"created_at\": \"<string>\",\n      \"updated_at\": \"<string>\"\n    }\n  ]\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1f0a001-0000-4000-8000-000000000400",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beta",
+                    "learning",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "disabled": true,
+                      "description": {
+                        "content": "Case-insensitive match on the resource title.",
+                        "type": "text/plain"
+                      },
+                      "key": "search_text",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Resource type(s). e.g. types[]=Course. One of Course, Playlist, Section.",
+                        "type": "text/plain"
+                      },
+                      "key": "types",
+                      "value": "Course"
+                    },
+                    {
+                      "disabled": true,
+                      "description": {
+                        "content": "Restrict to specific resource IDs.",
+                        "type": "text/plain"
+                      },
+                      "key": "resource_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": true,
+                      "description": {
+                        "content": "Publication state(s): unpublished, published, unpublished_edit.",
+                        "type": "text/plain"
+                      },
+                      "key": "state",
+                      "value": "published"
+                    },
+                    {
+                      "disabled": true,
+                      "description": {
+                        "content": "Language code(s), e.g. languages[]=en.",
+                        "type": "text/plain"
+                      },
+                      "key": "languages",
+                      "value": "en"
+                    },
+                    {
+                      "disabled": true,
+                      "description": {
+                        "content": "Content provider(s), e.g. engagedly, udemy, go1.",
+                        "type": "text/plain"
+                      },
+                      "key": "providers",
+                      "value": "engagedly"
+                    },
+                    {
+                      "disabled": true,
+                      "description": {
+                        "content": "Restrict to resources by the given author user ID(s).",
+                        "type": "text/plain"
+                      },
+                      "key": "authors",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": true,
+                      "description": {
+                        "content": "Difficulty level(s), e.g. Beginner, Intermediate, Advanced.",
+                        "type": "text/plain"
+                      },
+                      "key": "levels",
+                      "value": "Beginner"
+                    },
+                    {
+                      "disabled": true,
+                      "description": {
+                        "content": "Restrict to the given tag(s).",
+                        "type": "text/plain"
+                      },
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": true,
+                      "description": {
+                        "content": "Minimum duration in minutes.",
+                        "type": "text/plain"
+                      },
+                      "key": "durations[min_limit]",
+                      "value": "30"
+                    },
+                    {
+                      "disabled": true,
+                      "description": {
+                        "content": "Maximum duration in minutes.",
+                        "type": "text/plain"
+                      },
+                      "key": "durations[max_limit]",
+                      "value": "120"
+                    },
+                    {
+                      "disabled": true,
+                      "description": {
+                        "content": "Only resources that grant a certificate.",
+                        "type": "text/plain"
+                      },
+                      "key": "certified",
+                      "value": "true"
+                    },
+                    {
+                      "disabled": true,
+                      "description": {
+                        "content": "Minimum average rating (1\u20135).",
+                        "type": "text/plain"
+                      },
+                      "key": "ratings",
+                      "value": "4"
+                    },
+                    {
+                      "disabled": true,
+                      "description": {
+                        "content": "Only resources in the content library.",
+                        "type": "text/plain"
+                      },
+                      "key": "in_library",
+                      "value": "true"
+                    },
+                    {
+                      "disabled": true,
+                      "description": {
+                        "content": "Return the resource with this exact short code.",
+                        "type": "text/plain"
+                      },
+                      "key": "short_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": true,
+                      "description": {
+                        "content": "Only archived (true) or active (false, default) resources.",
+                        "type": "text/plain"
+                      },
+                      "key": "archived",
+                      "value": "false"
+                    },
+                    {
+                      "disabled": true,
+                      "description": {
+                        "content": "Sort order, e.g. title, created_at.",
+                        "type": "text/plain"
+                      },
+                      "key": "sort",
+                      "value": "created_at"
+                    },
+                    {
+                      "disabled": true,
+                      "description": {
+                        "content": "Case-insensitive match on the resource's competency names.",
+                        "type": "text/plain"
+                      },
+                      "key": "competency_search_text",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Page number (pagination).",
+                        "type": "text/plain"
+                      },
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Items per page (max 50).",
+                        "type": "text/plain"
+                      },
+                      "key": "size",
+                      "value": "30"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "ClientKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "SecretKey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Retry-After",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "100"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "0"
+                },
+                {
+                  "key": "X-RateLimit-Reset",
+                  "value": "1751990460"
+                }
+              ],
+              "body": "{\n  \"error_type\": \"rate_limit_exceeded\",\n  \"message\": \"Rate limit exceeded. Please retry later.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
             }
           ],
           "event": [],
@@ -4791,17 +4843,7 @@
               "host": [
                 "{{baseUrl}}"
               ],
-              "query": [
-                {
-                  "disabled": true,
-                  "description": {
-                    "content": "Optional viewing role. author/co-author surface in-progress draft edits.",
-                    "type": "text/plain"
-                  },
-                  "key": "role",
-                  "value": "author"
-                }
-              ],
+              "query": [],
               "variable": [
                 {
                   "key": "id",
@@ -4855,17 +4897,7 @@
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "disabled": true,
-                      "description": {
-                        "content": "Optional viewing role. author/co-author surface in-progress draft edits.",
-                        "type": "text/plain"
-                      },
-                      "key": "role",
-                      "value": "author"
-                    }
-                  ],
+                  "query": [],
                   "variable": [
                     {
                       "key": "id",
@@ -4911,6 +4943,86 @@
                 }
               ],
               "body": "{\n  \"success\": \"<boolean>\",\n  \"data\": [\n    {\n      \"id\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"type\": \"Section\",\n      \"status\": \"Published\",\n      \"ongoing_edit\": \"<boolean>\",\n      \"position\": \"<integer>\",\n      \"content_status\": \"Published\",\n      \"units\": [\n        {\n          \"id\": \"<integer>\",\n          \"title\": \"<string>\",\n          \"description\": \"<string>\",\n          \"type\": \"VideoContent\",\n          \"position\": \"<integer>\",\n          \"duration\": \"<integer>\",\n          \"unit_details\": {},\n          \"status\": \"Active\",\n          \"content_status\": \"Active\",\n          \"ongoing_edit\": \"<boolean>\",\n          \"mark_for_deletion\": \"<boolean>\",\n          \"has_impact\": \"<boolean>\",\n          \"completion_watch_threshold_pct\": \"<integer>\",\n          \"completion_time_threshold_pct\": \"<integer>\",\n          \"completion_require_scroll\": \"<boolean>\",\n          \"created_at\": \"<string>\",\n          \"updated_at\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1f0a001-0000-4000-8000-000000000401",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beta",
+                    "learning",
+                    "resources",
+                    ":id",
+                    "contents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "1234",
+                      "description": {
+                        "content": "The learning_resource_id of the course/playlist.",
+                        "type": "text/plain"
+                      }
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "ClientKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "SecretKey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Retry-After",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "100"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "0"
+                },
+                {
+                  "key": "X-RateLimit-Reset",
+                  "value": "1751990460"
+                }
+              ],
+              "body": "{\n  \"error_type\": \"rate_limit_exceeded\",\n  \"message\": \"Rate limit exceeded. Please retry later.\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -4983,15 +5095,6 @@
                   },
                   "key": "size",
                   "value": "25"
-                },
-                {
-                  "disabled": true,
-                  "description": {
-                    "content": "Column filtering and sorting (includes the title course-title text filter). See the API Reference.",
-                    "type": "text/plain"
-                  },
-                  "key": "filter_hash",
-                  "value": "<object>"
                 }
               ],
               "variable": []
@@ -5081,15 +5184,6 @@
                       },
                       "key": "size",
                       "value": "25"
-                    },
-                    {
-                      "disabled": true,
-                      "description": {
-                        "content": "Column filtering and sorting (includes the title course-title text filter). See the API Reference.",
-                        "type": "text/plain"
-                      },
-                      "key": "filter_hash",
-                      "value": "<object>"
                     }
                   ],
                   "variable": []
@@ -5128,6 +5222,121 @@
                 }
               ],
               "body": "{\n  \"success\": \"<boolean>\",\n  \"pagination\": {\n    \"page\": \"<integer>\",\n    \"size\": \"<integer>\",\n    \"has_more\": \"<boolean>\",\n    \"total_records\": \"<integer>\"\n  },\n  \"data\": [\n    {\n      \"id\": \"<integer>\",\n      \"learning_resource_id\": \"<integer>\",\n      \"learning_resource_title\": \"<string>\",\n      \"short_code\": \"<string>\",\n      \"completion_status\": \"In Progress\",\n      \"points\": \"<integer>\",\n      \"completed_on\": \"<string>\",\n      \"certified\": \"<boolean>\",\n      \"mandatory\": \"<boolean>\",\n      \"progress\": \"<integer>\",\n      \"provider\": \"<string>\",\n      \"archive\": \"<boolean>\",\n      \"categories\": [\n        {\n          \"id\": \"<integer>\",\n          \"title\": \"<string>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"title\": \"<string>\"\n        }\n      ],\n      \"learner\": {\n        \"id\": \"<uuid>\",\n        \"name\": \"<string>\",\n        \"email\": \"<email>\",\n        \"status\": \"<string>\",\n        \"manager\": {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      },\n      \"assigner\": {},\n      \"manager\": {},\n      \"author\": {},\n      \"assigned_on\": \"<string>\",\n      \"overall_time_taken\": \"<integer>\",\n      \"due_date\": \"<string>\",\n      \"delay_in_days\": \"<integer>\",\n      \"language\": \"<string>\",\n      \"learning_resource_duration\": \"<integer>\",\n      \"compliance_status\": \"<string>\",\n      \"valid_till\": \"<string>\",\n      \"is_self_assigned\": \"<boolean>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"learning_resource_id\": \"<integer>\",\n      \"learning_resource_title\": \"<string>\",\n      \"short_code\": \"<string>\",\n      \"completion_status\": \"Failed\",\n      \"points\": \"<integer>\",\n      \"completed_on\": \"<string>\",\n      \"certified\": \"<boolean>\",\n      \"mandatory\": \"<boolean>\",\n      \"progress\": \"<integer>\",\n      \"provider\": \"<string>\",\n      \"archive\": \"<boolean>\",\n      \"categories\": [\n        {\n          \"id\": \"<integer>\",\n          \"title\": \"<string>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"title\": \"<string>\"\n        }\n      ],\n      \"learner\": {\n        \"id\": \"<uuid>\",\n        \"name\": \"<string>\",\n        \"email\": \"<email>\",\n        \"status\": \"<string>\",\n        \"manager\": {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      },\n      \"assigner\": {},\n      \"manager\": {},\n      \"author\": {},\n      \"assigned_on\": \"<string>\",\n      \"overall_time_taken\": \"<integer>\",\n      \"due_date\": \"<string>\",\n      \"delay_in_days\": \"<integer>\",\n      \"language\": \"<string>\",\n      \"learning_resource_duration\": \"<integer>\",\n      \"compliance_status\": \"<string>\",\n      \"valid_till\": \"<string>\",\n      \"is_self_assigned\": \"<boolean>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1f0a001-0000-4000-8000-000000000402",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beta",
+                    "learning",
+                    "learner_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Resource type(s) to report on. Both returned when omitted. e.g. resource_types[]=Course.",
+                        "type": "text/plain"
+                      },
+                      "key": "resource_types",
+                      "value": "Course"
+                    },
+                    {
+                      "disabled": true,
+                      "description": {
+                        "content": "Restrict the report to a single course by internal ID.",
+                        "type": "text/plain"
+                      },
+                      "key": "learning_resource_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": true,
+                      "description": {
+                        "content": "Restrict the report to specific courses by internal ID.",
+                        "type": "text/plain"
+                      },
+                      "key": "learning_resource_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Page number (pagination).",
+                        "type": "text/plain"
+                      },
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Items per page (max 50).",
+                        "type": "text/plain"
+                      },
+                      "key": "size",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "ClientKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "SecretKey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Retry-After",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "100"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "0"
+                },
+                {
+                  "key": "X-RateLimit-Reset",
+                  "value": "1751990460"
+                }
+              ],
+              "body": "{\n  \"error_type\": \"rate_limit_exceeded\",\n  \"message\": \"Rate limit exceeded. Please retry later.\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
