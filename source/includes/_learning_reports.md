@@ -38,7 +38,6 @@ content-type: application/json
 
 ```json
 {
-    "success": true,
     "pagination": {
         "page": 1,
         "size": 25,

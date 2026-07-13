@@ -703,15 +703,18 @@ paths:
         - { name: size, in: query, description: "Items per page (max 50).", schema: { type: integer, default: 25, maximum: 50 } }
       responses:
         '200':
-          description: A paginated list of learner enrolment records.
+          description: >
+            Learner enrolment records. The response has a `data` array and a
+            `pagination` object (present when `page` and `size` are supplied).
+            Note: unlike the other list endpoints, this response has no `success`
+            flag.
           content:
             application/json:
               schema:
-                allOf:
-                  - $ref: '#/components/schemas/PaginatedEnvelope'
-                  - type: object
-                    properties:
-                      data: { type: array, items: { $ref: '#/components/schemas/LearnerRecord' } }
+                type: object
+                properties:
+                  pagination: { $ref: '#/components/schemas/Pagination' }
+                  data: { type: array, items: { $ref: '#/components/schemas/LearnerRecord' } }
         '429': { $ref: '#/components/responses/TooManyRequests' }
 
 components:
