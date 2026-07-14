@@ -3,11 +3,22 @@
 All notable changes to the Engagedly API and its documentation are recorded here, newest first.
 Format follows [Keep a Changelog](https://keepachangelog.com/) and [Semantic Versioning](https://semver.org/).
 
+> This is the **complete** changelog (endpoints, docs-site, tooling, dependencies, build). The
+> published changelog on the docs site (`source/changelog.html.md`) is a curated subset listing
+> only **API/endpoint-facing** changes. The two are intentionally not mirrors — do not sync them.
+
 **Versioning:** `0.1.0` captures the pre-1.0 development history (2017–2025, before changes were formally versioned). `1.0.0` onward is actively versioned. A version is assigned only when a change is **released**; roadmap items that aren't built yet stay under **Planned** with no version. These numbers version the Engagedly API and its documentation as published here; the API itself is currently served at the `/beta` endpoint, independently of the changelog version.
 
-## Planned
-
-- **Rate limits** — a request-throttling policy (limits, `X-RateLimit-*` response headers, and `429 Too Many Requests` behavior). Docs will be added here and in the API reference once it's implemented and the policy is finalized.
+## [1.2.0] — Unreleased
+### Added
+- A site favicon (the Engagedly brand icon).
+- An **Error Codes** reference table (in HTTP Status Codes) documenting `missing_field` and `duplicate_value`.
+- A top navigation **header** (logo + **Guides / API Reference / Changelog / OpenAPI** tabs, plus GitHub and engagedly.com icon links); logo moved from the sidebar into the header. Split into multiple pages: **Guides** is the landing (`/` redirects to it), the **API Reference** lives at `/references.html`, and **Changelog** and **OpenAPI** pages were added.
+- An **OpenAPI** tab rendering an OpenAPI 3.0 spec of the full API (via Redoc, themed to match), with downloadable **OpenAPI spec** and **Postman collection**.
+- **Learning** endpoints documented on the `/beta` surface: `GET /beta/learning/resources` (list courses and playlists) and `GET /beta/learning/resources/{id}/contents` (course/playlist content hierarchy), on the API Reference, OpenAPI, and Postman collection.
+- **Rate limiting** on the `/beta` APIs: 100 requests/minute per API credential per endpoint, `X-RateLimit-Limit`/`X-RateLimit-Remaining`/`X-RateLimit-Reset` response headers, and `429 Too Many Requests` with an escalating cooldown (starting at 1 minute) and a `Retry-After` header. Documented in the API Reference, OpenAPI, and Postman collection.
+### Changed
+- Moved the **Introduction** onto the Guides landing page; the API Reference now opens at *Getting Started*.
 
 ## [1.1.0] — 2026-07-08
 ### Changed

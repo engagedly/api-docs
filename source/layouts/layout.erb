@@ -31,6 +31,8 @@ under the License.
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title><%= current_page.data.title || "API Documentation" %></title>
 
+    <link rel="icon" type="image/png" href="<%= image_path('favicon.png') %>">
+
     <style>
       <%= Rouge::Themes::MonokaiSublime.render(:scope => '.highlight') %>
     </style>
@@ -44,6 +46,7 @@ under the License.
   </head>
 
   <body class="<%= page_classes %>" data-languages="<%=h language_tabs.map{ |lang| lang.is_a?(Hash) ? lang.keys.first : lang }.to_json %>">
+    <%= partial 'partials/site_header' %>
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -51,7 +54,6 @@ under the License.
       </span>
     </a>
     <div class="toc-wrapper">
-      <%= image_tag "logo.png", class: 'logo' %>
       <% if language_tabs.any? %>
         <div class="lang-selector">
           <% language_tabs.each do |lang| %>

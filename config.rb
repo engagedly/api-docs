@@ -42,6 +42,9 @@ end
 activate :relative_assets
 set :relative_links, true
 
+# Landing page ("/") redirects to Guides (see source/index.html.erb — a relative
+# redirect, since GitHub Pages may serve from a subpath). API reference = /references.html.
+
 # Build Configuration
 configure :build do
   # If you're having trouble with Middleman hanging, commenting
