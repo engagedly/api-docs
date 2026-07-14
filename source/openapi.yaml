@@ -3,9 +3,11 @@ info:
   title: Engagedly API
   version: beta
   description: |
-    OpenAPI description of the Engagedly API — replicating the hand-authored API Reference.
+    Reference documentation for the Engagedly API.
 
     **Downloads:** [OpenAPI spec](openapi.yaml) · [Postman collection](engagedly-api.postman_collection.json)
+
+    # Getting Started
 
     ## Authentication
 

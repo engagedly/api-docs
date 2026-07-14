@@ -21,7 +21,7 @@ assigned only when a change is released. The API is currently served at the
 ## 1.2.0 — Unreleased
 
 - **Added** — an Error Codes reference table (in HTTP Status Codes) documenting `missing_field` and `duplicate_value`.
-- **Added** — Learning endpoints on the `/beta` surface: `GET /beta/learning/resources` (list courses and playlists) and `GET /beta/learning/resources/{id}/contents` (course/playlist content hierarchy).
+- **Added** — Learning endpoints on the `/beta` surface: `GET /beta/learning/resources` (list courses and playlists), `GET /beta/learning/resources/{id}/contents` (course/playlist content hierarchy), and `GET /beta/learning/learner_reports` (org-wide learner report).
 - **Added** — rate limiting on the `/beta` APIs: 100 requests/minute per API credential per endpoint, `X-RateLimit-*` response headers, and `429 Too Many Requests` with an escalating cooldown (starting at 1 minute) and a `Retry-After` header.
 
 ## 1.1.0 — 2026-07-08
