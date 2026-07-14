@@ -38,9 +38,13 @@ Slate works today; to reduce future friction:
 - **Dockerize the build** so contributors don't need the exact Ruby/bundler/clang toolchain locally (the biggest onboarding friction).
 - Keep leaning on the version pins documented in the README.
 
-<!-- (Former #4 "icon font → inline SVG" — DONE 2026-07-08: the IcoMoon `slate`
-     webfont was replaced with CSS `mask` + inline-SVG icons in `_icons.scss`;
-     `source/fonts/`, `font-selection.json`, and `_icon-font.scss` were removed.) -->
+## 4. CI/CD: migrate to the official GitHub Pages deploy flow (deferred)
+
+The deploy currently uses the third-party `peaceiris/actions-gh-pages@v4`, pushing built HTML to a `gh-pages` branch (Pages source = "Deploy from a branch"). Side effects: it also triggers GitHub's **uneditable** auto `pages-build-deployment` workflow (a second pipeline) which emits a Node-20 deprecation warning we can't fix.
+
+The **officially-documented** alternative uses first-party actions — `actions/configure-pages` + `actions/upload-pages-artifact` + `actions/deploy-pages`, with Pages source = "GitHub Actions": one pipeline, no `gh-pages` branch, no auto `pages-build-deployment` (both Node-20 warnings gone), native Pages environment, and a real dry-run.
+
+A ready-to-use, YAML-validated sample is drafted at [`deploy-pages-official.sample.yml`](./deploy-pages-official.sample.yml) — it's inert (lives in `docs/`, not `.github/workflows/`). Adopting it needs a one-time repo setting change (Pages source → "GitHub Actions"), documented in that file. Also `checkout` should move `@v4 → @v5` regardless. **Deferred — process unchanged for now.**
 
 ---
 

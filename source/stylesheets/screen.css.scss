@@ -37,6 +37,74 @@ html, body {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// PAGE HEADER (logo + tabs)
+////////////////////////////////////////////////////////////////////////////////
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $header-height;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  padding: 0 $nav-padding;
+  background-color: #fff;
+  border-bottom: 1px solid #E1E6EA;
+  box-sizing: border-box;
+
+  .site-header-logo {
+    display: flex;
+    align-items: center;
+    margin-right: 24px;
+    img { display: block; height: 30px; }
+  }
+
+  .site-header-tabs {
+    display: flex;
+    align-self: stretch;
+
+    a {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      padding: 0 18px;
+      color: #5b6670;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      border-bottom: 3px solid transparent;
+      transition: color 130ms linear;
+
+      &:hover { color: $main-text; }
+
+      &.active {
+        color: $nav-active-bg;
+        border-bottom-color: $nav-active-bg;
+      }
+    }
+  }
+
+  .site-header-links {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    a {
+      display: inline-flex;
+      color: #5b6670;
+      transition: color 130ms linear;
+
+      &:hover { color: $main-text; }
+    }
+
+    svg { display: block; }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // TABLE OF CONTENTS
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -54,7 +122,7 @@ html, body {
   overflow-x: hidden;
   position: fixed;
   z-index: 30;
-  top: 0;
+  top: $header-height;
   left: 0;
   bottom: 0;
   width: $nav-width;
@@ -223,7 +291,7 @@ html, body {
   padding: 0 1.5em 5em 0; // increase touch size area
   display: none;
   position: fixed;
-  top: 0;
+  top: $header-height;
   left: 0;
   z-index: 100;
   color: #000;
@@ -249,6 +317,7 @@ html, body {
 
 .page-wrapper {
   margin-left: $nav-width;
+  margin-top: $header-height;
   position: relative;
   z-index: 10;
   background-color: $main-bg;

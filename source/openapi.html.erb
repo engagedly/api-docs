@@ -1,0 +1,44 @@
+---
+layout: false
+title: Engagedly API — OpenAPI
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= current_page.data.title %></title>
+    <link rel="icon" type="image/png" href="<%= image_path('favicon.png') %>">
+    <%# Reuse the site stylesheet so the shared header matches the other tabs. %>
+    <%= stylesheet_link_tag :screen %>
+    <style>
+      html, body { margin: 0; padding: 0; }
+      /* Redoc renders below the fixed 50px site header. */
+      #redoc-container { margin-top: 50px; }
+      /* Hide Redoc's "API docs by Redocly" attribution. */
+      #redoc-container a[href*="redocly.com"],
+      #redoc-container a[href*="redoc.ly"] { display: none !important; }
+    </style>
+  </head>
+  <body>
+    <%= partial 'partials/site_header' %>
+    <div id="redoc-container"></div>
+    <script src="https://cdn.jsdelivr.net/npm/redoc@2/bundles/redoc.standalone.js"></script>
+    <script>
+      // Theme Redoc toward the Engagedly / Slate look (accent, fonts, dark side + code panels).
+      Redoc.init('openapi.yaml', {
+        scrollYOffset: 50,
+        theme: {
+          colors: { primary: { main: '#0F75D4' } },
+          typography: {
+            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+            headings: { fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' },
+            code: { fontFamily: 'Consolas, Menlo, Monaco, "Lucida Console", monospace' }
+          },
+          sidebar: { backgroundColor: '#2E3336', textColor: '#ffffff' },
+          rightPanel: { backgroundColor: '#2E3336' }
+        }
+      }, document.getElementById('redoc-container'));
+    </script>
+  </body>
+</html>
