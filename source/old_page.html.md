@@ -160,7 +160,7 @@ The page number starts with 1 and by default the number of records returned are 
 
 ## Rate Limiting
 
-API requests are rate limited per API credential. Each `ClientKey` may make up to **100 requests per minute** to each endpoint. The limit is applied **per endpoint** — exhausting the limit on one endpoint does not affect your quota on others.
+API requests are rate limited per API credential. Each `ClientKey` may make up to **200 requests per minute**, shared across all `/beta` endpoints — the limit is **not** tracked separately per endpoint.
 
 Every response includes headers describing your current rate-limit state:
 
@@ -169,10 +169,11 @@ Every response includes headers describing your current rate-limit state:
 | `X-RateLimit-Limit` | The maximum number of requests allowed in the current window. |
 | `X-RateLimit-Remaining` | The number of requests remaining in the current window. |
 | `X-RateLimit-Reset` | The epoch time (in seconds) when the current window resets. |
+| `Retry-After` | Seconds to wait before retrying. Present only on `429` responses. |
 
 ### Exceeding the limit
 
-When you exceed the limit, the API responds with `429 Too Many Requests` and applies a **cooldown** during which further requests to that endpoint are rejected. The cooldown **escalates** if you repeatedly exceed the limit in a short period: it starts at **1 minute**, then increases (3, 5, 10, up to 15 minutes) on repeated violations before resetting after a quiet period. The `Retry-After` response header tells you how many seconds to wait before retrying.
+When you exceed the limit, the API responds with `429 Too Many Requests` and applies a **cooldown** during which further requests from that `ClientKey` are rejected. The cooldown **escalates** if you repeatedly exceed the limit in a short period: it starts at **1 minute**, then increases (3, 5, 10, up to 15 minutes) on repeated violations before resetting after a quiet period. The `Retry-After` response header tells you how many seconds to wait before retrying.
 
 <aside class="notice">Respect the <code>Retry-After</code> header and back off when you receive a <code>429</code>. Repeatedly hitting the limit lengthens the cooldown.</aside>
 
@@ -182,7 +183,7 @@ When you exceed the limit, the API responds with `429 Too Many Requests` and app
 429 Too Many Requests
 content-type: application/json
 Retry-After: 60
-X-RateLimit-Limit: 100
+X-RateLimit-Limit: 200
 X-RateLimit-Remaining: 0
 X-RateLimit-Reset: 1751990460
 ```
