@@ -17,6 +17,12 @@ info:
     the keys carry the permissions of the user who generated them. **The secret key is shown only
     once — copy it when you generate it.** The API does **not** support CORS.
 
+    ```bash
+    curl "https://api.engagedly.com/beta/users" \
+      -H "ClientKey: xxxxxxxxxxxxxx" \
+      -H "SecretKey: xxxxxxxxxxxxxx"
+    ```
+
     ## Requests
 
     All requests specify an API version in the URL. The current version is **beta**; the base
@@ -24,24 +30,51 @@ info:
     `POST`/`PUT`/`PATCH` bodies are JSON and require `Content-Type: application/json` (otherwise
     the API returns `415 Unsupported Media Type`).
 
+    The API is plain JSON over HTTP and uses the following HTTP verbs:
+
+    | Verb | Purpose |
+    | ---- | ------- |
+    | `GET` | Get one or more entities. |
+    | `POST` | Create an entity. |
+    | `PUT` | Update an entity. |
+    | `DELETE` | Delete an entity. |
+
     ## Responses & pagination
 
-    Successful responses are JSON with a `success: true` flag. List endpoints are paginated via
-    the `page` and `size` query parameters; responses include a `pagination` object with `page`,
-    `size`, `has_more`, and `total_records`.
+    Successful responses are JSON with a `success: true` flag. A single resource is represented
+    as a JSON object; a collection of resources as a JSON array of objects. Blank fields are
+    included as `null` instead of being omitted (blank arrays as `[]`). Timestamps are in UTC
+    and formatted as ISO8601.
+
+    List endpoints are paginated via the `page` and `size` query parameters; responses include
+    a `pagination` object with `page`, `size`, `has_more`, and `total_records`.
+
+    Pagination rules are enforced centrally for **all** `/beta` endpoints: `page` starts at
+    **1** and `size` may be at most **50** — a `size` above 50 (or negative), or a `page`
+    below 1, is rejected with `400 Bad Request`. When omitted, `page` defaults to **1** and
+    `size` defaults to **25** (Learning endpoints: **15**). The learner-reports endpoint
+    requires `page` and `size` to be supplied explicitly.
 
     ## Rate limiting
 
-    Requests are rate limited **per API credential (`ClientKey`), per endpoint** — up to
-    **100 requests per minute** on each endpoint. Exhausting the limit on one endpoint does not
-    affect your quota on others. Every response carries `X-RateLimit-Limit`,
-    `X-RateLimit-Remaining`, and `X-RateLimit-Reset` (epoch seconds) headers.
+    Requests are rate limited **per API credential (`ClientKey`)** — up to **200 requests per
+    minute**, shared across all `/beta` endpoints (the limit is not tracked separately per
+    endpoint).
+
+    Every response includes headers describing your current rate-limit state:
+
+    | Header | Description |
+    | ------ | ----------- |
+    | `X-RateLimit-Limit` | The maximum number of requests allowed in the current window. |
+    | `X-RateLimit-Remaining` | The number of requests remaining in the current window. |
+    | `X-RateLimit-Reset` | The epoch time (in seconds) when the current window resets. |
+    | `Retry-After` | Seconds to wait before retrying. Present only on `429` responses. |
 
     When you exceed the limit the API responds `429 Too Many Requests` and applies a **cooldown**
     that **escalates** on repeated violations — starting at **1 minute**, then 3, 5, 10, up to
-    15 minutes before resetting after a quiet period. The `Retry-After` header gives the number of
-    seconds to wait. Back off when you receive a `429`; repeatedly hitting the limit lengthens the
-    cooldown. The `429` body is `{ "error_type": "rate_limit_exceeded", "message": "…" }`.
+    15 minutes before resetting after a quiet period. Back off when you receive a `429`;
+    repeatedly hitting the limit lengthens the cooldown. The `429` body is
+    `{ "error_type": "rate_limit_exceeded", "message": "…" }`.
 
     ## HTTP status codes
 
@@ -146,7 +179,9 @@ tags:
       endpoints are served at `https://api.engagedly.com/beta/learning/` and are
       **read-only**. Two identifiers are the stable join keys for mapping to your
       own data: `short_code` (human-readable course code) and `learning_resource_id`
-      (internal course ID; returned as `id` on the resource itself).
+      (internal course ID; returned as `id` on the resource itself). In learner
+      reports, `learner.id` is the user's unique Engagedly ID, stable across
+      Engagedly services.
 
 paths:
   /beta/user-attributes:
@@ -166,6 +201,8 @@ paths:
                   data:
                     type: array
                     items: { $ref: '#/components/schemas/UserAttribute' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
 
   /beta/users:
     get:
@@ -177,7 +214,7 @@ paths:
         - name: include
           in: query
           description: "Comma-separated related data to embed. Allowed: `primary_reporter`, `direct_reports`."
-          schema: { type: string, example: primary_reporter,direct_reports }
+          schema: { type: string, example: "primary_reporter,direct_reports" }
         - name: email
           in: query
           description: Filter by an email address.
@@ -195,7 +232,53 @@ paths:
                       data:
                         type: array
                         items: { $ref: '#/components/schemas/User' }
-        '401': { $ref: '#/components/responses/Error' }
+              example:
+                success: true
+                pagination: { page: 1, size: 25, has_more: false, total_records: 1 }
+                data:
+                  - id: b62167d0-2718-4e45-9721-27535991becf
+                    name: Adam Smith
+                    first_name: Adam
+                    middle_name: null
+                    last_name: Smith
+                    email: adam.smith@teamyogi.com
+                    status: Active
+                    title: null
+                    nickname: ""
+                    marital_status: ""
+                    last_active_date: null
+                    employee_id: E007
+                    block_reason_code: null
+                    user_blocked_at: null
+                    display_picture:
+                      medium: https://social.engagedly.com/uploads/picture/file/9634/reduced_Adam.jpg
+                      small: https://social.engagedly.com/uploads/picture/file/9634/small_Adam.jpg
+                    job_title: { id: 11503, name: Manager }
+                    location: { id: "3927", name: Bengaluru }
+                    departments:
+                      - { id: 61537d90-05f6-11ef-8fcc-fdfaf2ffaa91, name: Customer Support, is_admin: false }
+                    business_unit:
+                      - { id: 8e7345e0-b1f0-11ed-9b4b-8b54e79c50ef, name: Manufacturing Unit, is_admin: false }
+                    employee_type: { id: 2033, name: Non-Exempt }
+                    gender: null
+                    birthdate: null
+                    joining_date: "2024-01-15"
+                    phone_number: null
+                    linkedin: null
+                    twitter: null
+                    differently_abled: null
+                    veteran_status: null
+                    ethnicity: null
+                    employee_level: null
+                    level: null
+                    is_cxo: false
+                    custom_attributes:
+                      custom-attribute-93cbf: { name: Department, value: Product Management }
+                      custom-attribute-5d2c8:
+                        name: Languages
+                        value: [English, Kannada]
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
     post:
       tags: [Users]
       summary: Create a new user
@@ -210,13 +293,18 @@ paths:
           content:
             application/json:
               schema: { $ref: '#/components/schemas/UserEnvelope' }
-        '422': { $ref: '#/components/responses/Error' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
 
   /beta/users/block-reason-codes:
     get:
       tags: [Users]
       summary: Get block reason codes
-      description: Codes accepted by the deactivate endpoint's `block_reason_code`.
+      description: >
+        Codes accepted by the deactivate endpoint's `block_reason_code`. Codes are
+        organisation-configurable. Note: unlike most endpoints, the envelope is
+        `{ "status": 200, "data": [...] }` (no `success` flag).
       responses:
         '200':
           description: The available block reason codes.
@@ -225,10 +313,31 @@ paths:
               schema:
                 type: object
                 properties:
-                  success: { type: boolean, example: true }
+                  status: { type: integer, example: 200 }
                   data:
                     type: array
                     items: { $ref: '#/components/schemas/BlockReasonCode' }
+              example:
+                status: 200
+                data:
+                  - code: involuntary
+                    display_text: Involuntary
+                    description: "Initiated by the business. Example, RIF (Reduction in Force)"
+                    source: system
+                    archived: false
+                    created_by: null
+                    updated_at: "2024-01-15T10:00:00.000Z"
+                    blocked_users_count: 2
+                  - code: voluntary
+                    display_text: Voluntary
+                    description: Initiated by the individual.
+                    source: system
+                    archived: false
+                    created_by: null
+                    updated_at: "2024-01-15T10:00:00.000Z"
+                    blocked_users_count: 0
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
 
   /beta/users/{id}:
     parameters:
@@ -240,14 +349,72 @@ paths:
         - name: include
           in: query
           description: "Comma-separated related data to embed. Allowed: `primary_reporter`, `direct_reports`, `hr_managers`, `secondary_managers`."
-          schema: { type: string, example: primary_reporter,direct_reports,hr_managers,secondary_managers }
+          schema: { type: string, example: "primary_reporter,direct_reports,hr_managers,secondary_managers" }
       responses:
         '200':
           description: The requested user.
           content:
             application/json:
               schema: { $ref: '#/components/schemas/UserEnvelope' }
-        '404': { $ref: '#/components/responses/Error' }
+              example:
+                success: true
+                data:
+                  id: b62167d0-2718-4e45-9721-27535991becf
+                  name: Adam Smith
+                  first_name: Adam
+                  middle_name: null
+                  last_name: Smith
+                  email: adam.smith@teamyogi.com
+                  status: Active
+                  title: null
+                  nickname: ""
+                  marital_status: ""
+                  last_active_date: null
+                  employee_id: E007
+                  block_reason_code: null
+                  user_blocked_at: null
+                  display_picture:
+                    medium: https://social.engagedly.com/uploads/picture/file/9634/reduced_Adam.jpg
+                    small: https://social.engagedly.com/uploads/picture/file/9634/small_Adam.jpg
+                  job_title: { id: 11503, name: Manager }
+                  location: { id: "3927", name: Bengaluru }
+                  departments: []
+                  business_unit: []
+                  hr_managers: []
+                  secondary_managers: []
+                  employee_type: { id: 2033, name: Non-Exempt }
+                  gender: null
+                  birthdate: null
+                  phone_number: null
+                  linkedin: ""
+                  twitter: ""
+                  differently_abled: null
+                  veteran_status: null
+                  ethnicity: null
+                  employee_level: null
+                  level: null
+                  is_cxo: false
+                  joining_date: null
+                  primary_reporter:
+                    id: a1b2c3d4-2718-4e45-9721-27535991becf
+                    name: Jane Doe
+                    email: jane.doe@teamyogi.com
+                    status: Active
+                  direct_reports: []
+                  education: "B.Tech, MS"
+                  about_me: null
+                  secondary_phone_number: ""
+                  joining_date_string: null
+                  birthdate_as_date: null
+                  work_anniversary_in: 245
+                  promotion_date: null
+                  review_date: null
+                  is_admin: null
+                  custom_attributes:
+                    custom-attribute-93cbf: { name: Department, value: Product Management }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
     put:
       tags: [Users]
       summary: Update an existing user
@@ -262,7 +429,10 @@ paths:
           content:
             application/json:
               schema: { $ref: '#/components/schemas/UserEnvelope' }
-        '422': { $ref: '#/components/responses/Error' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
     patch:
       tags: [Users]
       summary: Partially update an existing user
@@ -278,6 +448,10 @@ paths:
           content:
             application/json:
               schema: { $ref: '#/components/schemas/UserEnvelope' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
 
   /beta/users/{id}/profile/picture:
     put:
@@ -305,6 +479,10 @@ paths:
                 type: object
                 properties:
                   success: { type: boolean, example: true }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
 
   /beta/users/{id}/deactivate:
     put:
@@ -329,6 +507,9 @@ paths:
           content:
             application/json:
               schema: { $ref: '#/components/schemas/UserEnvelope' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
 
   /beta/users/{id}/activate:
     put:
@@ -342,6 +523,9 @@ paths:
           content:
             application/json:
               schema: { $ref: '#/components/schemas/UserEnvelope' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
 
   /beta/users/{id}/permissions:
     parameters:
@@ -361,6 +545,9 @@ paths:
                   data:
                     type: array
                     items: { $ref: '#/components/schemas/Permission' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
     put:
       tags: [Users]
       summary: Update a user's permissions
@@ -387,6 +574,10 @@ paths:
                   data:
                     type: array
                     items: { $ref: '#/components/schemas/Permission' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
 
   /beta/departments:
     get:
@@ -403,7 +594,9 @@ paths:
                   - $ref: '#/components/schemas/PaginatedEnvelope'
                   - type: object
                     properties:
-                      data: { type: array, items: { $ref: '#/components/schemas/OrgUnit' } }
+                      data: { type: array, items: { $ref: '#/components/schemas/OrgUnitSummary' } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
     post:
       tags: [Departments]
       summary: Create a new department
@@ -414,6 +607,9 @@ paths:
         '201':
           description: The created department.
           content: { application/json: { schema: { $ref: '#/components/schemas/OrgUnitEnvelope' } } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
   /beta/departments/{id}:
     parameters: [ { $ref: '#/components/parameters/resourceId' } ]
     get:
@@ -423,6 +619,9 @@ paths:
         '200':
           description: The requested department.
           content: { application/json: { schema: { $ref: '#/components/schemas/OrgUnitEnvelope' } } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
     put:
       tags: [Departments]
       summary: Update an existing department
@@ -433,11 +632,18 @@ paths:
         '200':
           description: The updated department.
           content: { application/json: { schema: { $ref: '#/components/schemas/OrgUnitEnvelope' } } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
     delete:
       tags: [Departments]
       summary: Delete a department
       responses:
         '204': { description: Deleted. }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
 
   /beta/businesses:
     get:
@@ -454,7 +660,9 @@ paths:
                   - $ref: '#/components/schemas/PaginatedEnvelope'
                   - type: object
                     properties:
-                      data: { type: array, items: { $ref: '#/components/schemas/OrgUnit' } }
+                      data: { type: array, items: { $ref: '#/components/schemas/OrgUnitSummary' } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
     post:
       tags: [Businesses]
       summary: Create a new business
@@ -465,6 +673,9 @@ paths:
         '201':
           description: The created business.
           content: { application/json: { schema: { $ref: '#/components/schemas/OrgUnitEnvelope' } } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
   /beta/businesses/{id}:
     parameters: [ { $ref: '#/components/parameters/resourceId' } ]
     get:
@@ -474,6 +685,9 @@ paths:
         '200':
           description: The requested business.
           content: { application/json: { schema: { $ref: '#/components/schemas/OrgUnitEnvelope' } } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
     put:
       tags: [Businesses]
       summary: Update an existing business
@@ -484,11 +698,18 @@ paths:
         '200':
           description: The updated business.
           content: { application/json: { schema: { $ref: '#/components/schemas/OrgUnitEnvelope' } } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
     delete:
       tags: [Businesses]
       summary: Delete a business
       responses:
         '204': { description: Deleted. }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
 
   /beta/locations:
     get:
@@ -506,6 +727,8 @@ paths:
                   - type: object
                     properties:
                       data: { type: array, items: { $ref: '#/components/schemas/Location' } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
     post:
       tags: [Locations]
       summary: Create a new location
@@ -516,6 +739,9 @@ paths:
         '201':
           description: The created location.
           content: { application/json: { schema: { $ref: '#/components/schemas/LocationEnvelope' } } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
   /beta/locations/{id}:
     parameters: [ { $ref: '#/components/parameters/resourceId' } ]
     get:
@@ -525,6 +751,9 @@ paths:
         '200':
           description: The requested location.
           content: { application/json: { schema: { $ref: '#/components/schemas/LocationEnvelope' } } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
     put:
       tags: [Locations]
       summary: Update an existing location
@@ -535,11 +764,18 @@ paths:
         '200':
           description: The updated location.
           content: { application/json: { schema: { $ref: '#/components/schemas/LocationEnvelope' } } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
     delete:
       tags: [Locations]
       summary: Delete a location
       responses:
         '204': { description: Deleted. }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
 
   /beta/job_titles:
     get:
@@ -557,6 +793,8 @@ paths:
                   - type: object
                     properties:
                       data: { type: array, items: { $ref: '#/components/schemas/JobTitle' } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
     post:
       tags: [Job Titles]
       summary: Create a new job title
@@ -567,6 +805,9 @@ paths:
         '201':
           description: The created job title.
           content: { application/json: { schema: { $ref: '#/components/schemas/JobTitleEnvelope' } } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
   /beta/job_titles/{id}:
     parameters: [ { $ref: '#/components/parameters/resourceId' } ]
     get:
@@ -576,6 +817,9 @@ paths:
         '200':
           description: The requested job title.
           content: { application/json: { schema: { $ref: '#/components/schemas/JobTitleEnvelope' } } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
     put:
       tags: [Job Titles]
       summary: Update an existing job title
@@ -586,11 +830,18 @@ paths:
         '200':
           description: The updated job title.
           content: { application/json: { schema: { $ref: '#/components/schemas/JobTitleEnvelope' } } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
     delete:
       tags: [Job Titles]
       summary: Delete a job title
       responses:
         '204': { description: Deleted. }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
 
   /beta/permissions:
     get:
@@ -608,6 +859,8 @@ paths:
                   - type: object
                     properties:
                       data: { type: array, items: { $ref: '#/components/schemas/Permission' } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
 
   /beta/activities/praises:
     get:
@@ -625,6 +878,8 @@ paths:
                   - type: object
                     properties:
                       data: { type: array, items: { $ref: '#/components/schemas/Praise' } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
 
   /beta/learning/resources:
     get:
@@ -632,16 +887,17 @@ paths:
       summary: List Resources
       description: >
         Returns a paginated list of the organisation's learning resources
-        (courses and playlists). All parameters are optional. Read-only.
+        (courses and playlists). All parameters are optional; with none supplied
+        the full organisation list is returned, newest activity first. Read-only.
       parameters:
         - { name: search_text, in: query, required: false, description: "Case-insensitive match on the resource title.", schema: { type: string } }
         - { name: types, in: query, required: false, description: "Resource type(s). e.g. `types[]=Course`.", schema: { type: array, items: { type: string, enum: [Course, Playlist, Section] } } }
         - { name: resource_ids, in: query, required: false, description: "Restrict to specific resource IDs.", schema: { type: array, items: { type: integer } } }
         - { name: state, in: query, required: false, description: "Publication state(s).", schema: { type: array, items: { type: string, enum: [unpublished, published, unpublished_edit] } } }
         - { name: languages, in: query, required: false, description: "Language code(s), e.g. `languages[]=en`.", schema: { type: array, items: { type: string } } }
-        - { name: providers, in: query, required: false, description: "Content provider(s), e.g. `engagedly`, `udemy`, `go1`.", schema: { type: array, items: { type: string } } }
+        - { name: providers, in: query, required: false, description: "Content provider(s): `engagedly`, `udemy`, `go1`, `linkedin-learning`, `opensesame`, `bizz-library`, `thinkific-academy`, `learning-planet`.", schema: { type: array, items: { type: string } } }
         - { name: authors, in: query, required: false, description: "Restrict to resources by the given author user ID(s).", schema: { type: array, items: { type: string } } }
-        - { name: levels, in: query, required: false, description: "Difficulty level(s), e.g. `Beginner`.", schema: { type: array, items: { type: string } } }
+        - { name: levels, in: query, required: false, description: "Difficulty level(s): `Beginner`, `Intermediate`, `Advanced`.", schema: { type: array, items: { type: string, enum: [Beginner, Intermediate, Advanced] } } }
         - { name: tags, in: query, required: false, description: "Restrict to the given tag(s).", schema: { type: array, items: { type: string } } }
         - { name: "durations[min_limit]", in: query, required: false, description: "Minimum duration in minutes.", schema: { type: integer } }
         - { name: "durations[max_limit]", in: query, required: false, description: "Maximum duration in minutes.", schema: { type: integer } }
@@ -653,7 +909,7 @@ paths:
         - { name: sort, in: query, required: false, description: "Sort order (e.g. `title`, `created_at`).", schema: { type: string } }
         - { name: competency_search_text, in: query, required: false, description: "Case-insensitive match on the resource's competency names.", schema: { type: string } }
         - $ref: '#/components/parameters/page'
-        - { name: size, in: query, description: "Items per page (max 50).", schema: { type: integer, default: 30, maximum: 50 } }
+        - { name: size, in: query, description: "Items per page (max 50).", schema: { type: integer, default: 15, maximum: 50 } }
       responses:
         '200':
           description: A paginated list of learning resources.
@@ -665,6 +921,48 @@ paths:
                   - type: object
                     properties:
                       data: { type: array, items: { $ref: '#/components/schemas/LearningResource' } }
+              example:
+                success: true
+                pagination: { page: 1, size: 15, has_more: false, total_records: 1 }
+                data:
+                  - id: 16504
+                    title: Workplace Safety Fundamentals
+                    description: null
+                    provider: engagedly
+                    archived: false
+                    language: en
+                    duration: "01:00:00"
+                    short_code: WSF-101
+                    level: Beginner
+                    type: Course
+                    state: Published
+                    in_library: true
+                    published_on: "Jul 07, 2026"
+                    average_rating: null
+                    tags: [compliance, safety]
+                    competencies: []
+                    created_at: "Jun 01, 2026"
+                    updated_at: "Jul 07, 2026"
+                    cover_image: null
+                    categories:
+                      - { id: 5, title: Compliance }
+                    author:
+                      id: c3d4e5f6-2718-4e45-9721-27535991becf
+                      name: Course Author
+                      email: author@teamyogi.com
+                      status: Not Blocked
+                      manager: { id: a1b2c3d4-2718-4e45-9721-27535991becf, name: Jane Doe }
+                    co_authors: []
+                    settings: {}
+                    attributes: {}
+                    contents_count: 8
+                    course_id: 5678
+                    reviews_count: 3
+                    content_details: null
+                    skills: []
+                    certificate_count: 1
+                    visibility_count: null
+        '401': { $ref: '#/components/responses/Unauthorized' }
         '429': { $ref: '#/components/responses/TooManyRequests' }
 
   /beta/learning/resources/{id}/contents:
@@ -688,6 +986,41 @@ paths:
                 properties:
                   success: { type: boolean, example: true }
                   data: { type: array, items: { $ref: '#/components/schemas/ResourceSection' } }
+              example:
+                success: true
+                data:
+                  - id: 4567
+                    title: Getting Started
+                    description: Introduction to the course.
+                    type: Section
+                    status: Published
+                    ongoing_edit: false
+                    position: 1
+                    content_status: Published
+                    units:
+                      - id: 8901
+                        title: Course Overview
+                        description: ""
+                        type: LTI
+                        position: 1
+                        duration: 90
+                        unit_details:
+                          id: 37
+                          title: Course Overview
+                          description: ""
+                          link_url: https://lti-provider.example.com/content/129232219069
+                        status: Active
+                        content_status: Active
+                        ongoing_edit: null
+                        mark_for_deletion: false
+                        has_impact: false
+                        completion_watch_threshold_pct: null
+                        completion_time_threshold_pct: null
+                        completion_require_scroll: false
+                        created_at: "2026-06-01T10:00:00.000Z"
+                        updated_at: "2026-07-07T10:00:00.000Z"
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
         '429': { $ref: '#/components/responses/TooManyRequests' }
 
   /beta/learning/learner_reports:
@@ -701,15 +1034,14 @@ paths:
         - { name: resource_types, in: query, required: false, description: "Resource type(s) to report on. Both returned when omitted. e.g. `resource_types[]=Course`.", schema: { type: array, items: { type: string, enum: [Course, Playlist] } } }
         - { name: learning_resource_id, in: query, required: false, description: "Restrict the report to a single course by internal ID.", schema: { type: integer } }
         - { name: learning_resource_ids, in: query, required: false, description: "Restrict the report to specific courses by internal ID.", schema: { type: array, items: { type: integer } } }
-        - $ref: '#/components/parameters/page'
-        - { name: size, in: query, description: "Items per page (max 50).", schema: { type: integer, default: 25, maximum: 50 } }
+        - { name: page, in: query, required: true, description: "Page number, starting at 1. Required — omitting pagination causes a server error.", schema: { type: integer } }
+        - { name: size, in: query, required: true, description: "Items per page (max 50). Required — omitting pagination causes a server error.", schema: { type: integer, maximum: 50 } }
       responses:
         '200':
           description: >
             Learner enrolment records. The response has a `data` array and a
-            `pagination` object (present when `page` and `size` are supplied).
-            Note: unlike the other list endpoints, this response has no `success`
-            flag.
+            `pagination` object. Note: unlike the other list endpoints, this
+            response has no `success` flag.
           content:
             application/json:
               schema:
@@ -717,6 +1049,62 @@ paths:
                 properties:
                   pagination: { $ref: '#/components/schemas/Pagination' }
                   data: { type: array, items: { $ref: '#/components/schemas/LearnerRecord' } }
+              example:
+                pagination: { page: 1, size: 25, has_more: false, total_records: 1 }
+                data:
+                  - id: 90210
+                    learning_resource_id: 16504
+                    learning_resource_title: Workplace Safety Fundamentals
+                    short_code: WSF-101
+                    completion_status: Completed
+                    points: 100
+                    completed_on: "Jul 07, 2026"
+                    certified: true
+                    mandatory: true
+                    progress: 100
+                    provider: engagedly
+                    archive: false
+                    categories:
+                      - { id: 5, title: Compliance }
+                    learner:
+                      id: b62167d0-2718-4e45-9721-27535991becf
+                      name: Adam Smith
+                      email: adam.smith@teamyogi.com
+                      status: Active
+                      employee_id: E007
+                      job_title: Manager
+                      business_units: [Manufacturing Unit]
+                      departments: [Customer Support]
+                      location: Bengaluru
+                      employee_type: null
+                      joining_date: null
+                      birth_date: "1990-04-12"
+                      gender: null
+                      ethnicity: null
+                      differently_abled: false
+                      veteran_status: false
+                      age: 36
+                      display_picture: {}
+                    assigner:
+                      id: a1b2c3d4-2718-4e45-9721-27535991becf
+                      name: Jane Doe
+                      email: jane.doe@teamyogi.com
+                    manager: { id: a1b2c3d4-2718-4e45-9721-27535991becf, name: Jane Doe }
+                    hr_managers: []
+                    secondary_managers: []
+                    author:
+                      id: c3d4e5f6-2718-4e45-9721-27535991becf
+                      name: Course Author
+                    assigned_on: "Jun 01, 2026"
+                    overall_time_taken: 3600
+                    due_date: null
+                    delay_in_days: null
+                    language: en
+                    learning_resource_duration: 3600
+                    compliance_status: null
+                    valid_till: null
+                    is_self_assigned: false
+        '401': { $ref: '#/components/responses/Unauthorized' }
         '429': { $ref: '#/components/responses/TooManyRequests' }
 
 components:
@@ -728,13 +1116,13 @@ components:
     page:
       name: page
       in: query
-      description: Page number (pagination).
-      schema: { type: integer, default: 1 }
+      description: Page number (pagination), starting at 1. Values below 1 are rejected with `400 Bad Request`.
+      schema: { type: integer, default: 1, minimum: 1 }
     size:
       name: size
       in: query
-      description: Items per page (pagination).
-      schema: { type: integer, default: 30 }
+      description: Items per page (pagination), max 50. Values above 50 (or negative) are rejected with `400 Bad Request`.
+      schema: { type: integer, default: 25, minimum: 1, maximum: 50 }
     userId:
       name: id
       in: path
@@ -749,16 +1137,26 @@ components:
       schema: { type: string }
 
   responses:
-    Error:
-      description: An error response.
+    Unauthorized:
+      description: Authentication failed — missing or invalid `ClientKey`/`SecretKey`.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    NotFound:
+      description: The requested resource does not exist.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    ValidationError:
+      description: The request failed validation (missing or invalid fields).
       content:
         application/json:
           schema: { $ref: '#/components/schemas/Error' }
     TooManyRequests:
       description: >
-        Rate limit exceeded. Each ClientKey may make up to 100 requests/minute per
-        endpoint; exceeding it triggers an escalating cooldown (starting at 1 minute).
-        See the Rate Limiting section. Applies to all `/beta` endpoints.
+        Rate limit exceeded. Each ClientKey may make up to 200 requests/minute, shared
+        across all `/beta` endpoints; exceeding it triggers an escalating cooldown
+        (starting at 1 minute). See the Rate Limiting section.
       headers:
         Retry-After:
           description: Seconds to wait before retrying.
@@ -781,7 +1179,7 @@ components:
       type: object
       properties:
         page: { type: integer, example: 1 }
-        size: { type: integer, example: 30 }
+        size: { type: integer, example: 25 }
         has_more: { type: boolean, example: false }
         total_records: { type: integer, example: 1 }
     PaginatedEnvelope:
@@ -815,20 +1213,28 @@ components:
     NamedRef:
       type: object
       properties:
-        id: { type: string, example: "261" }
+        id:
+          oneOf: [ { type: string }, { type: integer } ]
+          description: String or integer depending on the reference type.
+          example: "261"
         name: { type: string, example: CEO }
+    OrgMembership:
+      type: object
+      properties:
+        id: { type: string, example: f5afec62-21ff-40d3-a06e-9a2162ef6b69 }
+        name: { type: string, example: Customer Support }
+        is_admin: { type: boolean }
 
     UserAttribute:
       type: object
       properties:
-        id: { type: integer, example: 1 }
         name: { type: string, example: Title }
         attribute_key: { type: string, example: custom-attribute-93cbf }
         preset: { type: boolean, description: "true for system, false for custom attributes." }
         mandatory: { type: boolean }
         data_type:
           type: string
-          enum: [text, number, date, boolean, single-select, multiple-select]
+          enum: [text, number, date, boolean, single-select, multiple-select, document]
         attribute_options:
           type: array
           nullable: true
@@ -848,21 +1254,68 @@ components:
         first_name: { type: string, example: Adam }
         middle_name: { type: string, nullable: true }
         last_name: { type: string, example: Smith }
+        title: { type: string, nullable: true, description: "Title of the user (e.g. `Mr.`), or null." }
+        nickname: { type: string, nullable: true }
+        marital_status: { type: string, nullable: true }
         employee_id: { type: string, example: E007 }
-        education: { type: string }
-        about_me: { type: string }
+        employee_type:
+          description: "Employee type as `{ id, name }` (e.g. `Non-Exempt`), or null."
+          allOf: [ { $ref: '#/components/schemas/NamedRef' } ]
+        gender: { type: string, nullable: true }
+        birthdate: { type: string, nullable: true, description: Date of birth of the user. }
         joining_date: { type: string, nullable: true }
-        display_picture: { $ref: '#/components/schemas/DisplayPicture' }
-        job_title: { $ref: '#/components/schemas/NamedRef' }
-        location: { $ref: '#/components/schemas/NamedRef' }
+        last_active_date: { type: string, nullable: true }
+        block_reason_code: { type: string, nullable: true, description: "Reason code recorded when the user was deactivated, or null." }
+        user_blocked_at: { type: string, nullable: true, description: "When the user was deactivated, or null." }
+        phone_number: { type: string, nullable: true }
+        linkedin: { type: string, nullable: true }
+        twitter: { type: string, nullable: true }
+        differently_abled: { type: boolean, nullable: true }
+        veteran_status: { type: boolean, nullable: true }
+        ethnicity: { type: string, nullable: true }
+        employee_level: { type: string, nullable: true }
+        level: { type: string, nullable: true, description: Level of the employee. }
+        is_cxo: { type: boolean }
+        display_picture:
+          description: "Profile picture URLs, or null."
+          allOf: [ { $ref: '#/components/schemas/DisplayPicture' } ]
+        job_title:
+          description: "The user's job title as `{ id, name }`, or null."
+          allOf: [ { $ref: '#/components/schemas/NamedRef' } ]
+        location:
+          description: "The user's location as `{ id, name }`, or null."
+          allOf: [ { $ref: '#/components/schemas/NamedRef' } ]
+        business_unit:
+          type: array
+          description: Business units the user belongs to.
+          items: { $ref: '#/components/schemas/OrgMembership' }
+        education: { type: string, nullable: true, description: "Single-user endpoint only." }
+        about_me: { type: string, nullable: true, description: "Single-user endpoint only." }
+        secondary_phone_number: { type: string, nullable: true, description: "Single-user endpoint only." }
+        promotion_date: { type: string, nullable: true, description: "Impending promotion date of the employee. Single-user endpoint only." }
+        review_date: { type: string, nullable: true, description: "Impending review date of the employee. Single-user endpoint only." }
+        joining_date_string: { type: string, nullable: true, description: "Formatted variant of `joining_date`. Single-user endpoint only." }
+        birthdate_as_date: { type: string, nullable: true, description: "Date-typed variant of `birthdate`. Single-user endpoint only." }
+        work_anniversary_in: { type: integer, description: "Days until the user's next work anniversary. Single-user endpoint only." }
+        is_admin: { type: boolean, nullable: true, description: "Whether the user is a site administrator, or null. Single-user endpoint only." }
+        primary_reporter:
+          description: "The user's manager, or null. Embedded when `include=primary_reporter` is requested."
+          allOf: [ { $ref: '#/components/schemas/User' } ]
+        direct_reports:
+          type: array
+          description: "Users reporting to this user. Embedded when `include=direct_reports` is requested."
+          items: { $ref: '#/components/schemas/User' }
+        hr_managers:
+          type: array
+          description: "The user's HR managers. Embedded when `include=hr_managers` is requested (single-user endpoint only)."
+          items: { $ref: '#/components/schemas/User' }
+        secondary_managers:
+          type: array
+          description: "The user's secondary managers. Embedded when `include=secondary_managers` is requested (single-user endpoint only)."
+          items: { $ref: '#/components/schemas/User' }
         departments:
           type: array
-          items:
-            type: object
-            properties:
-              id: { type: string, example: "1" }
-              name: { type: string, example: Customer Support }
-              is_admin: { type: boolean }
+          items: { $ref: '#/components/schemas/OrgMembership' }
         custom_attributes:
           type: object
           additionalProperties:
@@ -888,6 +1341,7 @@ components:
         last_name: { type: string, example: Doe }
         email: { type: string, format: email, example: john.doe@company.com }
         employee_id: { type: string, example: EMP001 }
+        employee_type: { type: string, description: Type to which the employee belongs. }
         promotion_date: { type: string }
         review_date: { type: string }
         level: { type: string }
@@ -919,17 +1373,23 @@ components:
         last_name: { type: string }
         display_picture: { $ref: '#/components/schemas/DisplayPicture' }
         is_admin: { type: boolean }
-    OrgUnit:
-      description: A department or business unit.
+    OrgUnitSummary:
+      description: A department or business unit (list representation — members are not included).
       type: object
       properties:
         id: { type: string, format: uuid, example: f5afec62-21ff-40d3-a06e-9a2162ef6b69 }
         name: { type: string, example: Customer Support }
-        members_count: { oneOf: [ { type: string }, { type: integer } ], example: "10" }
-        administrators_count: { oneOf: [ { type: string }, { type: integer } ], example: "2" }
-        members:
-          type: array
-          items: { $ref: '#/components/schemas/Member' }
+        members_count: { type: integer, example: 10 }
+        administrators_count: { type: integer, example: 2 }
+    OrgUnit:
+      description: A department or business unit.
+      allOf:
+        - $ref: '#/components/schemas/OrgUnitSummary'
+        - type: object
+          properties:
+            members:
+              type: array
+              items: { $ref: '#/components/schemas/Member' }
     OrgUnitEnvelope:
       type: object
       properties:
@@ -948,10 +1408,10 @@ components:
     Location:
       type: object
       properties:
-        id: { type: string, example: "1" }
+        id: { type: integer, example: 3927 }
         name: { type: string, example: Head Office }
         address_line1: { type: string }
-        address_line2: { type: string }
+        address_line2: { type: string, nullable: true }
         city: { type: string }
         state: { type: string }
         country: { type: string }
@@ -976,10 +1436,10 @@ components:
     JobTitle:
       type: object
       properties:
-        id: { type: string, example: "1" }
+        id: { type: integer, example: 11424 }
         name: { type: string, example: Software Engineer }
-        description: { type: string }
-        responsibilities: { type: string }
+        description: { type: string, nullable: true }
+        responsibilities: { type: string, nullable: true }
     JobTitleEnvelope:
       type: object
       properties:
@@ -999,14 +1459,24 @@ components:
         id: { type: integer, example: 1 }
         name: { type: string, example: Site Administrator }
         is_admin: { type: boolean, nullable: true }
-        description: { type: string }
+        description: { type: string, nullable: true }
+        is_editable: { type: boolean, description: Whether the permission can be edited. }
+        default: { type: boolean, description: Whether the permission is granted by default. }
 
     BlockReasonCode:
       type: object
       properties:
-        code: { type: string, example: involuntary }
+        code:
+          type: string
+          description: "Codes are organisation-configurable; system codes include `involuntary`, `voluntary`, `dismissal_with_cause`, `retirement`, `temporary_leave`, `not_known`."
+          example: involuntary
         display_text: { type: string, example: Involuntary }
         description: { type: string }
+        source: { type: string, description: "`system` for built-in codes, otherwise org-defined.", example: system }
+        archived: { type: boolean }
+        created_by: { type: string, nullable: true }
+        updated_at: { type: string }
+        blocked_users_count: { type: integer, description: Number of users currently deactivated with this code. }
 
     Actor:
       type: object
@@ -1065,17 +1535,30 @@ components:
 
     LearnerRef:
       type: object
+      description: >
+        The learner. Alongside the fixed fields below, the object carries the
+        learner's demographic fields and the organisation's custom attributes as
+        additional keys.
       properties:
-        id: { type: string, format: uuid }
+        id: { type: string, format: uuid, description: "The user's unique Engagedly ID (stable across Engagedly services)." }
         name: { type: string }
         email: { type: string, format: email }
         status: { type: string }
-        manager:
-          type: object
-          nullable: true
-          properties:
-            id: { type: string }
-            name: { type: string }
+        employee_id: { type: string }
+        job_title: { type: string, nullable: true, description: Job title name. }
+        business_units: { type: array, items: { type: string }, description: Business unit names. }
+        departments: { type: array, items: { type: string }, description: Department names. }
+        location: { type: string, nullable: true, description: Location name. }
+        employee_type: { type: string, nullable: true }
+        joining_date: { type: string, nullable: true }
+        birth_date: { type: string, nullable: true }
+        gender: { type: string, nullable: true }
+        ethnicity: { type: string, nullable: true }
+        differently_abled: { type: boolean, nullable: true }
+        veteran_status: { type: boolean, nullable: true }
+        age: { type: integer, nullable: true }
+        display_picture: { type: object }
+      additionalProperties: true
     LearnerRecord:
       type: object
       properties:
@@ -1105,12 +1588,12 @@ components:
         secondary_managers: { type: array, items: { type: object } }
         author: { type: object, nullable: true }
         assigned_on: { type: string }
-        overall_time_taken: { type: integer, description: Total time spent, in seconds. }
+        overall_time_taken: { type: number, description: "Total time spent, in seconds." }
         due_date: { type: string, nullable: true }
         delay_in_days: { type: integer, nullable: true }
         language: { type: string }
-        learning_resource_duration: { type: integer }
-        compliance_status: { type: string }
+        learning_resource_duration: { type: number, description: "Estimated course duration, in seconds." }
+        compliance_status: { type: string, nullable: true }
         valid_till: { type: string, nullable: true }
         is_self_assigned: { type: boolean }
     LearningResource:
@@ -1118,7 +1601,7 @@ components:
       properties:
         id: { type: integer, description: "Internal unique ID of the resource (the learning_resource_id)." }
         title: { type: string }
-        description: { type: string }
+        description: { type: string, nullable: true }
         provider: { type: string, example: engagedly }
         archived: { type: boolean }
         language: { type: string }
@@ -1143,6 +1626,12 @@ components:
         course_id: { type: integer, description: "Legacy course ID mapped to this resource." }
         reviews_count: { type: integer }
         skills: { type: array, items: { type: object } }
+        cover_image: { type: string, format: uri, nullable: true, description: "URL of the resource's cover image, or null." }
+        settings: { type: object, description: "Resource settings as key–value pairs." }
+        attributes: { type: object, description: "Resource attributes as key–value pairs." }
+        content_details: { type: object, nullable: true }
+        certificate_count: { type: integer, description: "Number of certificates issued for the resource." }
+        visibility_count: { type: integer, nullable: true, description: "Number of users/groups the resource is visible to, or null." }
         created_at: { type: string }
         updated_at: { type: string }
     ResourceSection:
@@ -1169,10 +1658,10 @@ components:
         type: { type: string, enum: [Attachment, RichText, Link, Quiz, SurveyStep, VideoContent, InstructorTraining, SCORM, AICC, LTI] }
         position: { type: integer }
         duration: { type: integer, description: "Estimated duration in minutes." }
-        unit_details: { type: object, description: "Type-specific detail; varies by `type`." }
+        unit_details: { type: object, description: "Type-specific detail; varies by `type` — e.g. a link URL, attachment file, quiz configuration, video source." }
         status: { type: string, enum: [Active, Draft] }
         content_status: { type: string, enum: [Active, Draft, UnpublishedEdit, MarkedForDeletion] }
-        ongoing_edit: { type: boolean }
+        ongoing_edit: { type: boolean, nullable: true }
         mark_for_deletion: { type: boolean }
         has_impact: { type: boolean }
         completion_watch_threshold_pct: { type: integer, nullable: true }
