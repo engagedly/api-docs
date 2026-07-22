@@ -49,6 +49,7 @@ content-type: application/json
             "id": 90210,
             "learning_resource_id": 1234,
             "learning_resource_title": "Workplace Safety Fundamentals",
+            "type": "Course",
             "short_code": "WSF-101",
             "completion_status": "Completed",
             "points": 100,
@@ -116,6 +117,11 @@ content-type: application/json
     <td>learning_resource_title</td>
     <td>string</td>
     <td>Title of the course.</td>
+  </tr>
+  <tr>
+    <td>type</td>
+    <td>string</td>
+    <td>Resource type: <code>Course</code>, <code>Playlist</code>, or <code>Section</code>.</td>
   </tr>
   <tr>
     <td>short_code</td>
