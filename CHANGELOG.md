@@ -16,11 +16,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/) and [Semantic Ver
 - A top navigation **header** (logo + **Guides / API Reference / Changelog** tabs, plus LinkedIn and engagedly.com icon links); logo moved from the sidebar into the header. Split into multiple pages: **Guides** is the landing (`/` redirects to it), and **Changelog** was added as its own page.
 - **Learning** endpoints documented on the `/beta` surface: `GET /beta/learning/resources` (list courses and playlists), `GET /beta/learning/resources/{id}/contents` (course/playlist content hierarchy), and `GET /beta/learning/learner_reports` (org-wide learner report), on the API Reference and Postman collection.
 - **Rate limiting** on the `/beta` APIs: 200 requests/minute per API credential (`ClientKey`), shared across all `/beta` endpoints, `X-RateLimit-Limit`/`X-RateLimit-Remaining`/`X-RateLimit-Reset` response headers, and `429 Too Many Requests` with an escalating cooldown (starting at 1 minute) and a `Retry-After` header. Documented in the API Reference and Postman collection.
+- A `type` field (`Course`/`Playlist`/`Section`) on `GET /beta/learning/learner_reports` rows, alongside `learning_resource_title`.
 ### Changed
 - **API Reference** is now rendered directly from the OpenAPI 3.0 spec via Redoc (themed to match the site), replacing the previous hand-authored Slate page; downloadable **OpenAPI spec** and **Postman collection** links are on the page. The Redoc sidebar groups *Getting Started* (Authentication, Requests, Responses & pagination, Rate limiting, HTTP status codes, Errors) under one collapsible parent, matching the prior page's structure.
 - Replaced the header's **GitHub** icon link with **LinkedIn**.
 ### Removed
 - The standalone **OpenAPI** tab — its Redoc-rendered content now lives at **API Reference** directly. The previous hand-authored API Reference content still exists at `/old_page.html`, unlinked from navigation (direct URL only), kept for reference during the transition.
+- Internal-only fields (`contents_count`, `course_id`, `reviews_count`, `certificate_count`, `visibility_count`) from the public `GET /beta/learning/resources` response. These fields are unaffected on the internal `/v2` API.
 
 ## [1.1.0] — 2026-07-08
 ### Changed

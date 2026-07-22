@@ -108,13 +108,8 @@ content-type: application/json
             "co_authors": [],
             "settings": {},
             "attributes": {},
-            "contents_count": 8,
-            "course_id": 5678,
-            "reviews_count": 3,
             "content_details": null,
-            "skills": [],
-            "certificate_count": 1,
-            "visibility_count": null
+            "skills": []
         }
     ]
 }
@@ -222,21 +217,6 @@ content-type: application/json
     <td>co_authors</td>
     <td>array</td>
     <td>Additional authors/maintainers.</td>
-  </tr>
-  <tr>
-    <td>contents_count</td>
-    <td>integer</td>
-    <td>Number of content items in the resource.</td>
-  </tr>
-  <tr>
-    <td>course_id</td>
-    <td>integer</td>
-    <td>The legacy course ID mapped to this resource.</td>
-  </tr>
-  <tr>
-    <td>reviews_count</td>
-    <td>integer</td>
-    <td>Number of learner reviews.</td>
   </tr>
   <tr>
     <td>skills</td>

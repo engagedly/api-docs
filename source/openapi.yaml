@@ -955,13 +955,8 @@ paths:
                     co_authors: []
                     settings: {}
                     attributes: {}
-                    contents_count: 8
-                    course_id: 5678
-                    reviews_count: 3
                     content_details: null
                     skills: []
-                    certificate_count: 1
-                    visibility_count: null
         '401': { $ref: '#/components/responses/Unauthorized' }
         '429': { $ref: '#/components/responses/TooManyRequests' }
 
@@ -1055,6 +1050,7 @@ paths:
                   - id: 90210
                     learning_resource_id: 16504
                     learning_resource_title: Workplace Safety Fundamentals
+                    type: Course
                     short_code: WSF-101
                     completion_status: Completed
                     points: 100
@@ -1565,6 +1561,7 @@ components:
         id: { type: integer, description: Unique ID of this learner enrolment record. }
         learning_resource_id: { type: integer, description: Internal unique ID of the course. }
         learning_resource_title: { type: string }
+        type: { type: string, enum: [Course, Playlist, Section] }
         short_code: { type: string, description: Unique code of the course. }
         completion_status:
           type: string
@@ -1622,16 +1619,11 @@ components:
             properties: { id: { type: integer }, title: { type: string } }
         author: { type: object, nullable: true }
         co_authors: { type: array, items: { type: object } }
-        contents_count: { type: integer }
-        course_id: { type: integer, description: "Legacy course ID mapped to this resource." }
-        reviews_count: { type: integer }
         skills: { type: array, items: { type: object } }
         cover_image: { type: string, format: uri, nullable: true, description: "URL of the resource's cover image, or null." }
         settings: { type: object, description: "Resource settings as key–value pairs." }
         attributes: { type: object, description: "Resource attributes as key–value pairs." }
         content_details: { type: object, nullable: true }
-        certificate_count: { type: integer, description: "Number of certificates issued for the resource." }
-        visibility_count: { type: integer, nullable: true, description: "Number of users/groups the resource is visible to, or null." }
         created_at: { type: string }
         updated_at: { type: string }
     ResourceSection:
