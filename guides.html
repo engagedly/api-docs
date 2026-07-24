@@ -1,0 +1,295 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Engagedly API — Guides</title>
+
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cpf {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s, .highlight .sa, .highlight .dl {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf, .highlight .fm {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+  background-color: #272822;
+}
+.highlight .nn {
+  color: #ffffff;
+  background-color: #272822;
+}
+.highlight .nl {
+  color: #ffffff;
+  background-color: #272822;
+}
+.highlight .ni {
+  color: #ffffff;
+  background-color: #272822;
+}
+.highlight .bp {
+  color: #ffffff;
+  background-color: #272822;
+}
+.highlight .vg {
+  color: #ffffff;
+  background-color: #272822;
+}
+.highlight .vi {
+  color: #ffffff;
+  background-color: #272822;
+}
+.highlight .nv, .highlight .vm {
+  color: #ffffff;
+  background-color: #272822;
+}
+.highlight .w {
+  color: #ffffff;
+  background-color: #272822;
+}
+.highlight {
+  color: #ffffff;
+  background-color: #272822;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+  background-color: #272822;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="guides" data-languages="[]">
+    <header class="site-header">
+  <a class="site-header-logo" href="guides.html"><img src="images/logo.png" alt="" /></a>
+  <nav class="site-header-tabs">
+    <a href="guides.html" class="active">Guides</a>
+    <a href="references.html" class="">API Reference</a>
+    <a href="changelog.html" class="">Changelog</a>
+  </nav>
+  <div class="site-header-links">
+    <a href="https://www.linkedin.com/company/engagedly/" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="Engagedly on LinkedIn">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 18.34V9.87H5.67v8.47h2.67zM7 8.67a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1zm11.34 9.67v-4.64c0-2.48-1.32-3.63-3.09-3.63-1.43 0-2.06.79-2.42 1.34v-1.15h-2.67c.04.75 0 8.47 0 8.47h2.67v-4.73c0-.24.02-.48.09-.65.19-.48.63-.98 1.37-.98.97 0 1.35.74 1.35 1.82v4.54h2.67z"/></svg>
+    </a>
+    <a href="https://engagedly.com" target="_blank" rel="noopener noreferrer" title="engagedly.com" aria-label="engagedly.com">
+      <svg viewBox="0 0 24 24" width="21" height="21" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+    </a>
+  </div>
+</header>
+
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" alt="" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <ul id="toc" class="toc-list-h1">
+          <li>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#guides" class="toc-h1 toc-link" data-title="Guides">Guides</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#before-you-begin" class="toc-h2 toc-link" data-title="Before you begin">Before you begin</a>
+                  </li>
+                  <li>
+                    <a href="#authenticating-a-request" class="toc-h2 toc-link" data-title="Authenticating a request">Authenticating a request</a>
+                  </li>
+                  <li>
+                    <a href="#more-guides" class="toc-h2 toc-link" data-title="More guides">More guides</a>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='introduction'>Introduction</h1>
+<p>Engagedly is a cloud based new age Performance Management Software that redefines performance appraisals by simplifying and incorporating elements of employee engagement into the performance review process.</p>
+
+<p>Engagedly API are designed to be REST (<strong>Representational State Transfer</strong>) APIs. These &#39;RESTful&#39; APIs allows operations such as reading, modifying, adding or deleting data from your Engagedly Instance.</p>
+
+<aside class="notice">Engagedly APIs does not support Cross-Origin Resource Sharing (CORS).</aside>
+<h1 id='guides'>Guides</h1>
+<p>These guides walk through common tasks with the Engagedly API. For the complete list of endpoints, request parameters, and responses, see the <strong>API Reference</strong> tab.</p>
+<h2 id='before-you-begin'>Before you begin</h2>
+<ul>
+<li>You need a <strong>Client Key</strong> and <strong>Secret Key</strong>, generated by a Site Administrator under <em>Integrations → Engagedly API</em>. (See <em>Authentication</em> in the API Reference for details.)</li>
+<li>All requests are made over HTTPS to <code>https://api.engagedly.com/beta/</code>.</li>
+</ul>
+<h2 id='authenticating-a-request'>Authenticating a request</h2>
+<p>Pass your keys as headers on every request:</p>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.engagedly.com/beta/users"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"ClientKey: xxxxxxxxxxxxxx"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"SecretKey: xxxxxxxxxxxxxx"</span>
+</code></pre></div><h2 id='more-guides'>More guides</h2>
+<p>Additional walkthroughs (pagination, creating and updating users, syncing departments and business units) are on the way. In the meantime, every endpoint in the <strong>API Reference</strong> includes copy-ready request and response samples.</p>
+
+      </div>
+      <div class="dark-box">
+      </div>
+    </div>
+  </body>
+</html>
