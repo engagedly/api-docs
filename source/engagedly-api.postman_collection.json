@@ -4270,7 +4270,7 @@
                 {
                   "disabled": true,
                   "description": {
-                    "content": "Sort order, e.g. title, created_at.",
+                    "content": "Sort field, optionally prefixed with - for descending order (ascending by default). One of title, average_rating, published_on, created_at, updated_at, assigned_on, completed_at. Example: sort=-created_at.",
                     "type": "text/plain"
                   },
                   "key": "sort",
@@ -4494,7 +4494,7 @@
                     {
                       "disabled": true,
                       "description": {
-                        "content": "Sort order, e.g. title, created_at.",
+                        "content": "Sort field, optionally prefixed with - for descending order (ascending by default). One of title, average_rating, published_on, created_at, updated_at, assigned_on, completed_at. Example: sort=-created_at.",
                         "type": "text/plain"
                       },
                       "key": "sort",
@@ -4728,7 +4728,7 @@
                     {
                       "disabled": true,
                       "description": {
-                        "content": "Sort order, e.g. title, created_at.",
+                        "content": "Sort field, optionally prefixed with - for descending order (ascending by default). One of title, average_rating, published_on, created_at, updated_at, assigned_on, completed_at. Example: sort=-created_at.",
                         "type": "text/plain"
                       },
                       "key": "sort",

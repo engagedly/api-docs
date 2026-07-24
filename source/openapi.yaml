@@ -906,7 +906,7 @@ paths:
         - { name: in_library, in: query, required: false, description: "Only resources in the content library.", schema: { type: boolean } }
         - { name: short_code, in: query, required: false, description: "Return the resource with this exact short code.", schema: { type: string } }
         - { name: archived, in: query, required: false, description: "Only archived (`true`) or active (`false`, default) resources.", schema: { type: boolean } }
-        - { name: sort, in: query, required: false, description: "Sort order (e.g. `title`, `created_at`).", schema: { type: string } }
+        - { name: sort, in: query, required: false, description: "Sort field, optionally prefixed with `-` for descending order (ascending by default). One of `title`, `average_rating`, `published_on`, `created_at`, `updated_at`, `assigned_on`, `completed_at`.", schema: { type: string, example: "-created_at" } }
         - { name: competency_search_text, in: query, required: false, description: "Case-insensitive match on the resource's competency names.", schema: { type: string } }
         - $ref: '#/components/parameters/page'
         - { name: size, in: query, description: "Items per page (max 50).", schema: { type: integer, default: 15, maximum: 50 } }
