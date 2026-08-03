@@ -44,7 +44,7 @@ ratings | number | Minimum average rating (1–5).
 in_library | boolean | When `true`, only resources in the content library.
 short_code | string | Return the resource with this exact short code.
 archived | boolean | When `true`, only archived resources; when `false` (default), only active ones.
-sort | string | Sort order for the listing (e.g. `title`, `created_at`).
+sort | string | Sort field, optionally prefixed with `-` for descending order (ascending by default). One of `title`, `average_rating`, `published_on`, `created_at`, `updated_at`, `assigned_on`, `completed_at`. Example: `sort=-created_at`.
 page | integer | Page number, starting at 1.
 size | integer | Items per page. Maximum 50.
 
