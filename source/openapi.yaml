@@ -182,6 +182,10 @@ tags:
       (internal course ID; returned as `id` on the resource itself). In learner
       reports, `learner.id` is the user's unique Engagedly ID, stable across
       Engagedly services.
+  - name: Certificates
+    description: |
+      Certificates awarded to employees — name, issuing authority, validity
+      dates, and the attached file. Read-only on this API.
 
 paths:
   /beta/user-attributes:
@@ -1103,6 +1107,62 @@ paths:
         '401': { $ref: '#/components/responses/Unauthorized' }
         '429': { $ref: '#/components/responses/TooManyRequests' }
 
+  /beta/certificates:
+    get:
+      tags: [Certificates]
+      summary: List Certificates
+      description: >
+        Returns a paginated list of certificates. All parameters are optional.
+        Read-only.
+      parameters:
+        - { name: user_id, in: query, required: false, description: "Restrict to certificates owned by a specific user, by access key. Defaults to the API credential's associated user.", schema: { type: string } }
+        - { name: term, in: query, required: false, description: "Case-insensitive search on certificate name/authority.", schema: { type: string } }
+        - { name: start_date, in: query, required: false, description: "Restrict to certificates valid on/after this date.", schema: { type: string, format: date } }
+        - { name: end_date, in: query, required: false, description: "Restrict to certificates valid on/before this date.", schema: { type: string, format: date } }
+        - { name: status, in: query, required: false, description: "Validity status.", schema: { type: string, enum: [active, expired] } }
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/size'
+      responses:
+        '200':
+          description: A paginated list of certificates.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/PaginatedEnvelope'
+                  - type: object
+                    properties:
+                      data: { type: array, items: { $ref: '#/components/schemas/Certificate' } }
+              example:
+                success: true
+                pagination: { page: 1, size: 25, has_more: false, total_records: 1 }
+                data:
+                  - id: 3210
+                    certificate_name: AWS Certified Solutions Architect
+                    can_expire: true
+                    certificate_authority: Amazon Web Services
+                    start_date: "2026-01-15"
+                    end_date: "2029-01-15"
+                    file: aws-certificate.pdf
+                    file_extension: pdf
+                    name: aws-certificate.pdf
+                    url: https://social.engagedly.com/uploads/attachment/file/3210/aws-certificate.pdf
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
+
+  /beta/certificates/{id}:
+    parameters: [ { $ref: '#/components/parameters/resourceId' } ]
+    get:
+      tags: [Certificates]
+      summary: Get a single certificate
+      responses:
+        '200':
+          description: The requested certificate.
+          content: { application/json: { schema: { $ref: '#/components/schemas/CertificateEnvelope' } } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
+
 components:
   securitySchemes:
     ClientKey: { type: apiKey, in: header, name: ClientKey }
@@ -1661,3 +1721,22 @@ components:
         completion_require_scroll: { type: boolean }
         created_at: { type: string }
         updated_at: { type: string }
+
+    Certificate:
+      type: object
+      properties:
+        id: { type: integer, example: 3210 }
+        certificate_name: { type: string, example: AWS Certified Solutions Architect }
+        can_expire: { type: boolean }
+        certificate_authority: { type: string, example: Amazon Web Services }
+        start_date: { type: string, format: date, nullable: true }
+        end_date: { type: string, format: date, nullable: true }
+        file: { type: string, nullable: true, description: "Attached file name, or null." }
+        file_extension: { type: string, nullable: true }
+        name: { type: string, nullable: true, description: "Attached file name (duplicate of `file`), or null." }
+        url: { type: string, format: uri, nullable: true, description: "Download URL of the attached file, or null." }
+    CertificateEnvelope:
+      type: object
+      properties:
+        success: { type: boolean, example: true }
+        data: { $ref: '#/components/schemas/Certificate' }
