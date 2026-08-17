@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Engagedly API Reference</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link href="stylesheets/screen.css" rel="stylesheet" />
+    <style>
+      html, body { margin: 0; padding: 0; }
+      /* Redoc renders below the fixed 50px site header. */
+      #redoc-container { margin-top: 50px; }
+      /* Hide Redoc's "API docs by Redocly" attribution. */
+      #redoc-container a[href*="redocly.com"],
+      #redoc-container a[href*="redoc.ly"] { display: none !important; }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+  <a class="site-header-logo" href="guides.html"><img src="images/logo.png" alt="" /></a>
+  <nav class="site-header-tabs">
+    <a href="guides.html" class="">Guides</a>
+    <a href="references.html" class="active">API Reference</a>
+    <a href="changelog.html" class="">Changelog</a>
+  </nav>
+  <div class="site-header-links">
+    <a href="https://www.linkedin.com/company/engagedly/" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="Engagedly on LinkedIn">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 18.34V9.87H5.67v8.47h2.67zM7 8.67a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1zm11.34 9.67v-4.64c0-2.48-1.32-3.63-3.09-3.63-1.43 0-2.06.79-2.42 1.34v-1.15h-2.67c.04.75 0 8.47 0 8.47h2.67v-4.73c0-.24.02-.48.09-.65.19-.48.63-.98 1.37-.98.97 0 1.35.74 1.35 1.82v4.54h2.67z"/></svg>
+    </a>
+    <a href="https://engagedly.com" target="_blank" rel="noopener noreferrer" title="engagedly.com" aria-label="engagedly.com">
+      <svg viewBox="0 0 24 24" width="21" height="21" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+    </a>
+  </div>
+</header>
+
+    <div id="redoc-container"></div>
+    <script src="https://cdn.jsdelivr.net/npm/redoc@2/bundles/redoc.standalone.js"></script>
+    <script>
+      // Theme Redoc toward the Engagedly / Slate look (accent, fonts, dark side + code panels).
+      Redoc.init('openapi.yaml', {
+        scrollYOffset: 50,
+        theme: {
+          colors: { primary: { main: '#0F75D4' } },
+          typography: {
+            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+            headings: { fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' },
+            code: { fontFamily: 'Consolas, Menlo, Monaco, "Lucida Console", monospace' }
+          },
+          sidebar: { backgroundColor: '#2E3336', textColor: '#ffffff' },
+          rightPanel: { backgroundColor: '#2E3336' }
+        }
+      }, document.getElementById('redoc-container'));
+    </script>
+  </body>
+</html>
