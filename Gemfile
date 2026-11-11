@@ -11,7 +11,7 @@ gem 'middleman-sprockets', '4.1.1'
 gem 'middleman-livereload', '3.5.0'
 gem 'rouge', '3.30.0'
 gem 'redcarpet', '3.6.1'
-gem 'nokogiri', '1.19.4'
+gem 'nokogiri', '1.19.5'
 gem 'haml', '5.2.2'
 gem 'org-ruby', '0.9.12'
 
